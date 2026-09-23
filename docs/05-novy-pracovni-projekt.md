@@ -93,8 +93,9 @@ docs/ukoly/7.md a commitu. Záznam má Zadání, Změna, Ověření a Předání
 README odkazuje na celou složku docs/ukoly/, nikoli na seznam jednotlivých úkolů.
 Základní README šablony popisuje připojené kontroly. Před dokončením doplň
 skutečné funkce aplikace, její zdrojové složky, instalaci závislostí a způsob
-nasazení. Zachovej tabulku technologií, strom, klikací dokumentaci a příkazy
-v kódových blocích. Nevydávej instalaci PHP kontrol za instalaci celé aplikace.
+nasazení. Zachovej tabulku technologií, strom, dokumentaci s cestami v řádkovém
+kódu podle společného vzoru a příkazy v kódových blocích. Nevydávej instalaci
+PHP kontrol za instalaci celé aplikace.
 U následných změn rozhraní platí skutečné snímky před a po z pravidel projektu.
 
 ## 5. První commit bez ochrany main
