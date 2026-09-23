@@ -13,7 +13,7 @@ dokumentem docs/05-novy-pracovni-projekt.md v repozitáři nastroje-prace.
 - [ ] Příkazy v .prace.json ověřují aplikaci a odpovídající prostředí je dostupné v obou CI úlohách.
 - [ ] Bootstrap, místní hooky, README, dokumentace a project-check prošly v čisté nové kopii.
 - [ ] Lokální check --online a GitHub Povinne kontroly prošly pro stejné SHA.
-- [ ] Main dovolí přímý push bez předchozího CI a PR; lineární historie, zákaz force pushe a smazání platí i pro správce.
+- [ ] Main je výchozí větev s přímým pushem; nová ochrana ani ruleset se nezakládají.
 - [ ] Project-check --online prošel a zaváděcí issue má odkazy na důkazy.
 
 Doklady patří k zaváděcímu issue a jeho textovému záznamu. Neodškrtávej

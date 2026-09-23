@@ -3,6 +3,8 @@
 Tato pravidla platí pro osobní Git kopii pracovního projektu. Verzi určuje
 nastroje-prace.lock.json. Pravidla ani jejich PHP kopii neupravuj přímo v projektu;
 změna vzniká v nastroje-prace a do projektu přichází jako ověřená aktualizace.
+Nové pravidlo nebo zpřísnění nejdřív vysvětli vlastníkovi a vyžádej si jeho
+výslovné rozhodnutí. Samotné zadání úkolu nesmí obrátit dříve zamítnuté pravidlo.
 
 ## Začátek práce
 
@@ -28,7 +30,8 @@ Nástroje samy neprovádějí SVN commit; předání probíhá kontrolovaným b�
 
 ## Psaní a dokumentace
 
-- Piš česky, konkrétně, s krátkou pomlčkou. Nepoužívej dlouhé Unicode pomlčky.
+- Piš česky, konkrétně, s krátkou pomlčkou. Markdown dokumentace smí citovat dlouhou pomlčku v řádkovém kódu, nikoli v běžné větě nebo bloku kódu.
+- Vlastník smí zapsat stručný otevřený nápad bez šablony a zařazení. Před převzetím do .tasks jej agent převede do plného tvaru; při založení agentem a při dokončení tato výjimka neplatí.
 - Issue má Problém nebo Cíl a Hotovo, když. Volitelné sekce mají pořadí Jak to poznat, Hotovo, když, Kde to žije a Snímky.
 - Tělo issue má nejvýše 40 neprázdných řádků, jeden konkrétní checklist, právě jeden druh bug/enhancement/documentation a odpovědného.
 - Urči právě jeden štítek rozhrani/bez-rozhrani; musí souhlasit s visual v metadatech úkolu.
@@ -63,8 +66,8 @@ Nedostupný build, API nebo kontrola znamená překážku, nikoli úspěch.
 Hooky instaluj jen do tohoto projektu. Nepřepisuj jiné hooky, nepoužívej
 globální core.hooksPath ani --no-verify při běžném předání. Hooky blokují commit
 mimo main a push jiné větve, tagu či odstranění. Push míří přímo do main.
-GitHub CI běží až po pushi. Ochrana main nevyžaduje předchozí CI ani pull request;
-zakazuje force push a smazání, vyžaduje lineární historii a platí i pro správce.
+GitHub CI běží až po pushi. Ochranu main nezapínej; sadu nepodmiňuje ani předchozí
+CI, ani pull request. Kontrola issues reaguje na události a ruční spuštění bez denního plánu.
 Při selhání CI oprav chybu novým commitem. Nezačínej další úkol před dokončením.
 Issue zavři přes issue-close po splnění checklistu a shodě místního ověření,
 úspěšného CI a aktuálního main. U SVN je nutné ověření výsledné revize.

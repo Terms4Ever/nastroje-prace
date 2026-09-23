@@ -142,32 +142,22 @@ test('Rozcestník zvládne 500 záznamů bez výčtu úkolů v README', fn() => 
     fails(fn() => Policy::readme($root), 'každý jednotlivý');
 }));
 
-test('Dokončení zavedení vyžaduje štítky, ochranu main a CI přesného commitu', fn() => fixture(function ($root): void {
+test('Dokončení zavedení vyžaduje štítky a CI přesného main bez ochrany větve', fn() => fixture(function ($root): void {
     $base = git($root, 'rev-parse', 'HEAD'); change($root);
     quiet(fn() => Gate::verify($root, $base, true, new FakeClient()));
     $client = new FakeClient();
     $client->rows = ['bug', 'enhancement', 'documentation', 'rozhrani', 'bez-rozhrani'];
-    $protection = ['required_status_checks' => null, 'required_pull_request_reviews' => null,
-        'enforce_admins' => ['enabled' => true], 'required_linear_history' => ['enabled' => true],
-        'allow_force_pushes' => ['enabled' => false], 'allow_deletions' => ['enabled' => false]];
     $client->sha = git($root, 'rev-parse', 'HEAD');
-    $client->handler = function ($method, $suffix) use (&$protection): ?array {
+    $client->handler = function ($method, $suffix): ?array {
         return match (true) {
             $suffix === '' => ['private' => true, 'full_name' => 'Terms4Ever/nastroje-prace', 'default_branch' => 'main', 'has_issues' => true, 'description' => 'Zkušební projekt.'],
             $suffix === '/topics' => ['names' => ['php', 'tooling']],
-            $suffix === '/branches/main/protection' => $protection,
             default => null,
         };
     };
     Project::remoteReadiness($root, $client);
     $client->rows = []; fails(fn() => Project::remoteReadiness($root, $client), 'štítky');
     $client->rows = ['bug', 'enhancement', 'documentation', 'rozhrani', 'bez-rozhrani'];
-    $protection['enforce_admins']['enabled'] = false; fails(fn() => Project::remoteReadiness($root, $client), 'Ochrana main');
-    $protection['enforce_admins']['enabled'] = true;
-    foreach (['required_status_checks', 'required_pull_request_reviews'] as $key) {
-        $protection[$key] = ['enabled' => true]; fails(fn() => Project::remoteReadiness($root, $client), 'Ochrana main');
-        $protection[$key] = null;
-    }
     $client->branches[] = ['name' => 'ukol/7']; fails(fn() => Project::remoteReadiness($root, $client), 'pouze větev main');
     $client->branches = [['name' => 'main']];
     $client->conclusion = 'failure'; fails(fn() => Project::remoteReadiness($root, $client), 'CI');

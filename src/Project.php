@@ -164,14 +164,6 @@ final class Project
         ensure(trim($meta['description'] ?? '') !== '', 'Repozitář musí mít popis.');
         $labels = Policy::names($client->pages('/labels'));
         ensure(array_diff(['bug', 'enhancement', 'documentation', 'rozhrani', 'bez-rozhrani'], $labels) === [], 'Chybí povinné štítky issues.');
-        $protection = $client->request('GET', '/branches/main/protection');
-        ensure(($protection['required_status_checks'] ?? null) === null
-            && ($protection['required_pull_request_reviews'] ?? null) === null
-            && ($protection['lock_branch']['enabled'] ?? false) === false
-            && ($protection['enforce_admins']['enabled'] ?? false)
-            && ($protection['required_linear_history']['enabled'] ?? false)
-            && ($protection['allow_force_pushes']['enabled'] ?? true) === false
-            && ($protection['allow_deletions']['enabled'] ?? true) === false, 'Ochrana main musí umožnit přímý push a zakazovat přepsání i smazání také správci.');
         ensure(array_column($client->pages('/branches'), 'name') === ['main'], 'Repozitář smí obsahovat pouze větev main.');
         Gate::published($root, $client);
     }

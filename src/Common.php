@@ -174,8 +174,25 @@ function changed(string $root, string $base, string $head = 'HEAD'): array
     return $result;
 }
 
-function noLongDash(string $text, string $description): void
+function noLongDash(string $text, string $description, bool $inlineCode = false): void
 {
+    if ($inlineCode) {
+        $fence = null;
+        $lines = preg_split('/\R/u', $text);
+        ensure($lines !== false, $description . ': text není platné UTF-8.');
+        foreach ($lines as &$line) {
+            if ($fence !== null) {
+                if (preg_match('/^ {0,3}' . preg_quote($fence[0], '/') . '{' . strlen($fence) . ',}\s*$/', $line)) { $fence = null; }
+            } elseif (preg_match('/^ {0,3}(`{3,}|~{3,})/', $line, $match)) {
+                $fence = $match[1];
+            } else {
+                // Stejná výjimka jako N10 v nastroje: citace uvnitř řádkového kódu, nikoli blok kódu.
+                $line = preg_replace('/(?<!`)`[^`\r\n]*`(?!`)/u', '', $line) ?? $line;
+            }
+        }
+        unset($line);
+        $text = implode("\n", $lines);
+    }
     ensure(!str_contains($text, "\u{2013}") && !str_contains($text, "\u{2014}"), $description . ': používej pouze krátké pomlčky.');
 }
 

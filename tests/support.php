@@ -178,6 +178,7 @@ class FakeClient implements ApiClient
         $this->calls[] = ['PAGES', $suffix];
         if (!$this->available) { throw new Failure('Nedostupné API'); }
         if ($suffix === '/branches') { return $this->branches; }
+        if (preg_match('~^/issues/[0-9]+/comments$~', $suffix)) { return []; }
         return $this->rows;
     }
     public function issue(int $number): array

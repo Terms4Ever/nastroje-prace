@@ -1,6 +1,6 @@
 # Stav projektu
 
-Verze 0.4 osobních kontrol je samostatná privátní PHP nadstavba. Zdrojové
+Verze 0.5 osobních kontrol je samostatná privátní PHP nadstavba. Zdrojové
 pracovní projekty se sem nekopírují a jejich nastavení se při instalaci nemění.
 
 <!-- generovano nastroji, needitovat -->
@@ -18,14 +18,18 @@ Celý běh i testy používají PHP. PowerShell je místní spouštěč a instal
 Kontrola README doplňuje pořadí sekce Dokumentace před Instalací. Online check
 ověřuje také privátní viditelnost a požadované GitHub topics.
 Project-init vytváří kostru projektu s přesnou kopií kontrol a pravidel pro
-agenta. Project-check ověřuje napojení, s --online také ochranu main, metadata
+agenta. Project-check ověřuje napojení, s --online také metadata
 a důkazy stejného commitu. Sada byla ověřena na dočasné aplikaci; skutečné
 pracovní aplikace se připojí samostatně podle vlastních zdrojů a testů.
 
 Jedinou větví je main a pracuje vždy jeden agent. Lokální hooky kontrolují
 commit a push před zápisem, GitHub CI po něm. Předání do SVN, dokončení issue
 a online připravenost vyžadují místní online doklad i úspěšné CI stejného SHA
-na aktuálním main. Ochrana main zakazuje přepsání a odstranění také správci.
+na aktuálním main. GitHub ochrana main je odstraněna a není podmínkou připravenosti.
+Kontrola issues reaguje na události a ruční spuštění bez denního plánování.
+Otevřený nápad vlastníka bez sekcí a bez převzetí do .tasks čeká na zpracování;
+agent ho před prací upraví do plného tvaru. Dokumentace umožňuje citaci pomlčky
+v řádkovém kódu, běžný text a bloky kódu výjimku nemají.
 
 Sdílené PHP validátory jsou připnuté na commit v upstream.lock.json. Jejich
 známé mezery v chybějící dokumentaci a rozsahu změny kryje pracovní kontrola.

@@ -11,7 +11,7 @@ hlavní větev:     main
 ## Zavedení
 
 Byla připravena kostra osobního privátního repozitáře. Úspěšné vygenerování
-souborů samo nedokládá převzetí zdrojů, funkční testy ani ochranu main.
+souborů samo nedokládá převzetí zdrojů, funkční testy ani připravenost předání.
 Při zavedení zaznamenej původ zdrojů a jejich revizi a dokonči checklist napojení.
 
 ## Provozní hranice

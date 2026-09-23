@@ -96,7 +96,8 @@ ruční kontrola používá `check --base VYCHOZI_SHA --online`, kde nahradíš
 
 **Pracuje vždy jeden agent pouze na `main`.** Místní hooky ověřují přímý push,
 GitHub CI jej ověří po zápisu. Předání do SVN a dokončení issue vyžadují místní
-online ověření i úspěšné poslední CI stejného aktuálního main.
+online ověření i úspěšné poslední CI stejného aktuálního main. Ochrana větve
+se nezakládá; kontroly issues reagují na události bez denního plánu.
 
 **Nasazení aplikace má samostatný postup.** Z CI neběží produkční nasazení
 ani předání do SVN. Připravenost potvrzuje `project-check --online`.

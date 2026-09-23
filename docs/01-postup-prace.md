@@ -9,6 +9,13 @@ Pracuje vždy jeden agent a jeden úkol najednou, pouze na main. Před úpravami
 na čistém stromu proveď git fetch origin a git pull --ff-only origin main.
 Při rozcházející se historii nejprve vyřeš stav; force push nepoužívej.
 
+Vlastník může založit stručný otevřený nápad bez sekcí, štítků a odpovědného,
+i jen s názvem. Audit jej ohlásí jako nápad k přepsání. Před zahájením práce
+ho agent upraví přes issue-update; metadata .tasks už označují převzatý úkol
+a vyžadují plný tvar. Založení agentem, kontrola změny a dokončení tuto výjimku nemají.
+GitHub pod stejným osobním účtem nerozliší člověka od agenta; pravidlo proto
+vynucují vstupy agenta a kontrola převzatého úkolu, nikoli domnělý původ kliknutí.
+
 Agent připraví JSON mimo verzované soubory, například v .local/issue.json:
 
 ```json
@@ -36,6 +43,9 @@ Existující issue upravuje issue-update CISLO SOUBOR. Aktualizace nemění stav
 Pro issue vytvoř docs/ukoly/CISLO.md s oddíly Zadání, Změna, Ověření a Předání.
 Stručně vysvětli změnu a důkazy; nepřepisuj celé zadání a průběžné komentáře.
 Současnou architekturu aktualizuj v odpovídajícím dokumentu.
+V Markdown dokumentaci lze dlouhou pomlčku citovat v řádkovém kódu. V běžném
+textu, neuzavřené citaci a bloku kódu se dál hlásí. Pravidla commitů a issues
+se tímto návratem původní dokumentační výjimky nemění.
 
 V .tasks/CISLO.json jsou issue, mantis (kladné číslo nebo null), technical_reason
 (důvod bez Mantis), visual (true/false) a delivery (git/svn). Příklad existuje
@@ -73,9 +83,8 @@ Základem kontroly je skutečné předchozí SHA vzdáleného main, při jediné
 commitu ROOT. Pracovní větve, pull requesty ani paralelní worktree nezakládej.
 
 Po git push origin main spustí GitHub stejné jádro na Windows a Linuxu.
-CI ještě nemůže blokovat přijetí nového SHA, proto ochrana main nevyžaduje
-předchozí výsledek CI ani pull request. Zůstává zákaz force pushe, smazání
-a nelineární historie i pro správce. Chybu v CI oprav novým commitem na main.
+GitHub ochrana main se nepoužívá. Místní hook ověří push před zápisem,
+GitHub CI po něm. Chybu v CI oprav novým commitem na main.
 Dokud není CI zelené, nepředávej změnu a nezačínej další úkol.
 Ruční spuštění workflow vyžaduje explicitní base; zadej celý původní rozsah,
 ne jen poslední opravný commit. Opakování původního běhu zachovává jeho rozsah.
@@ -102,5 +111,7 @@ php prace.php issue-close 1 --summary "Kontrola prokazatelně zachytí neověře
 Přímý zápis přes jiného API klienta může obejít místní kontrolu. GitHub workflow
 ho následně zkontroluje, nedokáže jej předem zablokovat. Standardní cesta agenta
 je proto příkaz této sady, nezávislý na konkrétním asistentovi.
+Workflow reaguje na změny issues i komentářů a lze jej spustit ručně.
+Denní plán je odstraněn. Způsob hlášení výsledku workflow se touto změnou nemění.
 Vlastník může také obejít lokální Git hooky. Main-only pravidla a hooky řídí
 standardní postup; nejde o zákaz vytváření větví přes jiné API klienty.

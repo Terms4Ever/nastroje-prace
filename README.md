@@ -15,7 +15,7 @@ kolegům jejich stávající postup.
 
 ## ✨ Hlavní funkce
 
-- **Issues** - správná struktura, druh úkolu, odpovědný a konkrétní checklist ještě před založením.
+- **Issues** - agent dodržuje strukturu, zařazení a checklist; tvoje stručné nápady smí počkat na zpracování.
 - **Dokumentace** - české texty, krátké pomlčky, přesné commity a vlastní textový záznam každého úkolu.
 - **Snímky před a po** - skutečné dvojice obrázků u změn rozhraní, vložené do issue s neměnnými odkazy.
 - **Ověření** - místní testy a GitHub CI pro stejný commit; jeden agent pracuje pouze na `main`.
@@ -117,8 +117,8 @@ správný základ kontroly a dokončení popisuje [postup práce](docs/01-postup
 
 **Práce probíhá pouze na `main`.** Místní hook prověří přímý push, GitHub CI
 ověří stejný commit po něm. Úspěšný poslední běh a jeho souhrnná úloha
-`Povinne kontroly` podmiňují předání do SVN a dokončení issue. Main chrání
-zákaz force pushe a smazání i pro správce, s lineární historií.
+`Povinne kontroly` podmiňují předání do SVN a dokončení issue. Ochrana větve
+na GitHubu se nepoužívá; pracovní postup agenta hlídají místní hooky.
 
 **Nový projekt dostane připnutou kopii kontrol.** Příkaz `project-init`
 připraví kostru; `project-check --online` ověří skutečné napojení.
@@ -128,7 +128,7 @@ připraví kostru; `project-check --online` ověří skutečné napojení.
 sám neprovádí SVN commit. [Postup předání](docs/02-predani-svn.md) ověřuje
 výchozí stav, případné změny kolegů a výslednou revizi.
 
-Issues a metadata se kontrolují po změnách issues i denně. Kontroly vyžadují
+Issues a metadata se kontrolují po změnách issues a při ručním spuštění, bez denního plánu. Kontroly vyžadují
 privátní repozitář a topics z `.prace.json`; žádné jiné repozitáře nemění.
 
 ---

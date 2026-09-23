@@ -79,3 +79,22 @@ podmínkou přijetí nového commitu. Zákaz přepsání, smazání a nelineárn
 zůstává i pro správce. Místní online doklad a poslední úspěšné CI přesného
 aktuálního main vyžadují všechny tři kroky SVN předání, uzavření issue a
 dokončení zavedení. Starý úspěšný běh nenahrazuje nový čekající či neúspěšný běh.
+
+## P12 - Výslovná rozhodnutí vlastníka mají přednost (23. 9. 2026)
+
+Vlastník po porovnání původních nastroje schválil odstranění celé ochrany main
+a denního auditu issues. Nahrazuje tím ochranu popsanou v P11. Pouze main,
+místní hooky a úspěšné CI před dokončením a SVN předáním zůstávají. Nové
+projekty ochranu nezakládají; project-check ji nevyžaduje a nemění.
+
+Otevřený stručný nápad vlastníka smí zůstat bez šablony a zařazení. Agent před
+převzetím úkolu zajistí plný tvar; vlastní založení, aktualizace a dokončení
+agenta zůstávají přísné. Audit rozlišuje autora, otevřený stav a nepřevzetí
+do .tasks. GitHub s jedním osobním účtem neumí doložit, kdo fyzicky text zadal.
+
+Obnovuje se dokumentační výjimka N10: pomlčka citovaná v řádkovém kódu
+Markdownu je přípustná, v běžném textu a bloku kódu se dál hlásí. Původní
+commitové a issue kontroly se tímto bodem nerozvolňují.
+
+Nové pravidlo nebo zpřísnění potřebuje předchozí výslovné rozhodnutí vlastníka.
+Samotný úspěch testů ani souhlas se založením nástrojů takovým rozhodnutím není.

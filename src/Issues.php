@@ -57,7 +57,11 @@ final class Issues
             if (isset($item['pull_request'])) {
                 continue;
             }
-            Policy::issue($root, $item);
+            if (Policy::ownerIdea($root, $item)) {
+                echo 'Issue #' . $item['number'] . ": nápad vlastníka k přepsání před zahájením práce.\n";
+            } else {
+                Policy::issue($root, $item);
+            }
             foreach ($client->pages('/issues/' . $item['number'] . '/comments') as $comment) {
                 Policy::comment($comment['body']);
             }

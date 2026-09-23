@@ -97,7 +97,7 @@ nasazení. Zachovej tabulku technologií, strom, klikací dokumentaci a příkaz
 v kódových blocích. Nevydávej instalaci PHP kontrol za instalaci celé aplikace.
 U následných změn rozhraní platí skutečné snímky před a po z pravidel projektu.
 
-## 5. První commit a ochrana main
+## 5. První commit bez ochrany main
 
 Zkontroluj git status, git diff --cached a seznam všech přidávaných souborů.
 První commit má český konkrétní nadpis s (#ČÍSLO), Důvod: a Ověření:.
@@ -113,19 +113,14 @@ php prace.php check --base ROOT --online
 
 První main se vytvoří jediným ověřeným pushem. Pro nový repozitář ještě před
 prvním commitem nelze doložit CI pro toto SHA. Po úspěchu obou platforem a souhrnné
-kontroly ihned nastav main jako výchozí a chraň jej následujícím nastavením:
-
-- Bez povinného CI před pushem a bez povinného pull requestu: required_status_checks=null, required_pull_request_reviews=null.
-- Enforce admins a required linear history zapnuté.
-- Force push a odstranění větve zakázané.
-
-Toto nastavení platí i pro další přímé pushe na main. Místní hooky kontrolují
+kontroly nastav main jako výchozí. Ochranu větve ani ruleset pro main nezakládej.
+Tento postup platí i pro další přímé pushe na main. Místní hooky kontrolují
 změnu před pushem, GitHub CI po něm. Úspěšné CI přesného main se vyžaduje před
 předáním do SVN a dokončením issue. Žádnou další větev kvůli CI nezakládej.
-Při přechodu z verze 0.3 odstraň pouze požadavek předchozího CI, například
-DELETE /repos/OWNER/REPO/branches/main/protection/required_status_checks;
-celou ochranu nemaž. Přečti nastavení zpět a ověř ostatní uvedené ochrany.
-Pokud účet ochranu privátního repozitáře neumožňuje, zavedení není dokončené.
+Ve verzi 0.5 vlastník odstranění celé ochrany schválil pro nastroje-prace.
+U jiného již existujícího projektu nejprve zjisti jeho vlastní pravidla;
+aktualizace sady sama není souhlasem měnit cizí nastavení GitHubu.
+Project-check ochranu nevyžaduje, nemění a nečte její administrativní API.
 
 ## 6. Důkaz dokončení a SVN
 
@@ -134,11 +129,10 @@ project-check a check --online se správným základem. Místní Git config ani
 runtime se klonováním nepřenášejí. Ověř také, že neplatný commit hook odmítne
 a že změna bez záznamu úkolu neprojde kontrolou; negativní pokusy nepatří na main.
 
-Project-check --online navíc čte GitHub metadata, štítky, ochranu a seznam větví,
+Project-check --online navíc čte GitHub metadata, štítky a seznam větví,
 vyžaduje úspěšné místní online ověření, CI stejného SHA a shodu s aktuálním main.
-Odmítne další větev, předchozí režim povinného CI před pushem i povinné PR.
-Spouštěj jej místně s oprávněním číst nastavení repozitáře. Běžný CI token
-záměrně nedostává administrativní oprávnění; úplná kontrola připravenosti není CI krok.
+Odmítne další větev. Spouštěj jej místně s přístupem k projektu a výsledkům CI;
+kvůli ochraně větve nepotřebuje administrativní oprávnění.
 Vygenerovaný checklist v docs/05-napojeni-pravidel.md odškrtni jen podle důkazů.
 Pro čtení výsledku CI potřebuje místní přístup také Actions: read.
 Dokončení zaváděcího issue proveď přes issue-close po splnění všech kroků.
@@ -152,7 +146,7 @@ kopie nástrojů, hooky, jejich spouštěče ani dokumentace se do SVN nepřená
 Při přechodu z verze 0.1 zopakuj bootstrap a install-hooks; místní konfigurace
 se převede z Pythonu na PHP. Od verze 0.3 používají Git hooky složku hooky
 místo .githooks. Také tehdy zopakuj install-hooks. Staré doklady ověření
-nahraď kontrolou nové verze. Přechod na main-only ve verzi 0.4 popisuje krok 5.
+nahraď kontrolou nové verze. Aktuální režim pouze main bez ochrany popisuje krok 5.
 
 Aktualizace je samostatné issue. Z nové ověřené centrální verze vytvoř export
 do další prázdné složky se stejnou specifikací projektu. Posuď diff běhové kopie,

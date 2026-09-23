@@ -24,6 +24,21 @@ final class Policy
         return $result;
     }
 
+    /** Pouze čtení nezařazených nápadů; vstupy agenta a dokončení vždy používají issue(). */
+    public static function ownerIdea(string $root, array $item): bool
+    {
+        $number = $item['number'] ?? null;
+        $owner = explode('/', config($root)['repository'])[0];
+        return is_int($number) && $number > 0
+            && ($item['state'] ?? '') === 'open'
+            && strcasecmp($item['user']['login'] ?? '', $owner) === 0
+            && empty($item['performed_via_github_app'])
+            && !isset($item['pull_request'])
+            && !is_file($root . '/.tasks/' . $number . '.json')
+            && trim($item['title'] ?? '') !== ''
+            && !preg_match('/^## /m', str_replace("\r", "", $item['body'] ?? ''));
+    }
+
     public static function issue(string $root, array $item, ?bool $closed = null): void
     {
         $title = $item['title'] ?? '';
@@ -121,7 +136,7 @@ final class Policy
         $path = $root . '/docs/ukoly/' . $number . '.md';
         ensure(is_file($path), 'Chybí textový záznam úkolu.');
         $text = readFile($path);
-        noLongDash($text, 'Záznam úkolu');
+        noLongDash($text, 'Záznam úkolu', inlineCode: true);
         $parts = self::sections($text);
         foreach (['Zadání', 'Změna', 'Ověření', 'Předání'] as $section) {
             meaningful($parts[$section] ?? '', 'Záznam ' . $section);
@@ -190,7 +205,7 @@ final class Policy
             }
             ensure(mb_check_encoding($text, 'UTF-8'), 'Text není UTF-8: ' . $file);
             if (str_ends_with($file, '.md')) {
-                noLongDash($text, $file);
+                noLongDash($text, $file, inlineCode: true);
             }
             $patterns = [
                 '/gh[pousr]_[A-Za-z0-9]{30,}/', '/github_pat_[A-Za-z0-9_]{40,}/',

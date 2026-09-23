@@ -3,6 +3,8 @@
 Tento privátní repozitář obsahuje osobní kontroly a postup předání změn.
 Společné nastroje se používají z přesného commitu v upstream.lock.json.
 Neupravuj kvůli tomuto projektu jiné repozitáře ani globální nastavení hooků.
+Nové pravidlo nebo zpřísnění předem předlož vlastníkovi s důvodem a dopadem.
+Zaveď je až po jeho výslovném schválení; testy toto rozhodnutí nenahrazují.
 
 ## Začátek úkolu
 
@@ -14,7 +16,8 @@ Neupravuj kvůli tomuto projektu jiné repozitáře ani globální nastavení ho
 
 ## Psaní a dokumentace
 
-- Piš česky, konkrétně, s krátkými pomlčkami. Dlouhé Unicode pomlčky v textu nepoužívej.
+- Piš česky, konkrétně, s krátkými pomlčkami. V Markdown dokumentaci lze dlouhou pomlčku citovat v řádkovém kódu; v běžné větě a bloku kódu zůstává zakázaná.
+- Otevřený stručný nápad vlastníka bez sekcí smí čekat na přepsání bez šablony, štítků a odpovědného. Než ho převezmeš do práce, uprav jej do plného tvaru. Výjimka není pro issue zakládané agentem ani pro dokončení.
 - Issue má povinné Problém nebo Cíl a Hotovo, když. Volitelné Jak to poznat, Kde to žije a Snímky mají pevné pořadí.
 - Tělo má nejvýše 40 neprázdných řádků a jediný ověřitelný checklist.
 - Každé issue má jeden druh bug/enhancement/documentation, odpovědného a rozhrani/bez-rozhrani.
@@ -32,7 +35,7 @@ chybějící informace řeš dialogem. Žádný další projekt se nezakládá a
 Nový aplikační GitHub je privátní a místní Git leží mimo existující Git/SVN kopie.
 Připojuj přesnou verzovanou kopii kontrol bez dalšího tokenu v CI. AGENTS.md
 projektu musí odkazovat na připnutá pravidla. Neoznačuj zavedení za hotové bez
-čistého clone, funkčních testů, CI a project-check --online s ochranou main.
+čistého clone, funkčních testů, CI a project-check --online. Ochranu main nezapínej.
 O případném zveřejnění centrálních nástrojů rozhoduje vlastník po auditu; samo
 napojení projektu k takové změně nedává oprávnění.
 
@@ -60,8 +63,9 @@ ROOT je jen pro úplně první commit. Neznámý základ, špinavý strom, chyba
 Hooky instaluj pouze lokálně příkazem install-hooks, nepoužívej --no-verify pro běžné předání.
 Commit hook odmítne jinou větev; push hook dovolí pouze HEAD z main do main.
 Push je přímý. GitHub CI ověřuje commit následně, chyba se opravuje novým commitem.
-Ochrana main zakazuje force push a smazání i správci, vyžaduje lineární historii.
+GitHub ochrana main je na rozhodnutí vlastníka odstraněna a při zavedení se nezapíná.
 Předchozí úspěšné CI ani pull request nejsou podmínkou přijetí pushe.
+Kontrola issues reaguje na události a ruční spuštění, denní plán se nepoužívá.
 
 ## Dokončení a SVN
 
