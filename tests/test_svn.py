@@ -80,5 +80,16 @@ class SvnIntegrationTests(unittest.TestCase):
         with (Path(manifest).parent / 'zmeny.zip').open('ab') as out: out.write(b'corruption')
         with self.assertRaises(Failure): svn.verify_package(self.root, manifest)
 
+    def test_changed_manifest_cannot_claim_unverified_content(self):
+        self.change(); manifest = svn.prepare(self.root, 1)
+        value = read_json(manifest); value['files'][0]['after'] = 'a' * 64
+        write_json(manifest, value)
+        with self.assertRaisesRegex(Failure, 'Git obsahu'): svn.record_delivery(self.root, manifest, 2)
+
+    def test_initial_git_copy_must_match_svn(self):
+        (self.root / 'src/main.txt').write_text('zastaralý výchozí obsah', encoding='utf-8')
+        commit(self.root)
+        with self.assertRaisesRegex(Failure, 'neodpovídá aktuálnímu SVN'): svn.baseline(self.root, 1)
+
 
 if __name__ == '__main__': unittest.main()

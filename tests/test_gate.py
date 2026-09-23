@@ -5,7 +5,7 @@ from unittest.mock import patch
 
 from nastroje_prace import gate
 from nastroje_prace.common import Failure, git, read_json, write_json
-from support import commit, fixture
+from support import MESSAGE, commit, fixture
 
 
 class GateTests(unittest.TestCase):
@@ -68,6 +68,16 @@ class GateTests(unittest.TestCase):
         original = upstream.cache
         with patch('nastroje_prace.upstream.cache', return_value=self.root):
             with self.assertRaises(Failure): upstream.verify()
+
+    def test_each_issue_needs_its_own_changed_record(self):
+        record = read_json(self.root / '.tasks/1.json'); record['issue'] = 2
+        write_json(self.root / '.tasks/2.json', record)
+        (self.root / 'docs/ukoly/2.md').write_text((self.root / 'docs/ukoly/1.md').read_text(encoding='utf-8'), encoding='utf-8')
+        self.base = commit(self.root)
+        (self.root / 'src/main.txt').write_text('Jiný výsledek')
+        with (self.root / 'docs/ukoly/1.md').open('a', encoding='utf-8') as out: out.write('\nZměna patří k jinému úkolu.\n')
+        commit(self.root, MESSAGE.replace('(#1)', '(#2)'))
+        with self.assertRaisesRegex(Failure, 'Každý úkol'): self.check()
 
 
 if __name__ == '__main__': unittest.main()

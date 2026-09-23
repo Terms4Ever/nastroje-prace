@@ -109,13 +109,17 @@ def task_record(root, number):
 
 def repository_content(root):
     require((Path(root) / 'docs').is_dir(), 'Povinná složka docs/ neexistuje.')
+    doc_config = read_json(Path(root) / '.readme-kontrola.json')
+    require(doc_config.get('docs-kontrola') is True and doc_config.get('docs-pomlcky') == 'blokovat',
+            'Pracovní profil vyžaduje zapnutou dokumentaci a kontrolu krátkých pomlček.')
     require((Path(root) / 'AGENTS.md').is_file(), 'Chybí AGENTS.md.')
     require((Path(root) / 'CLAUDE.md').read_text(encoding='utf-8').strip() == '@AGENTS.md', 'CLAUDE.md musí odkazovat na AGENTS.md.')
     for file in tracked(root):
         path = safe_path(root, file)
         require(path.is_file(), 'Verzovaný soubor neexistuje: ' + file)
         parts = set(PurePosixPath(file).parts)
-        forbidden = {'.env', '.local', '.cache', 'node_modules', 'asc-profile', '__pycache__'}
+        forbidden = {'.env', '.local', '.cache', 'node_modules', 'asc-profile', '__pycache__', 'backups'}
+        require(not any(p.startswith('.env.') and p != '.env.example' for p in parts), 'Lokální prostředí nesmí být verzované: ' + file)
         require(not parts & forbidden and not file.endswith(('.sqlite', '.sqlite3', '.db', '.dump', '.pfx', '.p12', '.local.json')),
                 'Nechtěný nebo lokální soubor v Gitu: ' + file)
         require(path.stat().st_size <= 10 * 1024 * 1024, 'Soubor přesahuje limit 10 MiB: ' + file)
@@ -130,5 +134,5 @@ def repository_content(root):
             no_long_dash(text, file)
         patterns = [r'gh[pousr]_[A-Za-z0-9]{30,}', r'github_pat_[A-Za-z0-9_]{40,}',
                     r'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----',
-                    r'(?im)^\s*(?:password|passwd|api_key|secret|token)\s*[:=]\s*[\"\']?(?!\$|<|example|dummy|test|\{)[A-Za-z0-9/+_=.-]{12,}']
+                    r'(?im)^\s*[\"\']?(?:password|passwd|api_key|secret|token)[\"\']?\s*[:=]\s*[\"\']?(?!\$|<|example|dummy|test|\{)[A-Za-z0-9/+_=.-]{12,}']
         require(not any(re.search(p, text) for p in patterns), 'Podezření na tajný údaj v ' + file + '; hodnota se nevypisuje.')

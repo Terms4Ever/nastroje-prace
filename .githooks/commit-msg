@@ -1,3 +1,4 @@
 #!/bin/sh
+export PYTHONUTF8=1
 python_path=$(git config --local --get nastrojePrace.python) || exit 1
 exec "$python_path" -m nastroje_prace commit-check "$1"

@@ -31,7 +31,7 @@ def close(root, number, summary, client):
     # Fresh GitHub CI must be green for exactly the locally verified commit.
     checks = client.request('GET', '/commits/' + proof['commit'] + '/check-runs?per_page=100')
     required = 'Povinne kontroly'
-    matching = [c for c in checks.get('check_runs', []) if c['name'] == required]
+    matching = [c for c in checks.get('check_runs', []) if c['name'] == required and c.get('app', {}).get('slug') == 'github-actions']
     require(matching and matching[0].get('conclusion') == 'success', 'Chybí úspěšné GitHub CI ověřeného commitu.')
     main = client.request('GET', '/commits/main')
     require(main['sha'] == proof['commit'], 'Ověřená změna ještě není aktuálním main.')

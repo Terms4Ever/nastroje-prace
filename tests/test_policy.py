@@ -93,6 +93,17 @@ class RepositoryTests(unittest.TestCase):
         git(self.root, 'add', '.')
         with self.assertRaises(Failure): repository_content(self.root)
 
+    def test_environment_file_is_rejected(self):
+        (self.root / '.env.production').write_text('RUNTIME=production')
+        git(self.root, 'add', '.')
+        with self.assertRaisesRegex(Failure, 'Lokální prostředí'): repository_content(self.root)
+
+    def test_documentation_cannot_be_disabled_in_work_profile(self):
+        from nastroje_prace.common import read_json, write_json
+        data = read_json(self.root / '.readme-kontrola.json'); data['docs-kontrola'] = False
+        write_json(self.root / '.readme-kontrola.json', data)
+        with self.assertRaisesRegex(Failure, 'zapnutou dokumentaci'): repository_content(self.root)
+
     def test_traversal_and_metadata_paths_rejected(self):
         for path in ('../secret', '/outside', 'C:/outside', '.git/config', '.svn/wc.db', 'src/../../file'):
             with self.subTest(path=path), self.assertRaises(Failure): safe_path(self.root, path)

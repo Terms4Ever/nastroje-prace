@@ -42,7 +42,7 @@ def verify(root, base, online=False, client=None):
         issues.add(validate_commit(git(root, 'show', '-s', '--format=%B', commit)))
     records = {n: task_record(root, n) for n in issues}
     text_changes = {p for status, p in files if status != 'D' and re.fullmatch(r'docs/ukoly/\d+\.md', p)}
-    require(any(f'docs/ukoly/{n}.md' in text_changes for n in issues), 'Změna nemá aktualizovaný textový záznam příslušného úkolu.')
+    require(all(f'docs/ukoly/{n}.md' in text_changes for n in issues), 'Každý úkol ve změně musí mít aktualizovaný vlastní textový záznam.')
     for script in ('kontrola-readme.php', 'kontrola-dokumentace.php'):
         upstream.check(script, [str(root)])
     if online:

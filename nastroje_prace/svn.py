@@ -123,6 +123,7 @@ def verify_package(root, manifest_path):
     require(manifest['commit'] == proof['commit'] and manifest['policy'] == proof['policy'], 'Balíček patří jiné ověřené verzi.')
     require(manifest['url'] == options['url'], 'Nesedí cílové SVN.')
     require(manifest.get('files'), 'Prázdný balíček.')
+    validate_files(root, manifest, proof, options)
     archive = Path(manifest_path).parent / 'zmeny.zip'
     require(digest(archive.read_bytes()) == manifest['archive_sha256'], 'Balíček byl změněn.')
     expected = {item['path'] for item in manifest['files'] if item['action'] == 'write'}
@@ -142,6 +143,19 @@ def verify_package(root, manifest_path):
     return manifest
 
 
+def validate_files(root, manifest, proof, options):
+    expected = {path: status for status, path in changed(root, proof['base']) if allowed(path, options)}
+    entries = manifest.get('files', [])
+    require(len(entries) == len(expected) and {i['path'] for i in entries} == set(expected),
+            'Seznam balíčku neodpovídá skutečnému Git rozdílu.')
+    for item in entries:
+        path = safe_path(root, item['path'])
+        action = 'delete' if expected[item['path']] == 'D' else 'write'
+        require(item['action'] == action, 'Operace balíčku neodpovídá Git rozdílu.')
+        after = None if action == 'delete' else digest(path.read_bytes())
+        require(item['after'] == after, 'Otisk balíčku neodpovídá ověřenému Git obsahu.')
+
+
 def record_delivery(root, manifest_path, revision):
     proof = receipt(root)
     manifest = read_json(manifest_path)
@@ -149,6 +163,7 @@ def record_delivery(root, manifest_path, revision):
     require(isinstance(revision, int) and revision > manifest['baseline_revision'], 'Neplatná výsledná revize.')
     options = settings(root)
     require(options['url'] == manifest['url'], 'Nesedí cílové SVN.')
+    validate_files(root, manifest, proof, options)
     actual = remote_state(options, [i['path'] for i in manifest['files']], revision)
     require(all(actual['files'][i['path']] == i['after'] for i in manifest['files']), 'Výsledná SVN revize neobsahuje ověřené změny.')
     value = {'issue': manifest['issue'], 'mantis': manifest['mantis'], 'commit': proof['commit'],
