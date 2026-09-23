@@ -1,0 +1,31 @@
+name: Tvar issues
+on:
+  issues:
+    types: [opened, edited, deleted, closed, reopened, assigned, unassigned, labeled, unlabeled]
+  issue_comment:
+    types: [created, edited, deleted]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 6 * * *'
+permissions:
+  contents: read
+  issues: read
+jobs:
+  issues:
+    name: Kontrola issues a komentaru
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - run: python -m nastroje_prace bootstrap
+      - name: Zkontrolovat aktualni obsah
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python -m nastroje_prace issues-check

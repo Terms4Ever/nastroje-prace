@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "repository": "Terms4Ever/nastroje-prace",
+  "tests": [["{python}", "-m", "unittest", "discover", "-s", "tests", "-v"]],
+  "svn": {"enabled": false, "url": "", "allow": []}
+}

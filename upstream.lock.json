@@ -1,0 +1,6 @@
+{
+  "repository": "https://github.com/Terms4Ever/nastroje.git",
+  "commit": "404510b901689b2f64685dfcaac87169a4aa1a9d",
+  "php_windows_url": "https://windows.php.net/downloads/releases/php-8.3.35-nts-Win32-vs16-x64.zip",
+  "php_windows_sha256": "25a8e2ac9ff30f1d768d1447c09a600617fa6e6082729f6e95f008b59c91fe45"
+}
