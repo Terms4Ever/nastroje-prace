@@ -9,72 +9,82 @@ kolegům jejich stávající postup.
 ![PHP](https://img.shields.io/badge/PHP-8.3+-777BB4?logo=php&logoColor=white)
 ![Závislosti](https://img.shields.io/badge/z%C3%A1vislosti-nastroje-blue)
 ![License](https://img.shields.io/badge/license-proprietary-red)
-![Kontroly](https://github.com/Terms4Ever/nastroje-prace/actions/workflows/kontroly.yml/badge.svg)
+[![Kontroly](https://github.com/Terms4Ever/nastroje-prace/actions/workflows/kontroly.yml/badge.svg)](https://github.com/Terms4Ever/nastroje-prace/actions/workflows/kontroly.yml)
 
 ---
 
 ## ✨ Hlavní funkce
 
-- Validace issue před založením, správný druh, odpovědný a ověřitelný checklist.
-- Kontrola krátkých pomlček, zpráv commitů a textové dokumentace změny.
-- Povinné vložené dvojice snímků před a po u dokončených změn rozhraní.
-- Testy vázané na přesný commit; chybějící nebo neprovedené ověření není úspěch.
-- Příprava balíčku vybraných souborů a detekce souběžných změn v SVN.
-- Evidence propojení issue, Mantis, Git commitu a ověřené SVN revize.
-- Lokální hooky, GitHub kontroly na Windows i Linuxu a samostatná kontrola issues.
-- Práce jednoho agenta pouze na main; úspěšné CI před předáním a dokončením úkolu.
-- Ověření privátního repozitáře, GitHub topics a jednotného pořadí README.
-- Založení kostry pracovního projektu s připnutou kopií pravidel a kontrolou napojení.
+- **Issues** - správná struktura, druh úkolu, odpovědný a konkrétní checklist ještě před založením.
+- **Dokumentace** - české texty, krátké pomlčky, přesné commity a vlastní textový záznam každého úkolu.
+- **Snímky před a po** - skutečné dvojice obrázků u změn rozhraní, vložené do issue s neměnnými odkazy.
+- **Ověření** - místní testy a GitHub CI pro stejný commit; jeden agent pracuje pouze na `main`.
+- **Předání do SVN** - balíček povolených souborů, odhalení změn kolegů a ověření výsledné revize.
+- **Nový projekt** - připnutá kopie kontrol, jednotný README, privátní GitHub s topics a ověřené napojení.
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Část | Prostředí |
+| Vrstva | Technologie |
 |---|---|
-| Kontroly a testy | PHP 8.3+ s mbstring, curl, zip a SimpleXML |
-| Sdílená pravidla | PHP, přesný commit v upstream.lock.json |
-| Spouštění na Windows | PowerShell, instalace vlastního lokálního PHP |
-| Historie | Git a GitHub REST API |
-| Volitelné předání | SVN CLI; integrační testy používají také svnadmin |
+| Kontroly a testy | PHP 8.3+, rozšíření mbstring, curl, zip a SimpleXML |
+| Sdílená pravidla | PHP kontroly z nastroje, připnuté v [upstream.lock.json](upstream.lock.json) |
+| Spouštění na Windows | PowerShell a místní PHP |
+| Brána před pushem | Git hooky ve složce `hooky/` |
+| Kontrola po pushi | GitHub Actions na Windows a Linuxu |
+| Volitelné předání | SVN CLI; integrační testy navíc používají `svnadmin` |
 
 ---
 
 ## 📁 Struktura projektu
 
 ```text
-prace.php         # jednotný PHP vstupní bod
-prace.ps1         # spouštěč pro Windows
-src/              # kontrolní příkazy a adaptéry v PHP
-tests/            # pozitivní a negativní scénáře
-scripts/          # hook a CI vstupní body
-hooky/            # lokální kontrola commitu a pushe
-pravidla/         # společná pravidla pro připojené aplikace
-sablony/          # kostra nového projektu a vzor nastavení
-.github/          # workflow a šablona issue
-.tasks/           # metadata jednotlivých úkolů
-docs/             # stav, pravidla, postupy a záznamy
+nastroje-prace/
+├── prace.php             # jednotný vstup kontrol
+├── prace.ps1             # spouštěč pro Windows
+├── src/                  # PHP kontroly a adaptéry
+├── tests/                # pozitivní a negativní scénáře
+├── scripts/              # vstupy pro hooky a CI
+├── hooky/                # kontrola commitu a pushe
+├── pravidla/             # pravidla připojených aplikací
+├── sablony/              # kostra nového projektu
+├── .github/              # workflow a šablona issue
+├── .tasks/               # metadata jednotlivých úkolů
+├── .prace.json           # nastavení kontrol a testů
+├── upstream.lock.json    # připnutá verze nastroje
+└── docs/                 # stav, návody a záznamy úkolů
 ```
 
 ---
 
 ## 📚 Dokumentace
 
-| Dokument | Účel |
+| Dokument | K čemu |
 |---|---|
-| `docs/00-stav-projektu.md` | Současné možnosti a hranice. |
-| `docs/01-postup-prace.md` | Příkazy pro issue, commit a dokončení. |
-| `docs/02-predani-svn.md` | Výchozí stav, balíček a revize. |
-| `docs/03-rozhodovaci-dennik.md` | Důvody hlavních pravidel. |
-| `docs/04-overeni.md` | Co testy dokazují a co nedokazují. |
-| `docs/05-novy-pracovni-projekt.md` | Založení privátního projektu a napojení pravidel. |
-| `docs/ukoly/` | Záznamy jednotlivých úkolů podle čísla issue. |
+| [Stav projektu](docs/00-stav-projektu.md) | Současné možnosti a hranice. |
+| [Postup práce](docs/01-postup-prace.md) | Issue, dokumentace, commit a dokončení. |
+| [Předání do SVN](docs/02-predani-svn.md) | Výchozí stav, balíček a výsledná revize. |
+| [Rozhodovací deník](docs/03-rozhodovaci-dennik.md) | Důvody hlavních pravidel. |
+| [Ověření](docs/04-overeni.md) | Rozsah testů a jejich omezení. |
+| [Nový pracovní projekt](docs/05-novy-pracovni-projekt.md) | Založení repozitáře, napojení a aktualizace. |
+| [Záznamy úkolů](docs/ukoly/) | Stručné záznamy podle čísla issue. |
+
+Aktuální stav patří do dokumentace. Jednotlivé úkoly sledují
+[GitHub Issues](https://github.com/Terms4Ever/nastroje-prace/issues).
 
 ---
 
 ## 🚀 Instalace (lokální vývoj)
 
-Na Windows spusť z kořene projektu PowerShell:
+Nejprve naklonuj privátní repozitář pomocí přihlášeného Gitu:
+
+```bash
+git clone https://github.com/Terms4Ever/nastroje-prace.git
+cd nastroje-prace
+```
+
+**Windows (PowerShell):**
 
 ```powershell
 .\prace.ps1 bootstrap --php-windows
@@ -82,58 +92,47 @@ Na Windows spusť z kořene projektu PowerShell:
 .\prace.ps1 doctor
 ```
 
-PHP lze určit proměnnou NASTROJE_PHP. Bez ní spouštěč upřednostní vlastní
-runtime v .cache/php, potom místní nastavení hooku a PHP dostupné v PATH.
-Stažené PHP se kontroluje SHA-256 a instaluje pouze do tohoto repozitáře.
-Při přechodu z verze 0.1 zopakuj bootstrap a install-hooks; odstraní se
-původní místní nastavení Pythonu. Staré doklady ověření je nutné vytvořit znovu.
-Od verze 0.3 používají místní Git hooky složku hooky místo .githooks; spusť
-install-hooks také při této aktualizaci. Nastavení platí pouze pro tento projekt.
+Spouštěč stáhne a ověří vlastní PHP do `.cache/`. Existující PHP lze určit
+proměnnou `NASTROJE_PHP`. Hooky se nastavují jen v tomto repozitáři.
 
-Na Linuxu s Gitem a PHP s uvedenými rozšířeními:
+**Linux (PHP 8.3+ s rozšířeními z tabulky výše):**
 
-```text
+```bash
 php prace.php bootstrap
 php prace.php install-hooks
-php tests/run.php
-php prace.php readme-check
-php prace.php metadata-check
-php prace.php check --base HEAD^ --online
+php prace.php doctor
 ```
 
-Na Windows pro testy použij .\.cache\php\php.exe tests/run.php. Ostatní
-příkazy lze spouštět přes .\prace.ps1, například .\prace.ps1 readme-check.
+**Ověření instalace:** na Windows spusť `./.cache/php/php.exe tests/run.php`,
+na Linuxu `php tests/run.php`. Podrobné scénáře a podmínky SVN testů popisuje
+[ověření funkčnosti](docs/04-overeni.md).
 
-U první změny použij ROOT, později skutečný výchozí commit. Přesný postup
-pro issues a SVN popisují dokumenty v tabulce výše. Přihlášení poskytuje Git Credential
-Manager nebo proměnná GH_TOKEN/GITHUB_TOKEN; hodnoty se neukládají do projektu.
+Přihlášení poskytuje Git Credential Manager nebo proměnná
+`GH_TOKEN`/`GITHUB_TOKEN`. Hodnoty se neukládají do projektu. První úkol,
+správný základ kontroly a dokončení popisuje [postup práce](docs/01-postup-prace.md).
 
 ---
 
 ## 📦 Nasazení
 
-Tento repozitář nemá produkční deploy. Od verze 0.4 se pracuje pouze na main,
-bez pracovních větví a pull requestů. Místní hook ověřuje změnu před přímým
-pushem; Windows a Linux CI ji ověří po pushi. Úspěšný poslední běh a jeho
-souhrnná úloha Povinne kontroly podmiňují předání do SVN a dokončení issue.
-Main chrání zákaz force pushe a smazání i pro správce, s lineární historií.
-Při aktualizaci z verze 0.3 uprav ochranu podle postupu zavedení projektu:
-povinné CI před pushem se vypíná, ostatní uvedené ochrany zůstávají zapnuté.
-Issues a metadata repozitáře se ověřují po změnách issues i denně. Automatika
-issues neopravuje ani neuzavírá. Povinné topics určuje .prace.json; metadata-check
-ověří jejich přítomnost a privátní viditelnost bez změn nastavení GitHubu.
+**Práce probíhá pouze na `main`.** Místní hook prověří přímý push, GitHub CI
+ověří stejný commit po něm. Úspěšný poslední běh a jeho souhrnná úloha
+`Povinne kontroly` podmiňují předání do SVN a dokončení issue. Main chrání
+zákaz force pushe a smazání i pro správce, s lineární historií.
 
-Připnuté nástroje se stahují do soukromé pracovní cache. Existující nastroje
-ani jiné repozitáře se neaktualizují. Pracovní projekty nejsou touto instalací
-připojeny automaticky. Přenosový balíček sám nic do SVN nezapisuje.
+**Nový projekt dostane připnutou kopii kontrol.** Příkaz `project-init`
+připraví kostru; `project-check --online` ověří skutečné napojení.
+[Úplný postup](docs/05-novy-pracovni-projekt.md) zahrnuje také aktualizaci pravidel.
 
-Pro nový projekt použij project-init a úplný postup v dokumentaci. Výsledkem
-je připnutá kopie kontrol s otisky a místní checklist zavedení. Project-check
-ověří napojení; varianta --online navíc kontroluje GitHub a úspěšné CI na main.
+**SVN předání zůstává samostatným krokem.** CI nenasazuje aplikaci a balíček
+sám neprovádí SVN commit. [Postup předání](docs/02-predani-svn.md) ověřuje
+výchozí stav, případné změny kolegů a výslednou revizi.
+
+Issues a metadata se kontrolují po změnách issues i denně. Kontroly vyžadují
+privátní repozitář a topics z `.prace.json`; žádné jiné repozitáře nemění.
 
 ---
 
 ## 📄 Licence
 
-Proprietární software. Veškerá práva vyhrazena. Použité společné nástroje
-zůstávají v původním repozitáři a používají se v připnuté verzi.
+Proprietární software. Veškerá práva vyhrazena.

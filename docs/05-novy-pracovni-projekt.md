@@ -91,6 +91,10 @@ nástrojích. Převezmi vrácené číslo, nepředpokládej #1. Metadata mají p
 Číslo 7 v příkladu nahraď skutečným číslem i v názvech .tasks/7.json,
 docs/ukoly/7.md a commitu. Záznam má Zadání, Změna, Ověření a Předání.
 README odkazuje na celou složku docs/ukoly/, nikoli na seznam jednotlivých úkolů.
+Základní README šablony popisuje připojené kontroly. Před dokončením doplň
+skutečné funkce aplikace, její zdrojové složky, instalaci závislostí a způsob
+nasazení. Zachovej tabulku technologií, strom, klikací dokumentaci a příkazy
+v kódových blocích. Nevydávej instalaci PHP kontrol za instalaci celé aplikace.
 U následných změn rozhraní platí skutečné snímky před a po z pravidel projektu.
 
 ## 5. První commit a ochrana main
@@ -144,6 +148,11 @@ Vytvoř svn-zaklad před první aplikační změnou. Předání se řídí docs/
 kopie nástrojů, hooky, jejich spouštěče ani dokumentace se do SVN nepřenášejí.
 
 ## Aktualizace a hranice
+
+Při přechodu z verze 0.1 zopakuj bootstrap a install-hooks; místní konfigurace
+se převede z Pythonu na PHP. Od verze 0.3 používají Git hooky složku hooky
+místo .githooks. Také tehdy zopakuj install-hooks. Staré doklady ověření
+nahraď kontrolou nové verze. Přechod na main-only ve verzi 0.4 popisuje krok 5.
 
 Aktualizace je samostatné issue. Z nové ověřené centrální verze vytvoř export
 do další prázdné složky se stejnou specifikací projektu. Posuď diff běhové kopie,

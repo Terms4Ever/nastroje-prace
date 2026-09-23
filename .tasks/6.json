@@ -1,0 +1,7 @@
+{
+  "issue": 6,
+  "mantis": null,
+  "technical_reason": "Sjednocení vzhledu README a oprava vykreslování příkazů na žádost vlastníka.",
+  "visual": true,
+  "delivery": "git"
+}
