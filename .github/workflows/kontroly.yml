@@ -20,26 +20,22 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
-        with:
-          python-version: '3.12'
       - name: Prostredi
         run: |
-          if ! command -v svn >/dev/null || ! command -v svnadmin >/dev/null; then
+          if ! php -r 'exit(PHP_VERSION_ID >= 80300 && extension_loaded("mbstring") && extension_loaded("curl") && extension_loaded("zip") && extension_loaded("SimpleXML") ? 0 : 1);' || ! command -v svn >/dev/null || ! command -v svnadmin >/dev/null; then
             sudo apt-get update
-            sudo apt-get install -y subversion
+            sudo apt-get install -y php-cli php-mbstring php-curl php-zip php-xml subversion
           fi
           git config user.name "Overeni"
           git config user.email "overeni@example.invalid"
-          python -m nastroje_prace bootstrap
+          php prace.php bootstrap
       - name: Dokumentace, commity, issues a testy
-        run: python scripts/ci.py
+        run: php scripts/ci.php
   windows:
     name: Windows
     runs-on: windows-latest
     timeout-minutes: 15
     env:
-      PYTHONUTF8: '1'
       GITHUB_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -47,16 +43,14 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
-        with:
-          python-version: '3.12'
       - name: Prostredi
         run: |
           git config user.name "Overeni"
           git config user.email "overeni@example.invalid"
-          python -m nastroje_prace bootstrap --php-windows
+          .\prace.ps1 bootstrap --php-windows
+          .\prace.ps1 install-hooks
       - name: Dokumentace, commity, issues a testy
-        run: python scripts/ci.py
+        run: .\.cache\php\php.exe scripts/ci.php
   povinne:
     name: Povinne kontroly
     runs-on: ubuntu-24.04

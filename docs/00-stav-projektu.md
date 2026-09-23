@@ -1,6 +1,6 @@
 # Stav projektu
 
-První verze osobních kontrol je samostatná privátní nadstavba. Zdrojové
+Verze 0.2 osobních kontrol je samostatná privátní PHP nadstavba. Zdrojové
 pracovní projekty se sem nekopírují a jejich nastavení se při instalaci nemění.
 
 <!-- generovano nastroji, needitovat -->
@@ -14,12 +14,15 @@ hlavní větev:     main
 Validace agentem vytvářeného issue, komentářů a commitů; kontrola dokumentace
 změny; povinné testovací příkazy; doklad ověření přesného Git commitu;
 kontrola snímků při dokončení; čtení SVN a balíček výslovně povolených změn.
+Celý běh i testy používají PHP. PowerShell je místní spouštěč a instalátor PHP.
+Kontrola README doplňuje pořadí sekce Dokumentace před Instalací. Online check
+ověřuje také privátní viditelnost a požadované GitHub topics.
 
 Sdílené PHP validátory jsou připnuté na commit v upstream.lock.json. Jejich
 známé mezery v chybějící dokumentaci a rozsahu změny kryje pracovní kontrola.
 Nepoužívá se upstream workflow na main ani jeho hromadná kontrola issues.
 
-## Hranice první verze
+## Hranice současné verze
 
 - Význam textu, češtinu a pravdivost snímků musí posoudit člověk nebo agent.
 - Detekce citlivých souborů je omezená sada pravidel, nikoli úplný bezpečnostní audit.

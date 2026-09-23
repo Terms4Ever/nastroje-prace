@@ -21,11 +21,16 @@ jobs:
           ref: main
           fetch-depth: 0
           persist-credentials: false
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
-        with:
-          python-version: '3.12'
-      - run: python -m nastroje_prace bootstrap
+      - name: Prostredi
+        run: |
+          if ! php -r 'exit(PHP_VERSION_ID >= 80300 && extension_loaded("mbstring") && extension_loaded("curl") && extension_loaded("zip") && extension_loaded("SimpleXML") ? 0 : 1);'; then
+            sudo apt-get update
+            sudo apt-get install -y php-cli php-mbstring php-curl php-zip php-xml
+          fi
+          php prace.php bootstrap
       - name: Zkontrolovat aktualni obsah
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python -m nastroje_prace issues-check
+        run: |
+          php prace.php metadata-check
+          php prace.php issues-check

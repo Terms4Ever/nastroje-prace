@@ -1,4 +1,3 @@
 #!/bin/sh
-export PYTHONUTF8=1
-python_path=$(git config --local --get nastrojePrace.python) || exit 1
-exec "$python_path" scripts/pre_push.py
+php_path=$(git config --local --get nastrojePrace.php) || exit 1
+exec "$php_path" scripts/pre-push.php

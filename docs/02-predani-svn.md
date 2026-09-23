@@ -41,6 +41,6 @@ kontrola zastaralé revize při commitu. Nikdy nekopíruj starý celý strom př
 novější kopii bez sloučení. Automatický obousměrný synchronizační nástroj se
 nepoužívá.
 
-Verze 0.1 porovnává obsah souborů. SVN vlastnosti, externals, symlinky a
+Současná verze porovnává obsah souborů. SVN vlastnosti, externals, symlinky a
 změny oprávnění nejsou podporovanou součástí automatického předání. Tyto
 případy vyžadují samostatný postup a jeho ověření před zapojením projektu.

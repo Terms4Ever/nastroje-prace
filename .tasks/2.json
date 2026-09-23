@@ -1,0 +1,7 @@
+{
+  "issue": 2,
+  "mantis": null,
+  "technical_reason": "Sjednocení pracovních kontrol s původními PHP nástroji na zadání vlastníka.",
+  "visual": false,
+  "delivery": "git"
+}

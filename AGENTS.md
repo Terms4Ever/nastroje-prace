@@ -29,7 +29,7 @@ U změny rozhraní pořiď původní stav před úpravou a stejný pohled po ov�
 Soubory patří do docs/snimky pod číslo issue a krátký název, s prefixy pred- a po-.
 Vlož je do issue jako obrázky s odkazy na konkrétní commit. Textový odkaz nestačí.
 Každý snímek před má protějšek po. Nezaměňuj testovací obrázky za důkaz z aplikace.
-Při nemožnosti snímek pořídit popiš překážku a nech issue otevřené; verze 0.1 nemá automatickou výjimku.
+Při nemožnosti snímek pořídit popiš překážku a nech issue otevřené; sada nemá automatickou výjimku.
 U nevizuální změny dolož odpovídající test, výstup nebo kontrolní postup.
 
 ## Commit a ověření
@@ -50,6 +50,10 @@ Předání přes TortoiseSVN probíhá ze správně aktualizované pracovní kop
 
 ## Testování
 
-Spusť python -m unittest discover -s tests -v. Každé nové pravidlo musí mít pozitivní i negativní případ.
+Spusť php tests/run.php. Na Windows lze použít .\.cache\php\php.exe tests/run.php.
+Kontroly, testy i CI piš v PHP. PowerShell slouží pouze ke spouštění a místní instalaci PHP.
+Každé nové pravidlo musí mít pozitivní i negativní případ.
+README má pořadí Hlavní funkce, Tech Stack, Struktura projektu, Dokumentace, Instalace, Nasazení, Licence.
+Kontrola readme-check musí být součástí plného check. Metadata-check vyžaduje privátní repozitář a topics z .prace.json.
 Linux CI povinně testuje skutečné dočasné SVN; místní absence CLI se hlásí jako přeskočení, nikoli ověření SVN.
 Testy nemění jiné projekty, nepoužívají produkční databáze a neodesílají skutečné issues.

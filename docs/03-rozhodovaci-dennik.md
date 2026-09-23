@@ -34,3 +34,18 @@ Netvrdí úplnou shodu s nedostupným globálním commit hookem.
 Přenos má explicitní seznam souborů, kontrolní otisky a záznam výsledné revize.
 Nástroj nevykonává SVN commit a neslibuje zámek mezi kontrolou a předáním.
 Samostatné zavedení do projektu musí prověřit jeho vlastnosti, externals a build.
+
+## P7 - Jediný jazyk kontrol
+
+Na žádost vlastníka používá od verze 0.2 celé jádro, testy i CI PHP stejně jako
+společné nastroje. Python byl z aktivní implementace odstraněn. PowerShell pouze
+spouští PHP a instaluje připnutý místní runtime. Nevzniká druhá sada pravidel
+ani závislost na runtime konkrétního asistenta.
+
+## P8 - README a GitHub metadata mají ověřitelnou podobu
+
+Dokumentace patří za Strukturu projektu a před Instalaci, stejně jako ve
+společných nastroje. Původní validátor tuto pozici nehlídal; doplňuje ji místní
+kontrola a regrese s nesprávně přesunutou sekcí. Sdílený repozitář se nemění.
+Topics určuje .prace.json a online kontroly ověřují jejich přítomnost i privátní
+viditelnost. Nastavení není doloženo pouze textovým tvrzením v README.

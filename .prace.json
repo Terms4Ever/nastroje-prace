@@ -1,6 +1,7 @@
 {
   "version": 1,
   "repository": "Terms4Ever/nastroje-prace",
-  "tests": [["{python}", "-m", "unittest", "discover", "-s", "tests", "-v"]],
+  "topics": ["documentation", "github-actions", "linter", "mantis", "php", "readme", "svn", "tooling"],
+  "tests": [["{php}", "tests/run.php"]],
   "svn": {"enabled": false, "url": "", "allow": []}
 }

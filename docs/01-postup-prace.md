@@ -18,11 +18,12 @@ Agent připraví JSON mimo verzované soubory, například v .local/issue.json:
 ```
 
 ```text
-python -m nastroje_prace issue-check .local/issue.json
-python -m nastroje_prace issue-create .local/issue.json
+php prace.php issue-check .local/issue.json
+php prace.php issue-create .local/issue.json
 ```
 
 Kontrola běží i uvnitř issue-create; samostatné issue-check není jedinou pojistkou.
+Na Windows nahraď php prace.php spouštěčem .\prace.ps1.
 Vstupy jsou předány jako strukturovaná data, nikoli vložené příkazy shellu.
 Při shodném názvu otevřeného issue nebo nedostupném API založení selže.
 Existující issue upravuje issue-update CISLO SOUBOR. Aktualizace nemění stav issue.
@@ -79,7 +80,7 @@ commitu a shodu s main. U SVN také ověřený záznam předání. Doplní krát
 komentář a issue uzavře. Nedokončený úkol zůstává otevřený.
 
 ```text
-python -m nastroje_prace issue-close 1 --summary "Kontrola prokazatelně zachytí neověřené předání."
+php prace.php issue-close 1 --summary "Kontrola prokazatelně zachytí neověřené předání."
 ```
 
 Přímý zápis přes jiného API klienta může obejít místní kontrolu. GitHub workflow
