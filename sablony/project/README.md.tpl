@@ -38,7 +38,7 @@ Připojená pracovní pravidla zajišťují:
 
 ```text
 ./
-├── .nastroje-prace/          # připnutá kopie kontrol
+├── .nastroje-prace/         # připnutá kopie kontrol
 ├── nastroje-prace.lock.json # původ a otisky kopie
 ├── .prace.json             # nastavení a testy aplikace
 ├── .tasks/                 # metadata jednotlivých issues
