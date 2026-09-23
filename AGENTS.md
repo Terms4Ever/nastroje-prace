@@ -26,6 +26,7 @@ Zaveď je až po jeho výslovném schválení; testy toto rozhodnutí nenahrazuj
 - Issue drží zadání a průběh. Dokumentace drží současné fungování a důležitá rozhodnutí; nekopíruj celé issue do deníku.
 - Záznam úkolu má Zadání, Změna, Ověření a Předání. Neoznačuj neprovedený test za úspěšný.
 - README odkazuje na složku docs/ukoly/, ne na jednotlivé úkoly. Odznaky mají jednotný vzhled a pravdivý obsah.
+- Tabulka Dokumentace používá cesty v řádkovém kódu a společné popisy stavu a deníku jako nastroje. Pod tabulkou je stejná věta o zdroji aktuálního stavu; další dokumenty určuje projekt.
 
 ## Nový pracovní projekt
 

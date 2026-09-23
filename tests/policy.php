@@ -162,7 +162,7 @@ test('Dokumentace za Nasazením je odmítnuta i když upstream projde', fn() => 
     fails(fn() => Policy::readme($root), 'jednotné pořadí');
 }));
 test('README vyžaduje dokumentaci v tabulce', fn() => fixture(function ($root): void {
-    $text = str_replace('| `docs/00-stav-projektu.md` | Současný stav. |', 'Současný stav projektu.', readFile($root . '/README.md'));
+    $text = preg_replace('/^\| `docs\/00-stav-projektu\.md` \|.*$/m', 'Současný stav projektu.', readFile($root . '/README.md'));
     writeFile($root . '/README.md', $text);
     fails(fn() => Policy::readme($root));
 }));

@@ -39,6 +39,8 @@ README se ověřuje samostatným příkazem i uvnitř úplné kontroly. Regrese 
 Dokumentaci za Nasazení: původní upstream tuto chybu přijme, pracovní kontrola
 ji odmítne. Další testy hlídají tabulku dokumentace, duplicitní sekci, topics
 a privátní viditelnost. Dokončení issue má pozitivní i negativní scénáře CI a main.
+Samostatné regrese odmítají pojmenované odkazy v tabulce dokumentace, jiné
+popisy základních dokumentů a chybějící větu o zdroji aktuálního stavu.
 Společná podmínka předání odmítne offline doklad, neexistující, čekající,
 zrušený, přeskočený či neúspěšný poslední běh a běh jiné větve nebo workflow.
 Testuje souhrnnou úlohu včetně další stránky API, chybu API a posun main během čtení.

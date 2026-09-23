@@ -1,0 +1,7 @@
+{
+  "issue": 8,
+  "mantis": null,
+  "technical_reason": "Sjednocení viditelné dokumentace se vzorem nastroje podle připomínky vlastníka.",
+  "visual": true,
+  "delivery": "git"
+}

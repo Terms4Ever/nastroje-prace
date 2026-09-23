@@ -38,6 +38,7 @@ Nástroje samy neprovádějí SVN commit; předání probíhá kontrolovaným b�
 - Komentář má nejvýše pět neprázdných řádků. Delší rozbor patří do dokumentace. Nepřidávej podpis asistenta.
 - README má pořadí Hlavní funkce, Tech Stack, Struktura projektu, Dokumentace, Instalace, Nasazení, Licence.
 - README odkazuje na složku docs/ukoly/, nevypisuje jednotlivé úkoly.
+- V tabulce Dokumentace uváděj cesty jako řádkový kód, společné popisy stavu a deníku i větu pod tabulkou přebírej ze šablony stejně jako nastroje. Další řádky odpovídají vlastním dokumentům projektu.
 - Dokumentace popisuje současné fungování a důležitá rozhodnutí. Každé issue v rozsahu commitů potřebuje vlastní změněný textový záznam.
 - Technické omezení nebo neprovedený test popiš pravdivě. Nepoužívej zástupný text jako dokončenou dokumentaci.
 

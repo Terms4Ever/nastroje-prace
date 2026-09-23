@@ -62,16 +62,15 @@ nastroje-prace/
 
 | Dokument | K čemu |
 |---|---|
-| [Stav projektu](docs/00-stav-projektu.md) | Současné možnosti a hranice. |
-| [Postup práce](docs/01-postup-prace.md) | Issue, dokumentace, commit a dokončení. |
-| [Předání do SVN](docs/02-predani-svn.md) | Výchozí stav, balíček a výsledná revize. |
-| [Rozhodovací deník](docs/03-rozhodovaci-dennik.md) | Důvody hlavních pravidel. |
-| [Ověření](docs/04-overeni.md) | Rozsah testů a jejich omezení. |
-| [Nový pracovní projekt](docs/05-novy-pracovni-projekt.md) | Založení repozitáře, napojení a aktualizace. |
-| [Záznamy úkolů](docs/ukoly/) | Stručné záznamy podle čísla issue. |
+| `docs/00-stav-projektu.md` | živý stav: co je hotové, co se dělá, co je dál, a které repozitáře jsou zapojené |
+| `docs/01-postup-prace.md` | issue, dokumentace, commit a dokončení |
+| `docs/02-predani-svn.md` | výchozí stav, balíček a výsledná revize |
+| `docs/03-rozhodovaci-dennik.md` | co bylo kdy rozhodnuto a proč. Nové rozhodnutí je nový záznam, staré se nepřepisuje |
+| `docs/04-overeni.md` | rozsah testů a jejich omezení |
+| `docs/05-novy-pracovni-projekt.md` | založení repozitáře, napojení a aktualizace |
+| `docs/ukoly/` | stručné záznamy podle čísla issue |
 
-Aktuální stav patří do dokumentace. Jednotlivé úkoly sledují
-[GitHub Issues](https://github.com/Terms4Ever/nastroje-prace/issues).
+Stav vždy platný je v `docs/00-stav-projektu.md`, ne v tomhle souboru.
 
 ---
 

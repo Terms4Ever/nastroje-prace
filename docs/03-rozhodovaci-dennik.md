@@ -111,3 +111,12 @@ na tyto cesty a obsah podkladů; dokončení znovu ověří živý souhlas. Schv
 v chatu smí agent zaznamenat až po skutečném rozhodnutí, s citací a kontextem.
 GitHub prokáže účet, ne fyzického autora za stejnými přihlašovacími údaji.
 Testy neprokazují nemožnost pořízení ani pravdivost zaznamenaného souhlasu.
+
+## P14 - Dokumentace v README má společný viditelný formát (23. 9. 2026)
+
+Vlastník snímkem doložil rozdíl proti nastroje a zadal sjednocení. Tabulka
+proto používá skutečné cesty v řádkovém kódu, společné popisy stavu a deníku
+a stejnou větu o platném stavu pod tabulkou. Pořadí sekcí ani obecná kontrola
+odkazů tuto odlišnost dosud nezachytily; readme-check nyní ověřuje i tento tvar.
+Seznam ostatních dokumentů patří konkrétnímu projektu, úkoly zůstávají složkou.
+Tento požadavek nahrazuje pojmenované odkazy zavedené při předchozí opravě README.

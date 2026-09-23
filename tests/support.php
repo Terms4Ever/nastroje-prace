@@ -115,7 +115,7 @@ function fixture(callable $action): mixed
         foreach (\NastrojePrace\Policy::README_HEADINGS as $heading) {
             $readme .= '## ' . $heading . "\n\n";
             $readme .= $heading === '📚 Dokumentace'
-                ? "| Dokument | Účel |\n|---|---|\n| `docs/00-stav-projektu.md` | Současný stav. |\n| `docs/03-rozhodovaci-dennik.md` | Důvody řešení. |\n| `docs/ukoly/` | Záznamy úkolů. |\n\n"
+                ? "| Dokument | K čemu |\n|---|---|\n| `docs/00-stav-projektu.md` | živý stav: co je hotové, co se dělá, co je dál, a které repozitáře jsou zapojené |\n| `docs/03-rozhodovaci-dennik.md` | co bylo kdy rozhodnuto a proč. Nové rozhodnutí je nový záznam, staré se nepřepisuje |\n| `docs/ukoly/` | Záznamy úkolů. |\n\nStav vždy platný je v `docs/00-stav-projektu.md`, ne v tomhle souboru.\n\n"
                 : "Izolované ověření bez produkčních služeb.\n\n";
         }
         writeFile($root . '/README.md', $readme);

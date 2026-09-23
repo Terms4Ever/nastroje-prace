@@ -7,6 +7,11 @@ final class Policy
 {
     public const README_HEADINGS = ['✨ Hlavní funkce', '🛠️ Tech Stack', '📁 Struktura projektu',
         '📚 Dokumentace', '🚀 Instalace (lokální vývoj)', '📦 Nasazení', '📄 Licence'];
+    public const DOCUMENTATION_DESCRIPTIONS = [
+        'docs/00-stav-projektu.md' => 'živý stav: co je hotové, co se dělá, co je dál, a které repozitáře jsou zapojené',
+        'docs/03-rozhodovaci-dennik.md' => 'co bylo kdy rozhodnuto a proč. Nové rozhodnutí je nový záznam, staré se nepřepisuje',
+    ];
+    public const DOCUMENTATION_STATE = 'Stav vždy platný je v `docs/00-stav-projektu.md`, ne v tomhle souboru.';
 
     public static function names(array $values): array
     {
@@ -174,6 +179,28 @@ final class Policy
         ensure($headings === self::README_HEADINGS, 'README musí mít jednotné pořadí: Hlavní funkce, Tech Stack, Struktura projektu, Dokumentace, Instalace, Nasazení, Licence.');
         $documentation = self::sections(readFile($root . '/README.md'))['📚 Dokumentace'] ?? '';
         ensure(!preg_match('~docs/ukoly/[0-9]+\.md~u', $documentation), 'README odkazuje na složku docs/ukoly/, nikoli na každý jednotlivý úkol.');
+        self::documentationTable($documentation);
+    }
+
+    /** Vzhled tabulky podle původních nastroje; seznam dalších dokumentů určuje projekt. */
+    private static function documentationTable(string $text): void
+    {
+        $lines = preg_split('/\R/u', trim($text));
+        ensure(($lines[0] ?? '') === '| Dokument | K čemu |' && ($lines[1] ?? '') === '|---|---|',
+            'Tabulka dokumentace musí mít společné sloupce Dokument a K čemu.');
+        $rows = [];
+        $index = 2;
+        for (; isset($lines[$index]) && str_starts_with(trim($lines[$index]), '|'); $index++) {
+            ensure((bool) preg_match('~^\|\h*`(docs/[^`|]+)`\h*\|\h*(.+?)\h*\|$~uD', trim($lines[$index]), $row),
+                'Tabulka dokumentace uvádí skutečné cesty v řádkovém kódu, bez pojmenovaných odkazů.');
+            ensure(!isset($rows[$row[1]]), 'Dokument je v tabulce uvedený vícekrát.');
+            $rows[$row[1]] = $row[2];
+        }
+        foreach (self::DOCUMENTATION_DESCRIPTIONS as $path => $description) {
+            ensure(($rows[$path] ?? '') === $description, 'Společné popisy stavu a rozhodovacího deníku musí odpovídat nastroje.');
+        }
+        $after = trim(implode("\n", array_slice($lines, $index)));
+        ensure(str_starts_with($after, self::DOCUMENTATION_STATE), 'Pod tabulkou chybí společná věta o zdroji aktuálního stavu.');
     }
 
     public static function repositoryMetadata(string $root, ApiClient $client): void
