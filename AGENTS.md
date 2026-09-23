@@ -47,26 +47,32 @@ U nevizuální změny dolož odpovídající test, výstup nebo kontrolní postu
 
 ## Commit a ověření
 
+Pracuj pouze na main. Na projektu pracuje vždy jeden agent a jeden úkol najednou.
+Nezakládej pracovní ani testovací větve, pull requesty nebo paralelní worktree.
+Negativní testy větví patří pouze do dočasných izolovaných testovacích repozitářů.
+Před prací proveď fetch a případné aktualizace přijmi přes pull --ff-only na čistém stromu.
+Rozcházející se historii vyřeš před úpravami; nepřepisuj publikované commity.
+
 Nadpis commitu je česká věta o výsledném stavu zakončená (#číslo).
 Tělo obsahuje konkrétní řádky Důvod: a Ověření:. Používej odkaz na issue bez automatického uzavírání.
 Před pushem musí projít check s explicitním základem rozsahu a online ověřením issues.
 ROOT je jen pro úplně první commit. Neznámý základ, špinavý strom, chyba API či neúspěšný test zastaví práci.
 Hooky instaluj pouze lokálně příkazem install-hooks, nepoužívej --no-verify pro běžné předání.
+Commit hook odmítne jinou větev; push hook dovolí pouze HEAD z main do main.
+Push je přímý. GitHub CI ověřuje commit následně, chyba se opravuje novým commitem.
+Ochrana main zakazuje force push a smazání i správci, vyžaduje lineární historii.
+Předchozí úspěšné CI ani pull request nejsou podmínkou přijetí pushe.
 
 ## Dokončení a SVN
 
 Issue zavírej příkazem issue-close až po ověření stejného commitu lokálně a v GitHub CI na main.
+Stejnou podmínku vyžadují predani-priprav, predani-over a predani-zapis. Čekající,
+chybějící či neúspěšné CI a nedostupné API předání zastaví. Před dalším úkolem
+dokonči ověření a případné SVN předání současného commitu.
 Neodškrtávej nesplněné body. Předání do SVN musí mít ověřenou výslednou revizi.
 Příkazy SVN pouze čtou vzdálený stav a vytvářejí místní balíček. Nikdy samy necommitují do SVN.
 Při souběžné změně kolegy zastav předání, sluč obsah a opakuj testy.
 Předání přes TortoiseSVN probíhá ze správně aktualizované pracovní kopie a s kontrolou diffu.
-
-Trvalá větev je main. Pracovní větve pojmenovávej ukol/CISLO-kratky-popis a drž
-jen pro rozpracované úkoly. Po přijetí ověřené změny na main přepni na main,
-odstraň vlastní dokončenou vzdálenou i místní větev a proveď fetch --prune.
-Před smazáním ověř převzetí změn a nepřítomnost otevřených pull requestů.
-Nepřevzaté změny nemaž automaticky. Protokol nebo SHA uchová důkaz testu;
-testovací větev se kvůli němu nenechává trvale. Úklid patří k dokončení úkolu.
 
 ## Testování
 

@@ -22,8 +22,8 @@ nepřepisuje. Následující check musí používat právě toto celé Git SHA j
 ## Předání
 
 1. Dokonči změnu, textový záznam a commit.
-2. Proveď check --base VYCHOZI_GIT_SHA --online; musí projít povinné příkazy.
-3. Proveď predani-priprav CISLO. Nástroj porovná dotčené SVN soubory se základem.
+2. Proveď git push origin main s místními hooky a počkej na úspěšné GitHub CI tohoto SHA.
+3. Proveď check --base VYCHOZI_GIT_SHA --online, pokud doklad z hooku používá jiný základ než celé SHA uloženého SVN základu. Potom proveď predani-priprav CISLO; porovná dotčené SVN soubory se základem.
 4. Prohlédni seznam změn v manifestu a připravený ZIP. Osobní dokumentace není v balíčku.
 5. Bezprostředně před předáním proveď predani-over CESTA_K_MANIFESTU.
 6. V řádné SVN pracovní kopii načti aktuální stav, aplikuj povolené změny a zkontroluj diff. Odstranění jsou výslovně v manifestu, nikoli v ZIPu.
@@ -32,6 +32,11 @@ nepřepisuje. Následující check musí používat právě toto celé Git SHA j
 
 Výsledný záznam propojí Git commit, GitHub issue, případné Mantis ID a SVN
 revizi. Dokud ověření revize neprojde, předání se nezapíše jako úspěšné.
+Příprava, kontrola i zápis předání pokaždé čtou GitHub. Vyžadují místní online
+doklad a poslední úspěšný běh kontroly.yml se souhrnem Povinne kontroly pro
+stejný aktuální main. Offline doklad, cizí SHA, čekající či neúspěšné CI a chyba
+API předání zastaví ještě před vytvořením balíčku nebo zápisem úspěchu.
+Přístup musí umožnit čtení Actions. Dokonči předání před dalším úkolem na main.
 
 ## Co kontrola nezaručí
 
@@ -40,6 +45,7 @@ není zámek serveru; konečnou ochranu poskytuje správná pracovní kopie a SV
 kontrola zastaralé revize při commitu. Nikdy nekopíruj starý celý strom přes
 novější kopii bez sloučení. Automatický obousměrný synchronizační nástroj se
 nepoužívá.
+Nástroj nedokáže zabránit ručnímu SVN commitu mimo tento postup.
 
 Současná verze porovnává obsah souborů. SVN vlastnosti, externals, symlinky a
 změny oprávnění nejsou podporovanou součástí automatického předání. Tyto

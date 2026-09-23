@@ -147,22 +147,37 @@ class FakeClient implements ApiClient
     public array $topics = ['php', 'tooling'];
     public string $sha = '';
     public string $conclusion = 'success';
+    public string $status = 'completed';
+    public array $runChanges = [];
+    public ?array $runs = null;
+    public ?array $jobs = null;
+    public array $branches = [['name' => 'main']];
     public function __construct() { $this->item = [...draft(), 'number' => 1, 'state' => 'open']; }
     public function request(string $method, string $suffix, ?array $data = null): mixed
     {
         $this->calls[] = [$method, $suffix, $data];
         if (!$this->available) { throw new Failure('Nedostupné API'); }
-        if ($this->handler !== null) { return ($this->handler)($method, $suffix, $data); }
+        if ($this->handler !== null) {
+            $value = ($this->handler)($method, $suffix, $data);
+            if ($value !== null) { return $value; }
+        }
         if ($suffix === '') { return ['private' => $this->private, 'full_name' => 'Terms4Ever/nastroje-prace']; }
         if ($suffix === '/topics') { return ['names' => $this->topics]; }
         if ($suffix === '/commits/main') { return ['sha' => $this->sha]; }
-        if (str_contains($suffix, '/check-runs?')) { return ['check_runs' => [['id' => 1, 'name' => 'Povinne kontroly', 'app' => ['slug' => 'github-actions'], 'conclusion' => $this->conclusion]]]; }
+        if (str_starts_with($suffix, '/actions/workflows/kontroly.yml/runs?')) {
+            return ['workflow_runs' => $this->runs ?? [[...['id' => 1, 'head_sha' => $this->sha, 'head_branch' => 'main',
+                'path' => '.github/workflows/kontroly.yml', 'event' => 'push', 'status' => $this->status, 'conclusion' => $this->conclusion], ...$this->runChanges]]];
+        }
+        if (str_starts_with($suffix, '/actions/runs/1/jobs?')) {
+            return ['jobs' => $this->jobs ?? [['name' => 'Povinne kontroly', 'head_sha' => $this->sha, 'status' => $this->status, 'conclusion' => $this->conclusion]]];
+        }
         return [...$this->item, ...($data ?? []), 'html_url' => 'https://example.invalid/issue'];
     }
     public function pages(string $suffix): array
     {
         $this->calls[] = ['PAGES', $suffix];
         if (!$this->available) { throw new Failure('Nedostupné API'); }
+        if ($suffix === '/branches') { return $this->branches; }
         return $this->rows;
     }
     public function issue(int $number): array

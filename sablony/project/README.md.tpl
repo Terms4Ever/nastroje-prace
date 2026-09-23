@@ -65,6 +65,9 @@ php prace.php check --base VYCHOZI_SHA --online. Pro první commit použij ROOT.
 ## 📦 Nasazení
 
 GitHub CI provádí ověření. Produkční nasazení ani předání do SVN z něj neběží.
+Pracuje vždy jeden agent pouze na main. Místní hooky ověřují přímý push před
+zápisem, GitHub CI po něm. Předání do SVN a dokončení issue vyžadují úspěšné
+místní online ověření i poslední CI stejného aktuálního main.
 Repozitář je připraven k práci až po dokončení místního i online project-check.
 Konkrétní předání aplikace musí mít vlastní doložený postup a výslednou revizi.
 

@@ -87,6 +87,7 @@ final class Cli
         } elseif ($command === 'state-update') {
             $result = ['output' => Upstream::check('stav-projektu.php', [$root, '--zapsat'])];
         } elseif ($command === 'commit-check') {
+            MainBranch::local($root);
             $result = ['issue' => Policy::commit(readFile($pos[0]))];
         } elseif ($command === 'readme-check') {
             Policy::readme($root);

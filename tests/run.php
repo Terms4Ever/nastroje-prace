@@ -14,6 +14,7 @@ exit(\NastrojePrace\entry(function (): void {
     require __DIR__ . '/gate.php';
     require __DIR__ . '/svn.php';
     require __DIR__ . '/project.php';
+    require __DIR__ . '/main.php';
     $failed = $passed = $skipped = 0;
     foreach ($GLOBALS['tests'] as [$name, $action, $svn]) {
         if ($svn && !hasSvn()) {

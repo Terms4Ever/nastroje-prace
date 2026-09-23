@@ -136,6 +136,7 @@ final class Project
 
     public static function check(string $root, ?ApiClient $client = null): array
     {
+        MainBranch::local($root);
         $lock = self::binding($root);
         ensure(realpath(git($root, 'rev-parse', '--show-toplevel')) === realpath($root), 'Projekt nemá vlastní Git kořen.');
         $repo = config($root)['repository'];
@@ -164,18 +165,14 @@ final class Project
         $labels = Policy::names($client->pages('/labels'));
         ensure(array_diff(['bug', 'enhancement', 'documentation', 'rozhrani', 'bez-rozhrani'], $labels) === [], 'Chybí povinné štítky issues.');
         $protection = $client->request('GET', '/branches/main/protection');
-        $status = $protection['required_status_checks'] ?? [];
-        $check = array_filter($status['checks'] ?? [], fn($c) => ($c['context'] ?? '') === 'Povinne kontroly' && ($c['app_id'] ?? null) === 15368);
-        ensure(($status['strict'] ?? false) && $check !== [] && ($protection['enforce_admins']['enabled'] ?? false)
+        ensure(($protection['required_status_checks'] ?? null) === null
+            && ($protection['required_pull_request_reviews'] ?? null) === null
+            && ($protection['lock_branch']['enabled'] ?? false) === false
+            && ($protection['enforce_admins']['enabled'] ?? false)
             && ($protection['required_linear_history']['enabled'] ?? false)
             && ($protection['allow_force_pushes']['enabled'] ?? true) === false
-            && ($protection['allow_deletions']['enabled'] ?? true) === false, 'Ochrana main nesplňuje požadované kontroly, správce nebo zákaz přepisování.');
-        $proof = Gate::receipt($root);
-        ensure(($proof['online'] ?? false) === true, 'Chybí místní online ověření přesného commitu.');
-        ensure(($client->request('GET', '/commits/main')['sha'] ?? '') === $proof['commit'], 'Ověřená verze není aktuální main.');
-        $checks = $client->request('GET', '/commits/' . $proof['commit'] . '/check-runs?per_page=100');
-        $matching = array_values(array_filter($checks['check_runs'] ?? [], fn($c) => ($c['name'] ?? '') === 'Povinne kontroly' && ($c['app']['slug'] ?? '') === 'github-actions'));
-        usort($matching, fn($a, $b) => ($b['id'] ?? 0) <=> ($a['id'] ?? 0));
-        ensure(($matching[0]['conclusion'] ?? '') === 'success', 'Chybí úspěšné GitHub CI ověřeného commitu.');
+            && ($protection['allow_deletions']['enabled'] ?? true) === false, 'Ochrana main musí umožnit přímý push a zakazovat přepsání i smazání také správci.');
+        ensure(array_column($client->pages('/branches'), 'name') === ['main'], 'Repozitář smí obsahovat pouze větev main.');
+        Gate::published($root, $client);
     }
 }

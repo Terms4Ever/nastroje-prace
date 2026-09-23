@@ -1,6 +1,6 @@
 # Stav projektu
 
-Verze 0.3 osobních kontrol je samostatná privátní PHP nadstavba. Zdrojové
+Verze 0.4 osobních kontrol je samostatná privátní PHP nadstavba. Zdrojové
 pracovní projekty se sem nekopírují a jejich nastavení se při instalaci nemění.
 
 <!-- generovano nastroji, needitovat -->
@@ -22,6 +22,11 @@ agenta. Project-check ověřuje napojení, s --online také ochranu main, metada
 a důkazy stejného commitu. Sada byla ověřena na dočasné aplikaci; skutečné
 pracovní aplikace se připojí samostatně podle vlastních zdrojů a testů.
 
+Jedinou větví je main a pracuje vždy jeden agent. Lokální hooky kontrolují
+commit a push před zápisem, GitHub CI po něm. Předání do SVN, dokončení issue
+a online připravenost vyžadují místní online doklad i úspěšné CI stejného SHA
+na aktuálním main. Ochrana main zakazuje přepsání a odstranění také správci.
+
 Sdílené PHP validátory jsou připnuté na commit v upstream.lock.json. Jejich
 známé mezery v chybějící dokumentaci a rozsahu změny kryje pracovní kontrola.
 Nepoužívá se upstream workflow na main ani jeho hromadná kontrola issues.
@@ -32,6 +37,7 @@ Nepoužívá se upstream workflow na main ani jeho hromadná kontrola issues.
 - Detekce citlivých souborů je omezená sada pravidel, nikoli úplný bezpečnostní audit.
 - GitHub kontrola issues běží po zápisu; před zápisem blokuje standardní příkaz issue-create/update.
 - Lokální potvrzení je doklad pracovního postupu, nikoli kryptografická ochrana proti vlastníkovi počítače.
+- Main může po pushi dočasně obsahovat chybu zjištěnou až v CI; předání zůstane blokované do opravy a úspěšného ověření.
 - Snímky mají povinné páry, existující obsah a neměnné odkazy. Neexistuje automatická výjimka pro chybějící snímek.
 - Předání do SVN je balíček a kontrola; automatický zápis do pracovní kopie ani SVN commit nejsou implementovány.
 - V tomto repozitáři je SVN vypnuto. Zapnutí patří do pozdějšího samostatného zavedení projektu.

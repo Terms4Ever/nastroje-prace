@@ -96,6 +96,7 @@ final class Svn
 
     public static function baseline(string $root, int $number): array
     {
+        MainBranch::local($root);
         $options = self::settings($root);
         Policy::taskRecord($root, $number);
         clean($root);
@@ -115,10 +116,10 @@ final class Svn
         return $value;
     }
 
-    public static function prepare(string $root, int $number): string
+    public static function prepare(string $root, int $number, ?ApiClient $client = null): string
     {
         $options = self::settings($root);
-        $proof = Gate::receipt($root);
+        $proof = Gate::published($root, $client);
         ensure(in_array($number, $proof['issues'], true), 'Ověření neobsahuje tento úkol.');
         $record = Policy::taskRecord($root, $number);
         ensure($record['delivery'] === 'svn', 'Úkol není určen k předání do SVN.');
@@ -189,9 +190,9 @@ final class Svn
         }
     }
 
-    public static function verifyPackage(string $root, string $manifestPath): array
+    public static function verifyPackage(string $root, string $manifestPath, ?ApiClient $client = null): array
     {
-        $proof = Gate::receipt($root);
+        $proof = Gate::published($root, $client);
         $options = self::settings($root);
         $manifest = readJson($manifestPath);
         ensure($manifest['commit'] === $proof['commit'] && $manifest['policy'] === $proof['policy'], 'Balíček patří jiné ověřené verzi.');
@@ -230,9 +231,9 @@ final class Svn
         return $manifest;
     }
 
-    public static function recordDelivery(string $root, string $manifestPath, int $revision): array
+    public static function recordDelivery(string $root, string $manifestPath, int $revision, ?ApiClient $client = null): array
     {
-        $proof = Gate::receipt($root);
+        $proof = Gate::published($root, $client);
         $manifest = readJson($manifestPath);
         ensure($proof['commit'] === $manifest['commit'] && $manifest['policy'] === $proof['policy'], 'Předání patří jinému commitu.');
         ensure($revision > $manifest['baseline_revision'], 'Neplatná výsledná revize.');

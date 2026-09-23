@@ -50,6 +50,10 @@ Nevizuální změna dokládá odpovídající test nebo kontrolní postup.
 
 ## Commit, testy a dokončení
 
+Jedinou větví je main. Pracuje vždy jeden agent a jeden úkol najednou, bez
+pracovních větví, pull requestů a paralelních worktree. Před úpravami na čistém
+main proveď fetch a případně pull --ff-only. Nepřepisuj publikovanou historii.
+
 Commit má konkrétní český nadpis zakončený (#ČÍSLO) a řádky Důvod: a Ověření:.
 Neuzavírej issue pomocí Closes/Fixes. Před pushem vyžaduj čistý strom a celý
 check --base VÝCHOZÍ_SHA --online. ROOT patří výhradně prvnímu commitu.
@@ -57,14 +61,13 @@ Testy jsou skutečné příkazy dané aplikace; pouhé echo nebo exit 0 není ov
 Nedostupný build, API nebo kontrola znamená překážku, nikoli úspěch.
 
 Hooky instaluj jen do tohoto projektu. Nepřepisuj jiné hooky, nepoužívej
-globální core.hooksPath ani --no-verify při běžném předání. Chráněný main
-vyžaduje stav Povinne kontroly pro přijímaný commit, i pro vlastníka.
+globální core.hooksPath ani --no-verify při běžném předání. Hooky blokují commit
+mimo main a push jiné větve, tagu či odstranění. Push míří přímo do main.
+GitHub CI běží až po pushi. Ochrana main nevyžaduje předchozí CI ani pull request;
+zakazuje force push a smazání, vyžaduje lineární historii a platí i pro správce.
+Při selhání CI oprav chybu novým commitem. Nezačínej další úkol před dokončením.
 Issue zavři přes issue-close po splnění checklistu a shodě místního ověření,
 úspěšného CI a aktuálního main. U SVN je nutné ověření výsledné revize.
+Příprava, kontrola i zápis předání také vyžadují místní online doklad a úspěšný
+poslední běh CI stejného aktuálního main. Neúspěch nebo chyba API zastaví předání.
 Neúplně připojený repozitář se nesmí označit jako připravený k práci.
-
-Trvalá větev je main. Pro rozpracovaný úkol používej ukol/CISLO-kratky-popis.
-Po přijetí ověřené změny na main odstraň vlastní dokončenou větev na GitHubu
-i místně a proveď fetch --prune. Ověř, že obsah převzalo main a větev nemá
-otevřený pull request. Nepřevzaté změny nemaž automaticky. Důkazy testů drž
-v protokolech a záznamech úkolů; nepotřebují trvale ponechanou testovací větev.

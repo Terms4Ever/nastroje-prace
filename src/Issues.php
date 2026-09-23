@@ -29,20 +29,13 @@ final class Issues
 
     public static function close(string $root, int $number, string $summary, ApiClient $client): array
     {
-        $proof = Gate::receipt($root);
+        $proof = Gate::published($root, $client);
         ensure($proof['online'] === true && in_array($number, $proof['issues'], true), 'Chybí online ověření příslušného úkolu.');
-        Policy::repositoryMetadata($root, $client);
         $record = Policy::taskRecord($root, $number);
         $item = $client->issue($number);
         ensure($item['state'] === 'open', 'Issue již není otevřené.');
         Policy::issue($root, $item, true);
         ensure(in_array('rozhrani', Policy::names($item['labels']), true) === $record['visual'], 'Nesouhlasí klasifikace změny rozhraní.');
-        $checks = $client->request('GET', '/commits/' . $proof['commit'] . '/check-runs?per_page=100');
-        $matching = array_values(array_filter($checks['check_runs'] ?? [], fn($check) => $check['name'] === 'Povinne kontroly' && ($check['app']['slug'] ?? '') === 'github-actions'));
-        usort($matching, fn($a, $b) => ($b['id'] ?? 0) <=> ($a['id'] ?? 0));
-        ensure($matching !== [] && ($matching[0]['conclusion'] ?? '') === 'success', 'Chybí úspěšné GitHub CI ověřeného commitu.');
-        $main = $client->request('GET', '/commits/main');
-        ensure($main['sha'] === $proof['commit'], 'Ověřená změna ještě není aktuálním main.');
         meaningful($summary, 'Výsledek úkolu');
         $lines = [$summary, 'Ověření: https://github.com/' . config($root)['repository'] . '/commit/' . $proof['commit']];
         if ($record['delivery'] === 'svn') {

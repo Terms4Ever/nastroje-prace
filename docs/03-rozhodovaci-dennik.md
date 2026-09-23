@@ -66,3 +66,16 @@ i hooky pro agenta, nejde o totožnou funkci. Globální Git se nemění.
 README drží rozcestník dokumentace, záznamy jednotlivých úkolů jsou ve složce
 docs/ukoly. Odznaky PHP a licence mají stejný vzhled jako nastroje; závislost
 na nastroje je uvedena pravdivě místo tvrzení o žádných závislostech.
+
+## P11 - Pouze main pro jednoho agenta
+
+Vlastník zvolil od verze 0.4 přímou práci na main. Nahrazuje tím předchozí
+postup s dočasnými větvemi a následným úklidem z úkolu 4. Jeden agent dokončí
+ověření a případné předání úkolu, teprve potom začne další. Hooky odmítají
+commit mimo main a push jiné reference. Testovací větve jsou pouze v izolovaných testech.
+
+GitHub CI se spouští až po pushi; jeho předchozí úspěch proto nemůže být
+podmínkou přijetí nového commitu. Zákaz přepsání, smazání a nelineární historie
+zůstává i pro správce. Místní online doklad a poslední úspěšné CI přesného
+aktuálního main vyžadují všechny tři kroky SVN předání, uzavření issue a
+dokončení zavedení. Starý úspěšný běh nenahrazuje nový čekající či neúspěšný běh.

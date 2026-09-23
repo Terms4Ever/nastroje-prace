@@ -30,9 +30,8 @@ Nevytvářej automatický README, licenci ani první commit. Aplikační repozit
 zůstává privátní i při případném budoucím zveřejnění obecných nástrojů.
 Nastav topics podle technologie a účelu; stejný seznam bude v .prace.json.
 Zajisti štítky bug, enhancement, documentation, rozhrani a bez-rozhrani.
-Zapni Automatically delete head branches; přes API jde o nastavení
-delete_branch_on_merge=true při aktualizaci repozitáře. Po dokončení se vlastní
-pracovní větev uklízí i místně a také při přímém přijetí změny na main.
+Jedinou větví bude main. Pracovní větve a pull requesty se nepoužívají;
+na projektu pracuje vždy jeden agent a jeden úkol najednou.
 
 Při použití REST API odpovídá vytvoření osobního repozitáře POST /user/repos
 s name, description, private=true, has_issues=true a auto_init=false.
@@ -112,12 +111,16 @@ První main se vytvoří jediným ověřeným pushem. Pro nový repozitář ješ
 prvním commitem nelze doložit CI pro toto SHA. Po úspěchu obou platforem a souhrnné
 kontroly ihned nastav main jako výchozí a chraň jej následujícím nastavením:
 
-- Povinný stav Povinne kontroly z aplikace GitHub Actions (app_id 15368), strict=true.
+- Bez povinného CI před pushem a bez povinného pull requestu: required_status_checks=null, required_pull_request_reviews=null.
 - Enforce admins a required linear history zapnuté.
 - Force push a odstranění větve zakázané.
 
-První založení není návod k dočasnému vypínání ochrany u další práce. U dalších
-změn nejprve ověř pracovní větev a teprve její úspěšné SHA přijmi na main.
+Toto nastavení platí i pro další přímé pushe na main. Místní hooky kontrolují
+změnu před pushem, GitHub CI po něm. Úspěšné CI přesného main se vyžaduje před
+předáním do SVN a dokončením issue. Žádnou další větev kvůli CI nezakládej.
+Při přechodu z verze 0.3 odstraň pouze požadavek předchozího CI, například
+DELETE /repos/OWNER/REPO/branches/main/protection/required_status_checks;
+celou ochranu nemaž. Přečti nastavení zpět a ověř ostatní uvedené ochrany.
 Pokud účet ochranu privátního repozitáře neumožňuje, zavedení není dokončené.
 
 ## 6. Důkaz dokončení a SVN
@@ -127,11 +130,13 @@ project-check a check --online se správným základem. Místní Git config ani
 runtime se klonováním nepřenášejí. Ověř také, že neplatný commit hook odmítne
 a že změna bez záznamu úkolu neprojde kontrolou; negativní pokusy nepatří na main.
 
-Project-check --online navíc čte GitHub metadata, štítky a ochranu větve,
+Project-check --online navíc čte GitHub metadata, štítky, ochranu a seznam větví,
 vyžaduje úspěšné místní online ověření, CI stejného SHA a shodu s aktuálním main.
+Odmítne další větev, předchozí režim povinného CI před pushem i povinné PR.
 Spouštěj jej místně s oprávněním číst nastavení repozitáře. Běžný CI token
 záměrně nedostává administrativní oprávnění; úplná kontrola připravenosti není CI krok.
 Vygenerovaný checklist v docs/05-napojeni-pravidel.md odškrtni jen podle důkazů.
+Pro čtení výsledku CI potřebuje místní přístup také Actions: read.
 Dokončení zaváděcího issue proveď přes issue-close po splnění všech kroků.
 
 SVN zapínej samostatně až po ověření zdrojové revize a výslovného allow seznamu.

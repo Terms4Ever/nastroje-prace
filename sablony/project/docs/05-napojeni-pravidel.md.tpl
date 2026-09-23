@@ -7,13 +7,13 @@ dokumentem docs/05-novy-pracovni-projekt.md v repozitáři nastroje-prace.
 
 - [ ] GitHub {{REPOSITORY}} je privátní, má popis, topics, zapnuté issues a hlavní větev main.
 - [ ] Jsou založené štítky bug, enhancement, documentation, rozhrani a bez-rozhrani.
-- [ ] Je zapnuté mazání větví po sloučení pull requestu; po dokončení se uklízí i místní pracovní větev.
+- [ ] Existuje pouze main; pracuje vždy jeden agent bez pracovních větví a pull requestů.
 - [ ] Původ zdrojů a případná SVN revize jsou zdokumentované; zdrojový strom neobsahuje cizí metadata ani provozní data.
 - [ ] První skutečné issue má odpovědného, metadata .tasks a textový záznam v docs/ukoly.
 - [ ] Příkazy v .prace.json ověřují aplikaci a odpovídající prostředí je dostupné v obou CI úlohách.
 - [ ] Bootstrap, místní hooky, README, dokumentace a project-check prošly v čisté nové kopii.
 - [ ] Lokální check --online a GitHub Povinne kontroly prošly pro stejné SHA.
-- [ ] Main vyžaduje Povinne kontroly i pro vlastníka; force push a odstranění jsou zakázané.
+- [ ] Main dovolí přímý push bez předchozího CI a PR; lineární historie, zákaz force pushe a smazání platí i pro správce.
 - [ ] Project-check --online prošel a zaváděcí issue má odkazy na důkazy.
 
 Doklady patří k zaváděcímu issue a jeho textovému záznamu. Neodškrtávej
@@ -32,4 +32,5 @@ php prace.php project-check --online
 
 Na Windows lze místo php prace.php použít .\prace.ps1.
 První commit používá ROOT; po něm použij skutečné výchozí SHA, pro SVN celé SHA základu.
+Po přímém pushi počkej na úspěšné CI stejného main před předáním a dokončením.
 Pravidla, spouštěče a workflow se posuzují při aktualizaci připnuté verze.

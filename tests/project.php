@@ -147,18 +147,16 @@ test('Dokončení zavedení vyžaduje štítky, ochranu main a CI přesného com
     quiet(fn() => Gate::verify($root, $base, true, new FakeClient()));
     $client = new FakeClient();
     $client->rows = ['bug', 'enhancement', 'documentation', 'rozhrani', 'bez-rozhrani'];
-    $protection = ['required_status_checks' => ['strict' => true, 'checks' => [['context' => 'Povinne kontroly', 'app_id' => 15368]]],
+    $protection = ['required_status_checks' => null, 'required_pull_request_reviews' => null,
         'enforce_admins' => ['enabled' => true], 'required_linear_history' => ['enabled' => true],
         'allow_force_pushes' => ['enabled' => false], 'allow_deletions' => ['enabled' => false]];
-    $conclusion = 'success'; $main = git($root, 'rev-parse', 'HEAD');
-    $client->handler = function ($method, $suffix) use (&$protection, &$conclusion, &$main): array {
+    $client->sha = git($root, 'rev-parse', 'HEAD');
+    $client->handler = function ($method, $suffix) use (&$protection): ?array {
         return match (true) {
             $suffix === '' => ['private' => true, 'full_name' => 'Terms4Ever/nastroje-prace', 'default_branch' => 'main', 'has_issues' => true, 'description' => 'Zkušební projekt.'],
             $suffix === '/topics' => ['names' => ['php', 'tooling']],
             $suffix === '/branches/main/protection' => $protection,
-            $suffix === '/commits/main' => ['sha' => $main],
-            str_contains($suffix, '/check-runs?') => ['check_runs' => [['id' => 1, 'name' => 'Povinne kontroly', 'app' => ['slug' => 'github-actions'], 'conclusion' => $conclusion]]],
-            default => throw new \RuntimeException('Neočekávané API v testu.'),
+            default => null,
         };
     };
     Project::remoteReadiness($root, $client);
@@ -166,7 +164,13 @@ test('Dokončení zavedení vyžaduje štítky, ochranu main a CI přesného com
     $client->rows = ['bug', 'enhancement', 'documentation', 'rozhrani', 'bez-rozhrani'];
     $protection['enforce_admins']['enabled'] = false; fails(fn() => Project::remoteReadiness($root, $client), 'Ochrana main');
     $protection['enforce_admins']['enabled'] = true;
-    $conclusion = 'failure'; fails(fn() => Project::remoteReadiness($root, $client), 'CI');
-    $conclusion = 'success'; $main = $base; fails(fn() => Project::remoteReadiness($root, $client), 'main');
+    foreach (['required_status_checks', 'required_pull_request_reviews'] as $key) {
+        $protection[$key] = ['enabled' => true]; fails(fn() => Project::remoteReadiness($root, $client), 'Ochrana main');
+        $protection[$key] = null;
+    }
+    $client->branches[] = ['name' => 'ukol/7']; fails(fn() => Project::remoteReadiness($root, $client), 'pouze větev main');
+    $client->branches = [['name' => 'main']];
+    $client->conclusion = 'failure'; fails(fn() => Project::remoteReadiness($root, $client), 'CI');
+    $client->conclusion = 'success'; $client->sha = $base; fails(fn() => Project::remoteReadiness($root, $client), 'main');
     expect($client->writes() === []);
 }));

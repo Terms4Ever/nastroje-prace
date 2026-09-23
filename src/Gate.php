@@ -9,6 +9,7 @@ final class Gate
 
     public static function receipt(string $root): array
     {
+        MainBranch::local($root);
         Project::verifyIfBound($root);
         clean($root);
         $sha = resolveCommit($root, 'HEAD');
@@ -20,8 +21,44 @@ final class Gate
         return $value;
     }
 
-    public static function verify(string $root, string $base, bool $online = false, ?ApiClient $client = null): array
+    /** Společná podmínka předání, uzavření issue a dokončení zavedení projektu. */
+    public static function published(string $root, ?ApiClient $client = null): array
     {
+        $proof = self::receipt($root);
+        ensure(($proof['online'] ?? false) === true, 'Chybí místní online ověření přesného commitu.');
+        $client ??= new GitHub(config($root)['repository']);
+        Policy::repositoryMetadata($root, $client);
+        $sha = $proof['commit'];
+        ensure(($client->request('GET', '/commits/main')['sha'] ?? '') === $sha, 'Ověřená změna ještě není aktuálním main.');
+        // Nefiltrujeme úspěchy: nový čekající nebo neúspěšný běh nesmí zakrýt starý úspěch.
+        $runs = $client->request('GET', '/actions/workflows/kontroly.yml/runs?branch=main&head_sha=' . $sha . '&per_page=1');
+        $run = $runs['workflow_runs'][0] ?? [];
+        ensure(($run['head_sha'] ?? '') === $sha && ($run['head_branch'] ?? '') === 'main'
+            && ($run['path'] ?? '') === '.github/workflows/kontroly.yml'
+            && in_array($run['event'] ?? '', ['push', 'workflow_dispatch'], true)
+            && ($run['status'] ?? '') === 'completed' && ($run['conclusion'] ?? '') === 'success'
+            && is_int($run['id'] ?? null) && $run['id'] > 0, 'Chybí úspěšné GitHub CI ověřeného commitu na main.');
+        $jobs = [];
+        for ($page = 1; $page <= 100; $page++) {
+            $batch = $client->request('GET', '/actions/runs/' . $run['id'] . '/jobs?filter=latest&per_page=100&page=' . $page);
+            ensure(is_array($batch['jobs'] ?? null) && array_is_list($batch['jobs']), 'GitHub nevrátil seznam CI úloh.');
+            array_push($jobs, ...$batch['jobs']);
+            if (count($batch['jobs']) < 100) { break; }
+            ensure($page < 100, 'Překročen limit stránek CI úloh.');
+        }
+        $matching = array_values(array_filter($jobs, fn($job) => ($job['name'] ?? '') === 'Povinne kontroly'));
+        ensure(count($matching) === 1 && ($matching[0]['head_sha'] ?? '') === $sha
+            && ($matching[0]['status'] ?? '') === 'completed' && ($matching[0]['conclusion'] ?? '') === 'success',
+            'Chybí úspěšná souhrnná úloha Povinne kontroly posledního CI běhu.');
+        // Čtení API není zámek, ale změnu main během kontroly nesmíme přehlédnout.
+        ensure(($client->request('GET', '/commits/main')['sha'] ?? '') === $sha, 'Main se během ověření změnil.');
+        self::receipt($root);
+        return $proof;
+    }
+
+    public static function verify(string $root, string $base, bool $online = false, ?ApiClient $client = null, bool $ci = false): array
+    {
+        if (!$ci) { MainBranch::local($root); }
         $settings = config($root);
         clean($root);
         $sha = resolveCommit($root, 'HEAD');

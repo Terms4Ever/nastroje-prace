@@ -1,8 +1,13 @@
 name: Kontroly
 on:
   push:
-  pull_request:
+    branches: [main]
   workflow_dispatch:
+    inputs:
+      base:
+        description: 'Vychozi commit rozsahu, ROOT pouze pro prvni commit'
+        required: true
+        type: string
 permissions:
   contents: read
   issues: read
@@ -17,7 +22,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ github.sha }}
           persist-credentials: false
       - name: Prostredi kontrol
         run: |
@@ -40,7 +45,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ github.sha }}
           persist-credentials: false
       - name: Prostredi kontrol
         run: |

@@ -1,0 +1,7 @@
+{
+  "issue": 5,
+  "mantis": null,
+  "technical_reason": "Přechod na jedinou větev main pro jednoho agenta na žádost vlastníka.",
+  "visual": false,
+  "delivery": "git"
+}

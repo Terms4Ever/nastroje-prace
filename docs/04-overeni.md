@@ -14,6 +14,11 @@ kódu bez textové dokumentace, nesouvisejícího obrázku, neúspěšného př�
 špinavého stromu, změny commitu a lokálně upravených společných nástrojů.
 Neúspěšné opakované ověření smaže dřívější lokální potvrzení úspěchu.
 
+Main-only scénáře ověřují první i další push, skutečný commit hook mimo main,
+zamítnutí další větve, tagu, odstranění a více referencí před API. CI přijme
+odpojený HEAD přesného main SHA, odmítne jinou větev, událost nebo chybějící základ.
+Ruční CI vyžaduje explicitní rozsah. Tyto záporné případy žijí jen v dočasných kopiích.
+
 Snímky mají pozitivní dvojici a negativní případy chybějícího protějšku,
 jiného čísla issue, pouhého textového odkazu a změněného souboru. Syntetické
 testovací soubory nejsou důkazy změny aplikace.
@@ -22,6 +27,9 @@ README se ověřuje samostatným příkazem i uvnitř úplné kontroly. Regrese 
 Dokumentaci za Nasazení: původní upstream tuto chybu přijme, pracovní kontrola
 ji odmítne. Další testy hlídají tabulku dokumentace, duplicitní sekci, topics
 a privátní viditelnost. Dokončení issue má pozitivní i negativní scénáře CI a main.
+Společná podmínka předání odmítne offline doklad, neexistující, čekající,
+zrušený, přeskočený či neúspěšný poslední běh a běh jiné větve nebo workflow.
+Testuje souhrnnou úlohu včetně další stránky API, chybu API a posun main během čtení.
 
 Procesní testy ověřují Unicode, zvláštní znaky v argumentech bez shellu,
 nenulový návratový kód a velký výstup, který nesmí zablokovat Windows.
@@ -41,6 +49,9 @@ připraví balíček, ověří jeho obsah a skutečnou výslednou revizi. Dalš�
 provádějí změnu kolegy před přípravou i po ní, poškození ZIPu a pokus o zápis
 neplatné výsledné revize. Nedotýkají se žádného firemního SVN.
 Součástí jsou také přidání souboru a odstranění posledního souboru s prázdným ZIPem.
+Nové selhání CI po přípravě skutečného balíčku blokuje kontrolu i zápis předání.
+Také bez SVN CLI se testuje, že všechny tři vstupy předání odmítnou neplatný
+důkaz ještě před přístupem k SVN, vytvořením balíčku nebo zápisem výsledku.
 
 Na počítači bez SVN CLI se tyto testy hlásí jako přeskočené. Proměnná
 NASTROJE_REQUIRE_SVN=1 způsobí v takovém prostředí neúspěch sady; Linux CI
@@ -55,7 +66,8 @@ test proti firemním systémům. Bezpečnostní pravidla nejsou úplný secret s
 
 Oficiální podklady pro nastavení:
 
-- [Ochrana větví](https://docs.github.com/en/rest/branches/branch-protection) - povinné výsledky kontrol.
+- [Ochrana větví](https://docs.github.com/en/rest/branches/branch-protection) - zákaz přepsání a odstranění main.
+- [Běhy workflow](https://docs.github.com/en/rest/actions/workflow-runs) - výsledek posledního běhu přesného SHA.
 - [Bezpečné Actions](https://docs.github.com/en/actions/reference/security/secure-use) - připnutí akcí a oprávnění.
 - [Vstupy v Actions](https://docs.github.com/en/actions/concepts/security/script-injections) - obsah issues se nevkládá do shellu.
 - [Stav PHP procesu](https://www.php.net/manual/en/function.proc-get-status.php) - návratové kódy na PHP 8.3 a novějším.

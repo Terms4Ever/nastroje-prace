@@ -22,6 +22,7 @@ kolegům jejich stávající postup.
 - Příprava balíčku vybraných souborů a detekce souběžných změn v SVN.
 - Evidence propojení issue, Mantis, Git commitu a ověřené SVN revize.
 - Lokální hooky, GitHub kontroly na Windows i Linuxu a samostatná kontrola issues.
+- Práce jednoho agenta pouze na main; úspěšné CI před předáním a dokončením úkolu.
 - Ověření privátního repozitáře, GitHub topics a jednotného pořadí README.
 - Založení kostry pracovního projektu s připnutou kopií pravidel a kontrolou napojení.
 
@@ -111,8 +112,13 @@ Manager nebo proměnná GH_TOKEN/GITHUB_TOKEN; hodnoty se neukládají do projek
 
 ## 📦 Nasazení
 
-Tento repozitář nemá produkční deploy. Nová verze prochází Windows a Linux CI;
-souhrnná kontrola Povinne kontroly slouží jako podmínka přijetí na main.
+Tento repozitář nemá produkční deploy. Od verze 0.4 se pracuje pouze na main,
+bez pracovních větví a pull requestů. Místní hook ověřuje změnu před přímým
+pushem; Windows a Linux CI ji ověří po pushi. Úspěšný poslední běh a jeho
+souhrnná úloha Povinne kontroly podmiňují předání do SVN a dokončení issue.
+Main chrání zákaz force pushe a smazání i pro správce, s lineární historií.
+Při aktualizaci z verze 0.3 uprav ochranu podle postupu zavedení projektu:
+povinné CI před pushem se vypíná, ostatní uvedené ochrany zůstávají zapnuté.
 Issues a metadata repozitáře se ověřují po změnách issues i denně. Automatika
 issues neopravuje ani neuzavírá. Povinné topics určuje .prace.json; metadata-check
 ověří jejich přítomnost a privátní viditelnost bez změn nastavení GitHubu.

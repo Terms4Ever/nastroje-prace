@@ -5,6 +5,9 @@
 Zkontroluj doctor a vyhledej odpovídající issue. Úkoly aplikace patří k aplikaci,
 úkoly těchto nástrojů do tohoto repozitáře. Mantis zůstává původním zdrojem
 zadání; issue sleduje osobní zpracování a odkazuje na Mantis, pokud existuje.
+Pracuje vždy jeden agent a jeden úkol najednou, pouze na main. Před úpravami
+na čistém stromu proveď git fetch origin a git pull --ff-only origin main.
+Při rozcházející se historii nejprve vyřeš stav; force push nepoužívej.
 
 Agent připraví JSON mimo verzované soubory, například v .local/issue.json:
 
@@ -63,35 +66,34 @@ Ověření: Integrační test zachytil souběžnou změnu v dočasném SVN.
 
 Commit uvádí skutečně provedené ověření. Nepoužívej automatické uzavírání
 pomocí Closes/Fixes: dokončení ověřuje samostatný příkaz. Lokální install-hooks
-zavede kontrolu zprávy a před pushem celý check --online. Základ při novém
-pracovním branchi je společný předek s origin/main, při prvním commitu ROOT.
-Před novou prací aktualizuj vzdálené reference.
+zavede kontrolu zprávy a před pushem celý check --online. Commit mimo main
+je odmítnut. Push může obsahovat pouze místní HEAD z main do vzdáleného main;
+další větev, tag nebo odstranění jsou odmítnuté před API a testy.
+Základem kontroly je skutečné předchozí SHA vzdáleného main, při jediném prvním
+commitu ROOT. Pracovní větve, pull requesty ani paralelní worktree nezakládej.
 
-Trvalá větev je main. Pracovní větev pojmenuj ukol/CISLO-kratky-popis podle
-skutečného issue a ponech ji jen po dobu rozpracované práce.
-
-GitHub CI spouští stejné jádro na Windows a Linuxu. Ochrana main vyžaduje
-souhrnný stav Povinne kontroly. Běžný postup je push pracovní větve, zelené CI
-a následné přijetí ověřeného commitu do main. Ruční schválení jiné osoby se
-nevyžaduje. Případné změny kódu či pravidel zneplatní starý místní doklad.
+Po git push origin main spustí GitHub stejné jádro na Windows a Linuxu.
+CI ještě nemůže blokovat přijetí nového SHA, proto ochrana main nevyžaduje
+předchozí výsledek CI ani pull request. Zůstává zákaz force pushe, smazání
+a nelineární historie i pro správce. Chybu v CI oprav novým commitem na main.
+Dokud není CI zelené, nepředávej změnu a nezačínej další úkol.
+Ruční spuštění workflow vyžaduje explicitní base; zadej celý původní rozsah,
+ne jen poslední opravný commit. Opakování původního běhu zachovává jeho rozsah.
+Případné změny kódu či pravidel zneplatní starý místní doklad.
 
 ## Dokončení
 
-Po splnění aktualizuj checklist přes issue-update a opakuj online check.
+Po splnění aktualizuj checklist přes issue-update. Platný online doklad stejného
+čistého commitu lze použít z pre-push kontroly; při změně obsahu nebo pravidel
+opakuj check. Samotná aktualizace checklistu nevyžaduje opakovat nezměněné testy.
 Issue-close kontroluje místní doklad, živé issue, snímky, úspěšné CI stejného
 commitu a shodu s main. U SVN také ověřený záznam předání. Doplní krátký
 komentář a issue uzavře. Nedokončený úkol zůstává otevřený.
 
-Součástí dokončení je úklid větve. Po přijetí ověřeného commitu na main přepni
-na main, ověř převzetí obsahu a nepřítomnost otevřených pull requestů. Odstraň
-vlastní dokončenou vzdálenou i místní větev a proveď git fetch --prune.
-Při zjištění dalšího nepřevzatého commitu nemaž větev automaticky. Výslovně
-prověřený jednorázový negativní test můžeš před odstraněním zálohovat místně;
-odkaz na CI a SHA zůstane v záznamu úkolu. Testovací větev není trvalý archiv.
-
-Na GitHubu zapni Automatically delete head branches. Toto nastavení odstraňuje
-větev po sloučení pull requestu. Při přímém přijetí commitu na main musí úklid
-provést agent. [Pravidla GitHubu](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-the-automatic-deletion-of-branches).
+Kontrola vyžaduje poslední běh workflow kontroly.yml pro stejné SHA na main,
+jeho dokončení s úspěchem a úspěšnou souhrnnou úlohu Povinne kontroly.
+Čekající běh, opakování s chybou, chybějící souhrn nebo nedostupné API zastaví
+dokončení. Starší úspěšný běh tento stav nenahradí. Úklid větví není potřeba.
 
 ```text
 php prace.php issue-close 1 --summary "Kontrola prokazatelně zachytí neověřené předání."
@@ -100,3 +102,5 @@ php prace.php issue-close 1 --summary "Kontrola prokazatelně zachytí neověře
 Přímý zápis přes jiného API klienta může obejít místní kontrolu. GitHub workflow
 ho následně zkontroluje, nedokáže jej předem zablokovat. Standardní cesta agenta
 je proto příkaz této sady, nezávislý na konkrétním asistentovi.
+Vlastník může také obejít lokální Git hooky. Main-only pravidla a hooky řídí
+standardní postup; nejde o zákaz vytváření větví přes jiné API klienty.
