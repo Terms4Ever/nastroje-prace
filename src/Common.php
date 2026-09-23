@@ -118,7 +118,11 @@ function safePath(string $root, string $relative): string
 
 function config(string $root): array
 {
-    $data = readJson($root . '/.prace.json');
+    return validateConfig(readJson($root . '/.prace.json'));
+}
+
+function validateConfig(array $data): array
+{
     ensure(($data['version'] ?? null) === 1, 'Neznámá verze .prace.json.');
     ensure(is_string($data['repository'] ?? null) && (bool) preg_match('~^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$~D', $data['repository']), 'Neplatný repozitář.');
     $commands = $data['tests'] ?? null;
@@ -184,7 +188,10 @@ function meaningful(mixed $text, string $description, int $minimum = 12): void
 function policyHash(string $root): string
 {
     $files = [TOOL_ROOT . '/upstream.lock.json', $root . '/.prace.json', TOOL_ROOT . '/prace.php', TOOL_ROOT . '/prace.ps1'];
-    foreach (['src/*.php', 'scripts/*.php', 'scripts/*.ps1', '.githooks/*'] as $pattern) {
+    if (is_file($root . '/nastroje-prace.lock.json')) {
+        $files[] = $root . '/nastroje-prace.lock.json';
+    }
+    foreach (['src/*.php', 'scripts/*.php', 'scripts/*.ps1', 'hooky/*', 'pravidla/*.md'] as $pattern) {
         $matches = glob(TOOL_ROOT . '/' . $pattern);
         sort($matches);
         array_push($files, ...$matches);

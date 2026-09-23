@@ -9,8 +9,8 @@ První instalace tohoto repozitáře proto nemění W4SN ani DOMIQ.
 ## Nastavení projektu
 
 Projekt potřebuje vlastní .prace.json, metadata úkolu, dokumentaci a testovací
-příkazy. Parametr --root musí být před názvem příkazu. Nástroj spouštěj ze svého
-kořene, cíl určuj absolutní cestou. Pro SVN doplň enabled=true, URL bez hesel a
+příkazy. Založení a připnutí kontrol popisuje docs/05-novy-pracovni-projekt.md.
+Používej prace.php nebo prace.ps1 přímo z kořene připojené aplikace. Pro SVN doplň enabled=true, URL bez hesel a
 explicitní allow seznam, například src/**. Osobní metadata, docs, hooky a skryté
 cesty se nepředávají ani při příliš širokém allow. V repozitáři nástrojů je SVN vypnuté.
 

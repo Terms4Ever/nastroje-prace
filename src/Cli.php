@@ -21,6 +21,7 @@ final class Cli
             'check' => [0, ['base' => true, 'online' => false]], 'commit-check' => [1, []], 'readme-check' => [0, []],
             'metadata-check' => [0, []], 'issue-check' => [1, []], 'issue-create' => [1, []], 'issue-update' => [2, []],
             'issue-close' => [1, ['summary' => true]], 'issues-check' => [0, ['number' => true]],
+            'project-init' => [1, ['dest' => true]], 'project-check' => [0, ['online' => false]], 'state-update' => [0, []],
             'svn-zaklad' => [1, []], 'predani-priprav' => [1, []], 'predani-over' => [1, []], 'predani-zapis' => [1, ['revision' => true]],
         ];
         ensure(isset($specs[$command]), 'Neznámý příkaz. Použij php prace.php help.');
@@ -42,7 +43,7 @@ final class Cli
             }
         }
         ensure(count($positional) === $count, 'Nesprávný počet argumentů příkazu ' . $command . '.');
-        foreach (['check' => 'base', 'issue-close' => 'summary', 'predani-zapis' => 'revision'] as $name => $required) {
+        foreach (['check' => 'base', 'issue-close' => 'summary', 'predani-zapis' => 'revision', 'project-init' => 'dest'] as $name => $required) {
             ensure($command !== $name || isset($options[$required]), 'Chybí povinný parametr --' . $required . '.');
         }
         return [$root, $command, $positional, $options];
@@ -61,6 +62,7 @@ final class Cli
             echo "Použití: php prace.php [--root CESTA] PŘÍKAZ\n\n";
             echo "bootstrap | doctor | install-hooks | readme-check | metadata-check\n";
             echo "check --base COMMIT [--online]\n";
+            echo "project-init JSON --dest PRAZDNA_SLOZKA | project-check [--online] | state-update\n";
             echo "commit-check SOUBOR | issue-check JSON | issue-create JSON\n";
             echo "issue-update ČÍSLO JSON | issue-close ČÍSLO --summary TEXT\n";
             echo "issues-check [--number ČÍSLO]\n";
@@ -69,6 +71,7 @@ final class Cli
             return;
         }
         Upstream::runtime();
+        Project::verifyIfBound($root);
         if ($command === 'bootstrap') {
             $result = ['upstream' => Upstream::bootstrap()];
         } elseif ($command === 'doctor') {
@@ -76,13 +79,13 @@ final class Cli
             $result = ['version' => VERSION, 'php' => PHP_VERSION, 'git' => git($root, '--version'), 'upstream' => Upstream::verify(),
                 'repository' => config($root)['repository'], 'hooks' => trim($hook['stdout']) ?: 'nenainstalované'];
         } elseif ($command === 'install-hooks') {
-            ensure(realpath($root) === realpath(TOOL_ROOT) && realpath(git($root, 'rev-parse', '--show-toplevel')) === realpath(TOOL_ROOT), 'V této verzi se hooky instalují pouze do repozitáře nastroje-prace.');
-            $current = trim(run(['git', '-C', $root, 'config', '--local', '--get', 'core.hooksPath'], check: false)['stdout']);
-            ensure($current === '' || $current === '.githooks', 'Projekt již má jiné hooky; nebudou přepsány.');
-            git($root, 'config', '--local', 'core.hooksPath', '.githooks');
-            git($root, 'config', '--local', 'nastrojePrace.php', PHP_BINARY);
-            run(['git', '-C', $root, 'config', '--local', '--unset-all', 'nastrojePrace.python'], check: false);
-            $result = ['hooks' => '.githooks', 'scope' => 'local', 'php' => PHP_BINARY];
+            $result = Project::installHooks($root);
+        } elseif ($command === 'project-init') {
+            $result = Project::initialize(readJson($pos[0]), $options['dest']);
+        } elseif ($command === 'project-check') {
+            $result = Project::check($root, isset($options['online']) ? new GitHub(config($root)['repository']) : null);
+        } elseif ($command === 'state-update') {
+            $result = ['output' => Upstream::check('stav-projektu.php', [$root, '--zapsat'])];
         } elseif ($command === 'commit-check') {
             $result = ['issue' => Policy::commit(readFile($pos[0]))];
         } elseif ($command === 'readme-check') {

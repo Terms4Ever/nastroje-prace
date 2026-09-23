@@ -6,9 +6,10 @@ Privátní pracovní nadstavba společných nástrojů. Ověřuje konkrétní zm
 její záznam a důkazy. Připravuje kontrolované předání do SVN a ponechává
 kolegům jejich stávající postup.
 
-![PHP](https://img.shields.io/badge/PHP-8.3+-777BB4)
+![PHP](https://img.shields.io/badge/PHP-8.3+-777BB4?logo=php&logoColor=white)
+![Závislosti](https://img.shields.io/badge/z%C3%A1vislosti-nastroje-blue)
+![License](https://img.shields.io/badge/license-proprietary-red)
 ![Kontroly](https://github.com/Terms4Ever/nastroje-prace/actions/workflows/kontroly.yml/badge.svg)
-![Licence](https://img.shields.io/badge/licence-proprietarni-red)
 
 ---
 
@@ -22,6 +23,7 @@ kolegům jejich stávající postup.
 - Evidence propojení issue, Mantis, Git commitu a ověřené SVN revize.
 - Lokální hooky, GitHub kontroly na Windows i Linuxu a samostatná kontrola issues.
 - Ověření privátního repozitáře, GitHub topics a jednotného pořadí README.
+- Založení kostry pracovního projektu s připnutou kopií pravidel a kontrolou napojení.
 
 ---
 
@@ -45,7 +47,9 @@ prace.ps1         # spouštěč pro Windows
 src/              # kontrolní příkazy a adaptéry v PHP
 tests/            # pozitivní a negativní scénáře
 scripts/          # hook a CI vstupní body
-.githooks/        # lokální kontrola commitu a pushe
+hooky/            # lokální kontrola commitu a pushe
+pravidla/         # společná pravidla pro připojené aplikace
+sablony/          # kostra nového projektu a vzor nastavení
 .github/          # workflow a šablona issue
 .tasks/           # metadata jednotlivých úkolů
 docs/             # stav, pravidla, postupy a záznamy
@@ -62,8 +66,8 @@ docs/             # stav, pravidla, postupy a záznamy
 | `docs/02-predani-svn.md` | Výchozí stav, balíček a revize. |
 | `docs/03-rozhodovaci-dennik.md` | Důvody hlavních pravidel. |
 | `docs/04-overeni.md` | Co testy dokazují a co nedokazují. |
-| `docs/ukoly/1.md` | Zavedení první verze. |
-| `docs/ukoly/2.md` | Sjednocení PHP, README a GitHub topics. |
+| `docs/05-novy-pracovni-projekt.md` | Založení privátního projektu a napojení pravidel. |
+| `docs/ukoly/` | Záznamy jednotlivých úkolů podle čísla issue. |
 
 ---
 
@@ -82,6 +86,8 @@ runtime v .cache/php, potom místní nastavení hooku a PHP dostupné v PATH.
 Stažené PHP se kontroluje SHA-256 a instaluje pouze do tohoto repozitáře.
 Při přechodu z verze 0.1 zopakuj bootstrap a install-hooks; odstraní se
 původní místní nastavení Pythonu. Staré doklady ověření je nutné vytvořit znovu.
+Od verze 0.3 používají místní Git hooky složku hooky místo .githooks; spusť
+install-hooks také při této aktualizaci. Nastavení platí pouze pro tento projekt.
 
 Na Linuxu s Gitem a PHP s uvedenými rozšířeními:
 
@@ -114,6 +120,10 @@ ověří jejich přítomnost a privátní viditelnost bez změn nastavení GitHu
 Připnuté nástroje se stahují do soukromé pracovní cache. Existující nastroje
 ani jiné repozitáře se neaktualizují. Pracovní projekty nejsou touto instalací
 připojeny automaticky. Přenosový balíček sám nic do SVN nezapisuje.
+
+Pro nový projekt použij project-init a úplný postup v dokumentaci. Výsledkem
+je připnutá kopie kontrol s otisky a místní checklist zavedení. Project-check
+ověří napojení; varianta --online navíc kontroluje GitHub a úspěšné CI na main.
 
 ---
 

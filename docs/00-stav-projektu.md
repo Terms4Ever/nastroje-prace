@@ -1,6 +1,6 @@
 # Stav projektu
 
-Verze 0.2 osobních kontrol je samostatná privátní PHP nadstavba. Zdrojové
+Verze 0.3 osobních kontrol je samostatná privátní PHP nadstavba. Zdrojové
 pracovní projekty se sem nekopírují a jejich nastavení se při instalaci nemění.
 
 <!-- generovano nastroji, needitovat -->
@@ -17,6 +17,10 @@ kontrola snímků při dokončení; čtení SVN a balíček výslovně povolený
 Celý běh i testy používají PHP. PowerShell je místní spouštěč a instalátor PHP.
 Kontrola README doplňuje pořadí sekce Dokumentace před Instalací. Online check
 ověřuje také privátní viditelnost a požadované GitHub topics.
+Project-init vytváří kostru projektu s přesnou kopií kontrol a pravidel pro
+agenta. Project-check ověřuje napojení, s --online také ochranu main, metadata
+a důkazy stejného commitu. Sada byla ověřena na dočasné aplikaci; skutečné
+pracovní aplikace se připojí samostatně podle vlastních zdrojů a testů.
 
 Sdílené PHP validátory jsou připnuté na commit v upstream.lock.json. Jejich
 známé mezery v chybějící dokumentaci a rozsahu změny kryje pracovní kontrola.

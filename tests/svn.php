@@ -64,7 +64,8 @@ test('Linux CI skutečně vyžaduje SVN', function (): void {
 });
 test('SVN adaptér odmítá zapisující příkazy', fn() => fails(fn() => Svn::command('commit'), 'pouze čtení'));
 test('Osobní soubory se nepředají ani při širokém allow', function (): void {
-    foreach (['.git/config', '.github/workflows/test.yml', '.tasks/1.json', 'docs/ukoly/1.md', 'AGENTS.md', 'src/CLAUDE.md'] as $path) {
+    foreach (['.git/config', '.github/workflows/test.yml', '.tasks/1.json', 'docs/ukoly/1.md', 'AGENTS.md', 'src/CLAUDE.md',
+        'hooky/pre-push', 'hooky/commit-msg', '.nastroje-prace/src/load.php', 'prace.php', 'prace.ps1', 'nastroje-prace.lock.json', 'README.md'] as $path) {
         expect(!Svn::allowed($path, ['allow' => ['*']]));
     }
     expect(Svn::allowed('src/main.txt', ['allow' => ['src/**']]));

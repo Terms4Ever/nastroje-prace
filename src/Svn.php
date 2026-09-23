@@ -5,7 +5,8 @@ namespace NastrojePrace;
 
 final class Svn
 {
-    private const DENY = ['.git', '.svn', '.github', '.tasks', '.cache', '.local', 'docs', 'tests/fixtures'];
+    private const DENY = ['.git', '.svn', '.github', '.tasks', '.cache', '.local', 'docs', 'tests/fixtures',
+        'hooky', 'prace.php', 'prace.ps1', 'nastroje-prace.lock.json', 'README.md'];
 
     public static function settings(string $root): array
     {

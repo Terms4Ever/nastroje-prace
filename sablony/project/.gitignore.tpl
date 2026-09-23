@@ -1,0 +1,14 @@
+.cache/
+.local/
+.svn/
+.env
+.env.*
+!.env.example
+*.local.json
+node_modules/
+.next/
+target/
+dist/
+.idea/
+.vs/
+*.log

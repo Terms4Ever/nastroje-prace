@@ -9,6 +9,7 @@ final class Gate
 
     public static function receipt(string $root): array
     {
+        Project::verifyIfBound($root);
         clean($root);
         $sha = resolveCommit($root, 'HEAD');
         $value = readJson(self::receiptPath($root, $sha));
@@ -28,6 +29,7 @@ final class Gate
         if (file_exists($destination)) {
             ensure(unlink($destination), 'Nelze zneplatnit předchozí ověření.');
         }
+        Project::verifyIfBound($root);
         $policy = policyHash($root);
         Upstream::verify();
         Policy::repositoryContent($root);

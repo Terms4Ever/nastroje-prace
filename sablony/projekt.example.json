@@ -1,0 +1,8 @@
+{
+  "repository": "Terms4Ever/pracovni-projekt",
+  "name": "Pracovní projekt",
+  "description": "Osobní kopie aplikace s dokumentací a ověřeným předáním.",
+  "stack": "Skutečné technologie, verze a závislosti konkrétní aplikace.",
+  "topics": ["documentation", "svn"],
+  "tests": [["{php}", "tests/aplikace.php"]]
+}

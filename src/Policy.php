@@ -151,6 +151,8 @@ final class Policy
             }
         }
         ensure($headings === self::README_HEADINGS, 'README musí mít jednotné pořadí: Hlavní funkce, Tech Stack, Struktura projektu, Dokumentace, Instalace, Nasazení, Licence.');
+        $documentation = self::sections(readFile($root . '/README.md'))['📚 Dokumentace'] ?? '';
+        ensure(!preg_match('~docs/ukoly/[0-9]+\.md~u', $documentation), 'README odkazuje na složku docs/ukoly/, nikoli na každý jednotlivý úkol.');
     }
 
     public static function repositoryMetadata(string $root, ApiClient $client): void

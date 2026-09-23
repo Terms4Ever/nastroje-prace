@@ -49,3 +49,20 @@ společných nastroje. Původní validátor tuto pozici nehlídal; doplňuje ji 
 kontrola a regrese s nesprávně přesunutou sekcí. Sdílený repozitář se nemění.
 Topics určuje .prace.json a online kontroly ověřují jejich přítomnost i privátní
 viditelnost. Nastavení není doloženo pouze textovým tvrzením v README.
+
+## P9 - Připnutá kopie uvnitř aplikace
+
+Vlastník vybral kopii kontrol v projektu bez dalšího tokenu pro privátní
+repozitář nástrojů. Export zaznamená zdrojový commit a otisky, připravenost
+odděluje od vygenerování souborů. Aktualizace jsou vědomé a testované.
+Budoucí veřejná centrální sada by umožnila i přímé stahování; soukromé
+aplikační repozitáře ani požadavek na přesnou verzi by to neměnilo.
+
+## P10 - Názvosloví a velikost README
+
+Složky hooky a sablony odpovídají českému názvosloví původních nástrojů.
+Zde hooky obsahují lokální Git commit-msg a pre-push; původní hooky obsahují
+i hooky pro agenta, nejde o totožnou funkci. Globální Git se nemění.
+README drží rozcestník dokumentace, záznamy jednotlivých úkolů jsou ve složce
+docs/ukoly. Odznaky PHP a licence mají stejný vzhled jako nastroje; závislost
+na nastroje je uvedena pravdivě místo tvrzení o žádných závislostech.

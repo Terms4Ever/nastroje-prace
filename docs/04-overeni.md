@@ -26,6 +26,14 @@ a privátní viditelnost. Dokončení issue má pozitivní i negativní scéná�
 Procesní testy ověřují Unicode, zvláštní znaky v argumentech bez shellu,
 nenulový návratový kód a velký výstup, který nesmí zablokovat Windows.
 
+Zavedení projektu testuje export přesného čistého commitu do prázdné složky,
+skutečný Git commit hook, místní konfiguraci, nový clone a výpočet malé zkušební
+aplikace. Chybný výpočet, poškozená kopie, chybějící lock, vnořený repozitář,
+cizí hooky a neúplné zadání jsou záporné případy. GitHub připravenost má
+simulované odpovědi pro štítky, ochranu správce, neúspěšné CI a jiné main.
+Nevytváří se skutečný aplikační GitHub. Regrese s 500 záznamy úkolů ověřuje,
+že README zůstává rozcestníkem bez jednotlivých řádků pro každý úkol.
+
 ## Reálné SVN v izolaci
 
 Linux CI vyžaduje svn a svnadmin. Zakládá místní jednorázový repozitář,

@@ -22,6 +22,19 @@ Neupravuj kvůli tomuto projektu jiné repozitáře ani globální nastavení ho
 - Text popisuje práci a výsledek. Nevkládej reklamní podpis ani tvrzení, kterým asistentem byl napsán.
 - Issue drží zadání a průběh. Dokumentace drží současné fungování a důležitá rozhodnutí; nekopíruj celé issue do deníku.
 - Záznam úkolu má Zadání, Změna, Ověření a Předání. Neoznačuj neprovedený test za úspěšný.
+- README odkazuje na složku docs/ukoly/, ne na jednotlivé úkoly. Odznaky mají jednotný vzhled a pravdivý obsah.
+
+## Nový pracovní projekt
+
+Postupuj podle docs/05-novy-pracovni-projekt.md a použij project-init se šablonami
+ze sablony/project. Zjisti konkrétní název, cestu, původ zdrojů a skutečné testy;
+chybějící informace řeš dialogem. Žádný další projekt se nezakládá automaticky.
+Nový aplikační GitHub je privátní a místní Git leží mimo existující Git/SVN kopie.
+Připojuj přesnou verzovanou kopii kontrol bez dalšího tokenu v CI. AGENTS.md
+projektu musí odkazovat na připnutá pravidla. Neoznačuj zavedení za hotové bez
+čistého clone, funkčních testů, CI a project-check --online s ochranou main.
+O případném zveřejnění centrálních nástrojů rozhoduje vlastník po auditu; samo
+napojení projektu k takové změně nedává oprávnění.
 
 ## Snímky před a po
 
