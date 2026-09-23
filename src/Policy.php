@@ -39,7 +39,7 @@ final class Policy
             && !preg_match('/^## /m', str_replace("\r", "", $item['body'] ?? ''));
     }
 
-    public static function issue(string $root, array $item, ?bool $closed = null): void
+    public static function issue(string $root, array $item, ?bool $closed = null, ?ApiClient $client = null): void
     {
         $title = $item['title'] ?? '';
         $body = $item['body'] ?? '';
@@ -64,11 +64,11 @@ final class Policy
         }
         if ($closed) {
             ensure(is_int($item['number'] ?? null) && $item['number'] > 0, 'Uzavřené issue musí mít číslo.');
-            self::pictures($root, $item['number'], $body, in_array('rozhrani', $labels, true), config($root)['repository']);
+            self::pictures($root, $item['number'], $body, in_array('rozhrani', $labels, true), config($root)['repository'], $client);
         }
     }
 
-    public static function pictures(string $root, int $number, string $body, bool $visual, string $repository): void
+    public static function pictures(string $root, int $number, string $body, bool $visual, string $repository, ?ApiClient $client = null): void
     {
         preg_match_all('/!\[[^\]]*\]\(([^\s)]+)\)/', $body, $images);
         $before = $after = [];
@@ -85,18 +85,23 @@ final class Policy
                 (substr($data, 0, 4) === 'RIFF' && substr($data, 8, 4) === 'WEBP');
             ensure($valid, 'Soubor snímku není rozpoznaný PNG/JPEG/WebP.');
             ensure(run(['git', '-C', $root, 'show', $sha . ':' . $path])['stdout'] === $data, 'Odkaz na snímek neodpovídá souboru v ověřované verzi.');
+            $key = dirname($path) . '/' . $suffix;
             if ($kind === 'pred') {
-                $before[$suffix] = digest($data);
+                $before[$key] = digest($data);
             } else {
-                $after[$suffix] = digest($data);
+                $after[$key] = digest($data);
             }
+        }
+        foreach (ScreenshotException::approvedMissing($root, $number, $body, $visual, $client) as $path) {
+            [$kind, $key] = ScreenshotException::path($root, $number, $path);
+            if ($kind === 'pred') { $before[$key] = null; } else { $after[$key] = null; }
         }
         if ($visual) {
             ksort($before);
             ksort($after);
             ensure($before !== [] && array_keys($before) === array_keys($after), 'Chybí úplné dvojice snímků před a po.');
             foreach ($before as $key => $hash) {
-                ensure($hash !== $after[$key], 'Snímek před a po nesmí být totožný soubor.');
+                ensure($hash === null || $after[$key] === null || $hash !== $after[$key], 'Snímek před a po nesmí být totožný soubor.');
             }
         }
     }
@@ -133,6 +138,7 @@ final class Policy
         }
         ensure(is_bool($meta['visual'] ?? null), 'Záznam musí určit, zda mění rozhraní.');
         ensure(in_array($meta['delivery'] ?? '', ['git', 'svn'], true), 'Neznámý způsob předání.');
+        if (array_key_exists('screenshot_exception', $meta)) { ScreenshotException::request($root, $number); }
         $path = $root . '/docs/ukoly/' . $number . '.md';
         ensure(is_file($path), 'Chybí textový záznam úkolu.');
         $text = readFile($path);

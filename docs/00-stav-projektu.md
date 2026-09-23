@@ -1,6 +1,6 @@
 # Stav projektu
 
-Verze 0.5 osobních kontrol je samostatná privátní PHP nadstavba. Zdrojové
+Verze 0.5.1 osobních kontrol je samostatná privátní PHP nadstavba. Zdrojové
 pracovní projekty se sem nekopírují a jejich nastavení se při instalaci nemění.
 
 <!-- generovano nastroji, needitovat -->
@@ -42,7 +42,8 @@ Nepoužívá se upstream workflow na main ani jeho hromadná kontrola issues.
 - GitHub kontrola issues běží po zápisu; před zápisem blokuje standardní příkaz issue-create/update.
 - Lokální potvrzení je doklad pracovního postupu, nikoli kryptografická ochrana proti vlastníkovi počítače.
 - Main může po pushi dočasně obsahovat chybu zjištěnou až v CI; předání zůstane blokované do opravy a úspěšného ověření.
-- Snímky mají povinné páry, existující obsah a neměnné odkazy. Neexistuje automatická výjimka pro chybějící snímek.
+- Snímky mají povinné páry, existující obsah a neměnné odkazy. Skutečnou nemožnost pro přesně určené snímky může výslovně schválit pouze vlastník nad doloženým pokusem; agent sám výjimku neuděluje.
+- API ověří schvalující účet a vazbu komentáře na podklady. Člověka a agenta se stejným osobním přihlášením nerozliší.
 - Předání do SVN je balíček a kontrola; automatický zápis do pracovní kopie ani SVN commit nejsou implementovány.
 - V tomto repozitáři je SVN vypnuto. Zapnutí patří do pozdějšího samostatného zavedení projektu.
 - Lokální počítač bez SVN CLI přeskočí SVN integrační testy; Linux CI je vyžaduje.

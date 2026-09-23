@@ -65,6 +65,54 @@ Použij skutečné hodnoty, ne tyto zástupné názvy. Odkaz na main ani pouhý 
 odkaz nestačí. Kontrola ověřuje, že odkazovaný Git blob odpovídá místnímu souboru.
 Snímky musí být čitelné, srovnatelné a bez osobních či přihlašovacích údajů.
 
+### Výjimka pouze se souhlasem vlastníka
+
+Výjimku schvaluje vlastník pro každý konkrétní případ. Agent nejprve zkusí
+snímek pořídit, případně obnovit dostupný původní stav. Pohodlí, vynechaný
+pokus nebo pouhé tvrzení o nemožnosti nestačí. Předloží překážku, záznam pokusu,
+přesný seznam chybějících pohledů a dostupný náhradní důkaz. Neprovedený test
+nesmí označit za provedený; neexistující náhradní ověření nesmí vymyslet.
+Je-li dostupný jen záznam selhání, předloží jej a jeho omezení vlastníkovi.
+
+Do metadat vizuálního úkolu přidej screenshot_exception. Ukázka je pouze tvar,
+nikoli udělená výjimka; všechny hodnoty musí odpovídat konkrétnímu případu:
+
+```json
+{
+  "missing": ["docs/snimky/17-detail/pred-formular.png"],
+  "reason": "Původní služba odmítá spojení a pohled nelze otevřít.",
+  "attempt": "Pokus o spuštění služby a načtení původního pohledu skončil chybou spojení.",
+  "evidence": ["docs/prilohy/17-pokus.txt"]
+}
+```
+
+Přiložené důkazy ulož bez citlivých údajů do docs/prilohy a přidej do Gitu. Záznam
+konkrétního pokusu zachovej; odkaz na později měněný přehled není vhodný důkaz.
+Příkaz pouze připraví podklady, souhlas ani komentář nevytváří:
+
+```text
+php prace.php snimky-zadost 17
+```
+
+Vlastník rozhoduje nad těmito podklady. Po jeho výslovném souhlasu v chatu
+agent zaznamená do stejného issue komentář: první řádek je přesný approval_text
+z výstupu příkazu, druhý stručně cituje souhlas vlastníka a uvádí kontext jeho
+rozhodnutí. Pokud tento komentář vložil sám vlastník, použije se přímo.
+Číselné ID komentáře ulož do screenshot_exception.approval_comment; odkaz
+na něj vlož do sekce Snímky. Změna metadat potřebuje běžný commit a ověření.
+Souhlas s obecnými pravidly nebo celým úkolem není souhlas s konkrétní výjimkou.
+
+Při dokončení, kontrole zavřeného issue a jeho úpravě se přes API znovu ověří
+komentář vlastníka, stejné issue a otisk přesných cest, překážky, pokusu i obsahu
+důkazů. Změna podkladů, odvolaný či smazaný komentář a nedostupné API výjimku
+zastaví. Samotný štítek nestačí. Chybějící protějšky mimo schválený seznam,
+neplatné odkazy a totožné dostupné obrázky nadále neprojdou.
+Odvolání souhlasu zaznamenej změnou nebo odstraněním původního schvalovacího komentáře.
+
+GitHub nerozliší člověka a agenta používající stejný osobní účet. Kontrola
+proto ověřuje dohledatelný záznam a jeho vazby; pravdivost překážky posuzuje
+vlastník a agent nesmí jeho souhlas sám vytvořit. Při čekání zůstává issue otevřené.
+
 ## Commit a push
 
 ```text

@@ -48,7 +48,21 @@ Ulož dvojice do docs/snimky/ČÍSLO-popis/pred-pohled.png a po-pohled.png.
 Podporované jsou PNG, JPEG a WebP. Oba snímky vlož jako obrázky do issue
 s odkazy na konkrétní celé Git SHA. Odkaz na main ani textový odkaz nestačí.
 Snímky musí být srovnatelné a bez citlivých údajů. Testovací obrázky nejsou důkaz.
-Při nemožnosti snímek získat popiš překážku a issue nech otevřené.
+Výjimku schvaluje pouze vlastník pro konkrétní případ skutečné nemožnosti.
+Dolož překážku, provedený pokus a dostupný náhradní důkaz; pohodlí ani vynechaný
+pokus nestačí. Dostupný původní stav nejdřív zkus obnovit pro pořízení snímku.
+Do .tasks/ČÍSLO.json připrav screenshot_exception s missing (přesné chybějící
+cesty), reason, attempt a evidence (pole existujících verzovaných důkazů v docs/prilohy).
+Příkaz snimky-zadost ČÍSLO vypíše podklady a approval_text, nic neschvaluje.
+Vlastníkovi předlož podklady a vyžádej jeho výslovné rozhodnutí; bez něj issue nezavírej.
+Po skutečném souhlasu v chatu smíš do stejného issue zapsat komentář s prvním
+řádkem approval_text a druhým řádkem s citací a kontextem souhlasu vlastníka.
+Pokud souhlas vložil přímo vlastník, použij jeho komentář. Jeho číselné ID ulož
+do screenshot_exception.approval_comment a odkaz na komentář do sekce Snímky.
+Agent nesmí rozhodnutí vlastníka nahrazovat svým rozhodnutím ani si souhlas vymýšlet.
+Změna rozsahu nebo podkladů vyžaduje nový souhlas; dostupné obrázky se dál kontrolují.
+GitHub ověří účet, komentář a vazbu na podklady, nikoli člověka používajícího
+stejný účet jako agent. Pravdivost překážky a vlastní rozhodnutí zůstávají na vlastníkovi.
 Nevizuální změna dokládá odpovídající test nebo kontrolní postup.
 
 ## Commit, testy a dokončení

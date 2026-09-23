@@ -4,11 +4,12 @@ declare(strict_types=1);
 namespace NastrojePrace;
 
 const TOOL_ROOT = __DIR__ . '/..';
-const VERSION = '0.5.0';
+const VERSION = '0.5.1';
 
 require_once __DIR__ . '/Common.php';
 require_once __DIR__ . '/Upstream.php';
 require_once __DIR__ . '/GitHub.php';
+require_once __DIR__ . '/ScreenshotException.php';
 require_once __DIR__ . '/Policy.php';
 require_once __DIR__ . '/MainBranch.php';
 require_once __DIR__ . '/Gate.php';

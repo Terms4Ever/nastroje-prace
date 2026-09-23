@@ -45,7 +45,12 @@ U změny rozhraní pořiď původní stav před úpravou a stejný pohled po ov�
 Soubory patří do docs/snimky pod číslo issue a krátký název, s prefixy pred- a po-.
 Vlož je do issue jako obrázky s odkazy na konkrétní commit. Textový odkaz nestačí.
 Každý snímek před má protějšek po. Nezaměňuj testovací obrázky za důkaz z aplikace.
-Při nemožnosti snímek pořídit popiš překážku a nech issue otevřené; sada nemá automatickou výjimku.
+Výjimku pro skutečně nepořiditelný snímek schvaluje pouze vlastník, každý případ zvlášť.
+Nejdřív dolož konkrétní překážku, provedený pokus a dostupný náhradní důkaz.
+Předlož přesné chybějící snímky přes snimky-zadost; bez výslovného souhlasu nech issue otevřené.
+Souhlas zaznamenej až po rozhodnutí vlastníka podle docs/01-postup-prace.md.
+Agent nesmí souhlas vymyslet ani odvodit ze schválení obecných pravidel či celého úkolu.
+Výjimka platí jen pro schválené snímky a podklady, ostatní obrázky zůstávají povinné.
 U nevizuální změny dolož odpovídající test, výstup nebo kontrolní postup.
 
 ## Commit a ověření

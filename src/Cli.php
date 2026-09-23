@@ -21,6 +21,7 @@ final class Cli
             'check' => [0, ['base' => true, 'online' => false]], 'commit-check' => [1, []], 'readme-check' => [0, []],
             'metadata-check' => [0, []], 'issue-check' => [1, []], 'issue-create' => [1, []], 'issue-update' => [2, []],
             'issue-close' => [1, ['summary' => true]], 'issues-check' => [0, ['number' => true]],
+            'snimky-zadost' => [1, []],
             'project-init' => [1, ['dest' => true]], 'project-check' => [0, ['online' => false]], 'state-update' => [0, []],
             'svn-zaklad' => [1, []], 'predani-priprav' => [1, []], 'predani-over' => [1, []], 'predani-zapis' => [1, ['revision' => true]],
         ];
@@ -66,6 +67,7 @@ final class Cli
             echo "commit-check SOUBOR | issue-check JSON | issue-create JSON\n";
             echo "issue-update ČÍSLO JSON | issue-close ČÍSLO --summary TEXT\n";
             echo "issues-check [--number ČÍSLO]\n";
+            echo "snimky-zadost ČÍSLO (podklady pro rozhodnutí vlastníka)\n";
             echo "svn-zaklad ČÍSLO | predani-priprav ČÍSLO | predani-over MANIFEST\n";
             echo "predani-zapis MANIFEST --revision REVIZE\n";
             return;
@@ -95,6 +97,8 @@ final class Cli
         } elseif ($command === 'issue-check') {
             Policy::issue($root, readJson($pos[0]));
             $result = ['success' => true];
+        } elseif ($command === 'snimky-zadost') {
+            $result = ScreenshotException::request($root, self::number($pos[0]));
         } elseif ($command === 'check') {
             $online = isset($options['online']);
             $result = Gate::verify($root, $options['base'], $online, $online ? new GitHub(config($root)['repository']) : null);

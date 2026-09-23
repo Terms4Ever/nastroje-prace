@@ -98,3 +98,16 @@ commitové a issue kontroly se tímto bodem nerozvolňují.
 
 Nové pravidlo nebo zpřísnění potřebuje předchozí výslovné rozhodnutí vlastníka.
 Samotný úspěch testů ani souhlas se založením nástrojů takovým rozhodnutím není.
+
+## P13 - Výjimky snímků schvaluje vlastník (23. 9. 2026)
+
+Vlastník rozhodl: „Vyjimky schvaluji já“. Výjimka je přípustná pouze při
+skutečné nemožnosti nad konkrétní překážkou, provedeným pokusem a dostupným
+náhradním důkazem. Agent každý případ předloží a čeká na výslovný souhlas.
+Toto rozhodnutí doplňuje P4; samo nepovoluje vynechat snímky konkrétního úkolu.
+
+Metadata určují přesné chybějící cesty. Komentář vlastníka se váže otiskem
+na tyto cesty a obsah podkladů; dokončení znovu ověří živý souhlas. Schválení
+v chatu smí agent zaznamenat až po skutečném rozhodnutí, s citací a kontextem.
+GitHub prokáže účet, ne fyzického autora za stejnými přihlašovacími údaji.
+Testy neprokazují nemožnost pořízení ani pravdivost zaznamenaného souhlasu.

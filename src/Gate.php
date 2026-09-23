@@ -95,7 +95,7 @@ final class Gate
             Policy::repositoryMetadata($root, $client);
             foreach ($records as $number => $record) {
                 $issue = $client->issue($number);
-                Policy::issue($root, $issue);
+                Policy::issue($root, $issue, client: $client);
                 ensure(in_array('rozhrani', Policy::names($issue['labels']), true) === $record['visual'], 'Issue a záznam nesouhlasí o změně rozhraní.');
             }
         }

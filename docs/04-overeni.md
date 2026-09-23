@@ -27,6 +27,14 @@ Snímky mají pozitivní dvojici a negativní případy chybějícího protějš
 jiného čísla issue, pouhého textového odkazu a změněného souboru. Syntetické
 testovací soubory nejsou důkazy změny aplikace.
 
+Výjimky mají pozitivní případ chybějícího snímku před, po i obou po souhlasu
+vlastníka. Negativní případy pokrývají samotný štítek, chybějící souhlas,
+cizí účet, jiný úkol, změněné podklady, prázdný důkaz a nedostupné API.
+Výjimka nesmí skrýt další chybějící snímek, chybný odkaz ani totožnou dostupnou
+dvojici. Příkaz žádosti nic neschvaluje. Dokončení čte souhlas znovu a při
+odvolání nezapíše komentář ani neuzavře issue. API odpovědi jsou v těchto
+testech izolované; nevzniká skutečné schválení vlastníka ani výjimka úkolu.
+
 README se ověřuje samostatným příkazem i uvnitř úplné kontroly. Regrese přesune
 Dokumentaci za Nasazení: původní upstream tuto chybu přijme, pracovní kontrola
 ji odmítne. Další testy hlídají tabulku dokumentace, duplicitní sekci, topics

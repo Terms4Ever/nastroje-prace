@@ -23,7 +23,7 @@ final class Issues
     {
         $old = $client->issue($number);
         $payload = self::payload($draft);
-        Policy::issue($root, [...$old, ...$payload, 'number' => $number]);
+        Policy::issue($root, [...$old, ...$payload, 'number' => $number], client: $client);
         return $client->request('PATCH', '/issues/' . $number, $payload);
     }
 
@@ -34,7 +34,7 @@ final class Issues
         $record = Policy::taskRecord($root, $number);
         $item = $client->issue($number);
         ensure($item['state'] === 'open', 'Issue již není otevřené.');
-        Policy::issue($root, $item, true);
+        Policy::issue($root, $item, true, $client);
         ensure(in_array('rozhrani', Policy::names($item['labels']), true) === $record['visual'], 'Nesouhlasí klasifikace změny rozhraní.');
         meaningful($summary, 'Výsledek úkolu');
         $lines = [$summary, 'Ověření: https://github.com/' . config($root)['repository'] . '/commit/' . $proof['commit']];
@@ -60,7 +60,7 @@ final class Issues
             if (Policy::ownerIdea($root, $item)) {
                 echo 'Issue #' . $item['number'] . ": nápad vlastníka k přepsání před zahájením práce.\n";
             } else {
-                Policy::issue($root, $item);
+                Policy::issue($root, $item, client: $client);
             }
             foreach ($client->pages('/issues/' . $item['number'] . '/comments') as $comment) {
                 Policy::comment($comment['body']);
