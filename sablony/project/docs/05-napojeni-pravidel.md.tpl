@@ -7,6 +7,7 @@ dokumentem docs/05-novy-pracovni-projekt.md v repozitáři nastroje-prace.
 
 - [ ] GitHub {{REPOSITORY}} je privátní, má popis, topics, zapnuté issues a hlavní větev main.
 - [ ] Jsou založené štítky bug, enhancement, documentation, rozhrani a bez-rozhrani.
+- [ ] Je zapnuté mazání větví po sloučení pull requestu; po dokončení se uklízí i místní pracovní větev.
 - [ ] Původ zdrojů a případná SVN revize jsou zdokumentované; zdrojový strom neobsahuje cizí metadata ani provozní data.
 - [ ] První skutečné issue má odpovědného, metadata .tasks a textový záznam v docs/ukoly.
 - [ ] Příkazy v .prace.json ověřují aplikaci a odpovídající prostředí je dostupné v obou CI úlohách.

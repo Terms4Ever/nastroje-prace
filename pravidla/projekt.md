@@ -62,3 +62,9 @@ vyžaduje stav Povinne kontroly pro přijímaný commit, i pro vlastníka.
 Issue zavři přes issue-close po splnění checklistu a shodě místního ověření,
 úspěšného CI a aktuálního main. U SVN je nutné ověření výsledné revize.
 Neúplně připojený repozitář se nesmí označit jako připravený k práci.
+
+Trvalá větev je main. Pro rozpracovaný úkol používej ukol/CISLO-kratky-popis.
+Po přijetí ověřené změny na main odstraň vlastní dokončenou větev na GitHubu
+i místně a proveď fetch --prune. Ověř, že obsah převzalo main a větev nemá
+otevřený pull request. Nepřevzaté změny nemaž automaticky. Důkazy testů drž
+v protokolech a záznamech úkolů; nepotřebují trvale ponechanou testovací větev.

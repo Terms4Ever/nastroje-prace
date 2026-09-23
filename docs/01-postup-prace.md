@@ -67,6 +67,9 @@ zavede kontrolu zprávy a před pushem celý check --online. Základ při novém
 pracovním branchi je společný předek s origin/main, při prvním commitu ROOT.
 Před novou prací aktualizuj vzdálené reference.
 
+Trvalá větev je main. Pracovní větev pojmenuj ukol/CISLO-kratky-popis podle
+skutečného issue a ponech ji jen po dobu rozpracované práce.
+
 GitHub CI spouští stejné jádro na Windows a Linuxu. Ochrana main vyžaduje
 souhrnný stav Povinne kontroly. Běžný postup je push pracovní větve, zelené CI
 a následné přijetí ověřeného commitu do main. Ruční schválení jiné osoby se
@@ -78,6 +81,17 @@ Po splnění aktualizuj checklist přes issue-update a opakuj online check.
 Issue-close kontroluje místní doklad, živé issue, snímky, úspěšné CI stejného
 commitu a shodu s main. U SVN také ověřený záznam předání. Doplní krátký
 komentář a issue uzavře. Nedokončený úkol zůstává otevřený.
+
+Součástí dokončení je úklid větve. Po přijetí ověřeného commitu na main přepni
+na main, ověř převzetí obsahu a nepřítomnost otevřených pull requestů. Odstraň
+vlastní dokončenou vzdálenou i místní větev a proveď git fetch --prune.
+Při zjištění dalšího nepřevzatého commitu nemaž větev automaticky. Výslovně
+prověřený jednorázový negativní test můžeš před odstraněním zálohovat místně;
+odkaz na CI a SHA zůstane v záznamu úkolu. Testovací větev není trvalý archiv.
+
+Na GitHubu zapni Automatically delete head branches. Toto nastavení odstraňuje
+větev po sloučení pull requestu. Při přímém přijetí commitu na main musí úklid
+provést agent. [Pravidla GitHubu](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-the-automatic-deletion-of-branches).
 
 ```text
 php prace.php issue-close 1 --summary "Kontrola prokazatelně zachytí neověřené předání."

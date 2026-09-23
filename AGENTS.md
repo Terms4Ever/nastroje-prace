@@ -61,6 +61,13 @@ Příkazy SVN pouze čtou vzdálený stav a vytvářejí místní balíček. Nik
 Při souběžné změně kolegy zastav předání, sluč obsah a opakuj testy.
 Předání přes TortoiseSVN probíhá ze správně aktualizované pracovní kopie a s kontrolou diffu.
 
+Trvalá větev je main. Pracovní větve pojmenovávej ukol/CISLO-kratky-popis a drž
+jen pro rozpracované úkoly. Po přijetí ověřené změny na main přepni na main,
+odstraň vlastní dokončenou vzdálenou i místní větev a proveď fetch --prune.
+Před smazáním ověř převzetí změn a nepřítomnost otevřených pull requestů.
+Nepřevzaté změny nemaž automaticky. Protokol nebo SHA uchová důkaz testu;
+testovací větev se kvůli němu nenechává trvale. Úklid patří k dokončení úkolu.
+
 ## Testování
 
 Spusť php tests/run.php. Na Windows lze použít .\.cache\php\php.exe tests/run.php.

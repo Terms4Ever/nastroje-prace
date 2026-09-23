@@ -30,6 +30,9 @@ Nevytvářej automatický README, licenci ani první commit. Aplikační repozit
 zůstává privátní i při případném budoucím zveřejnění obecných nástrojů.
 Nastav topics podle technologie a účelu; stejný seznam bude v .prace.json.
 Zajisti štítky bug, enhancement, documentation, rozhrani a bez-rozhrani.
+Zapni Automatically delete head branches; přes API jde o nastavení
+delete_branch_on_merge=true při aktualizaci repozitáře. Po dokončení se vlastní
+pracovní větev uklízí i místně a také při přímém přijetí změny na main.
 
 Při použití REST API odpovídá vytvoření osobního repozitáře POST /user/repos
 s name, description, private=true, has_issues=true a auto_init=false.
