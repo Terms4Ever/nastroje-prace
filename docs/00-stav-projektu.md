@@ -1,6 +1,6 @@
 # Stav projektu
 
-Verze 0.5.2 osobních kontrol je samostatná privátní PHP nadstavba. Zdrojové
+Verze 0.6.0 osobních kontrol je samostatná veřejná PHP nadstavba. Zdrojové
 pracovní projekty se sem nekopírují a jejich nastavení se při instalaci nemění.
 
 <!-- generovano nastroji, needitovat -->
@@ -19,7 +19,8 @@ Snímky v issues mají nad každým obrázkem viditelný nadpis Před změnou ne
 Po změně, název pohledu a stručný popis rozdílu. Dvojice jsou pod sebou v plné šířce.
 Kontrola README doplňuje pořadí sekce Dokumentace před Instalací a společný
 tvar tabulky s cestami, popisy základních dokumentů a větou o aktuálním stavu. Online check
-ověřuje také privátní viditelnost a požadované GitHub topics.
+ověřuje také identitu, viditelnost a požadované GitHub topics. Veřejná viditelnost
+je přípustná pouze v kořeni centrálních nástrojů, pracovní aplikace musí být privátní.
 Project-init vytváří kostru projektu s přesnou kopií kontrol a pravidel pro
 agenta. Project-check ověřuje napojení, s --online také metadata
 a důkazy stejného commitu. Sada byla ověřena na dočasné aplikaci; skutečné
@@ -33,6 +34,9 @@ Kontrola issues reaguje na události a ruční spuštění bez denního plánov�
 Otevřený nápad vlastníka bez sekcí a bez převzetí do .tasks čeká na zpracování;
 agent ho před prací upraví do plného tvaru. Dokumentace umožňuje citaci pomlčky
 v řádkovém kódu, běžný text a bloky kódu výjimku nemají.
+Veřejné podněty návštěvníků nástrojů čekají na posouzení; převzetí do .tasks
+zapíná plnou kontrolu. Cizí komentáře nerozbíjejí audit, vlastní komentáře
+a vstupy agenta nadále dodržují pravidla. Aplikační repozitáře se tím nerozvolňují.
 
 Sdílené PHP validátory jsou připnuté na commit v upstream.lock.json. Jejich
 známé mezery v chybějící dokumentaci a rozsahu změny kryje pracovní kontrola.

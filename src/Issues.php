@@ -57,13 +57,15 @@ final class Issues
             if (isset($item['pull_request'])) {
                 continue;
             }
-            if (Policy::ownerIdea($root, $item)) {
+            if (Policy::externalIdea($root, $item)) {
+                echo 'Issue #' . $item['number'] . ": veřejný podnět k posouzení před převzetím do práce.\n";
+            } elseif (Policy::ownerIdea($root, $item)) {
                 echo 'Issue #' . $item['number'] . ": nápad vlastníka k přepsání před zahájením práce.\n";
             } else {
                 Policy::issue($root, $item, client: $client);
             }
             foreach ($client->pages('/issues/' . $item['number'] . '/comments') as $comment) {
-                Policy::comment($comment['body']);
+                if (!Policy::externalContribution($root, $comment)) { Policy::comment($comment['body']); }
             }
             $count++;
         }

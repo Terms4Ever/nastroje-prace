@@ -27,7 +27,7 @@ nepřeváděj zdroje automaticky. SVN vlastnosti a externals vyžadují samostat
 
 Založ schválený repozitář jako private, s pravdivým popisem a zapnutými issues.
 Nevytvářej automatický README, licenci ani první commit. Aplikační repozitář
-zůstává privátní i při případném budoucím zveřejnění obecných nástrojů.
+zůstává privátní i při použití veřejných obecných nástrojů.
 Nastav topics podle technologie a účelu; stejný seznam bude v .prace.json.
 Zajisti štítky bug, enhancement, documentation, rozhrani a bez-rozhrani.
 Jedinou větví bude main. Pracovní větve a pull requesty se nepoužívají;
@@ -56,8 +56,8 @@ Vytvoří pravidla, dokumentaci, hooky, workflow a .prace.json se SVN vypnutým.
 Nastroje-prace.lock.json zaznamená celé zdrojové SHA a SHA-256 každého souboru.
 AGENTS.md výslovně načítá .nastroje-prace/pravidla/projekt.md; CLAUDE.md odkazuje na AGENTS.md.
 
-CI čte tuto kopii ze svého vlastního checkoutu. Další token ke čtení privátního
-nastroje-prace nepotřebuje. Bootstrap stahuje jen veřejné nastroje, také z pevného
+CI čte tuto kopii ze svého vlastního checkoutu. Nastroje-prace jsou veřejné,
+kopie kontrol dál zůstává připnutá v aplikaci bez dalšího tokenu. Bootstrap stahuje veřejné nastroje, také z pevného
 SHA v upstream.lock.json. Přihlášení pro vlastní GitHub issues poskytne místně
 Credential Manager a v CI standardní token daného repozitáře s contents: read a issues: read.
 

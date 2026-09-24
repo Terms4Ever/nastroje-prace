@@ -18,6 +18,31 @@ final class Policy
         return array_map(fn($value) => is_array($value) ? $value['name'] : $value, $values);
     }
 
+    /** Veřejná výjimka patří pouze skutečnému kořeni centrálních nástrojů, nikdy připnuté aplikaci. */
+    public static function centralTools(string $root): bool
+    {
+        return realpath($root) === realpath(TOOL_ROOT)
+            && config($root)['repository'] === Project::REPOSITORY
+            && !is_file($root . '/nastroje-prace.lock.json')
+            && basename((string) realpath(TOOL_ROOT)) !== Project::DIRECTORY;
+    }
+
+    /** Veřejné příspěvky návštěvníků jsou vstup k posouzení, nikoli pracovní záznam agenta. */
+    public static function externalContribution(string $root, array $item): bool
+    {
+        $login = $item['user']['login'] ?? '';
+        return self::centralTools($root) && is_string($login) && $login !== ''
+            && strcasecmp($login, explode('/', Project::REPOSITORY)[0]) !== 0
+            && in_array($item['author_association'] ?? '', ['NONE', 'FIRST_TIMER', 'FIRST_TIME_CONTRIBUTOR', 'CONTRIBUTOR'], true);
+    }
+
+    public static function externalIdea(string $root, array $item): bool
+    {
+        $number = $item['number'] ?? null;
+        return is_int($number) && $number > 0 && !isset($item['pull_request'])
+            && !is_file($root . '/.tasks/' . $number . '.json') && self::externalContribution($root, $item);
+    }
+
     public static function sections(string $body): array
     {
         preg_match_all('/^## (.+)$/m', $body, $matches, PREG_OFFSET_CAPTURE);
@@ -203,15 +228,17 @@ final class Policy
         ensure(str_starts_with($after, self::DOCUMENTATION_STATE), 'Pod tabulkou chybí společná věta o zdroji aktuálního stavu.');
     }
 
-    public static function repositoryMetadata(string $root, ApiClient $client): void
+    public static function repositoryMetadata(string $root, ApiClient $client): array
     {
         $settings = config($root);
         $meta = $client->request('GET', '');
-        ensure(($meta['private'] ?? false) === true && ($meta['full_name'] ?? '') === $settings['repository'], 'Pracovní repozitář musí být správný privátní repozitář.');
+        ensure(($meta['full_name'] ?? '') === $settings['repository'] && is_bool($meta['private'] ?? null), 'Chybí ověřená identita nebo viditelnost repozitáře.');
+        ensure(self::centralTools($root) || $meta['private'] === true, 'Pracovní aplikační repozitář musí být privátní.');
         $expected = $settings['topics'] ?? [];
         ensure(is_array($expected) && $expected !== [], 'Chybí očekávané GitHub topics v .prace.json.');
         $topics = $client->request('GET', '/topics');
         ensure(array_diff($expected, $topics['names'] ?? []) === [], 'Na GitHubu chybí některé povinné topics.');
+        return $meta;
     }
 
     public static function repositoryContent(string $root): void

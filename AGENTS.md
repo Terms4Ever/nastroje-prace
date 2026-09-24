@@ -1,6 +1,7 @@
 # Pravidla práce
 
-Tento privátní repozitář obsahuje osobní kontroly a postup předání změn.
+Tento veřejný repozitář obsahuje obecné osobní kontroly a postup předání změn.
+Pracovní zdroje, zadání, interní adresy a snímky aplikací patří do privátních projektů.
 Společné nastroje se používají z přesného commitu v upstream.lock.json.
 Neupravuj kvůli tomuto projektu jiné repozitáře ani globální nastavení hooků.
 Nové pravidlo nebo zpřísnění předem předlož vlastníkovi s důvodem a dopadem.
@@ -18,6 +19,7 @@ Zaveď je až po jeho výslovném schválení; testy toto rozhodnutí nenahrazuj
 
 - Piš česky, konkrétně, s krátkými pomlčkami. V Markdown dokumentaci lze dlouhou pomlčku citovat v řádkovém kódu; v běžné větě a bloku kódu zůstává zakázaná.
 - Otevřený stručný nápad vlastníka bez sekcí smí čekat na přepsání bez šablony, štítků a odpovědného. Než ho převezmeš do práce, uprav jej do plného tvaru. Výjimka není pro issue zakládané agentem ani pro dokončení.
+- Veřejné podněty návštěvníků bez převzetí do .tasks čekají na posouzení. Jejich komentáře nejsou pracovní záznamy agenta. Vlastní příspěvky a převzaté úkoly dodržují plný tvar; v aplikačních repozitářích tato veřejná výjimka neplatí.
 - Issue má povinné Problém nebo Cíl a Hotovo, když. Volitelné Jak to poznat, Kde to žije a Snímky mají pevné pořadí.
 - Tělo má nejvýše 40 neprázdných řádků a jediný ověřitelný checklist.
 - Každé issue má jeden druh bug/enhancement/documentation, odpovědného a rozhrani/bez-rozhrani.
@@ -37,8 +39,8 @@ Nový aplikační GitHub je privátní a místní Git leží mimo existující G
 Připojuj přesnou verzovanou kopii kontrol bez dalšího tokenu v CI. AGENTS.md
 projektu musí odkazovat na připnutá pravidla. Neoznačuj zavedení za hotové bez
 čistého clone, funkčních testů, CI a project-check --online. Ochranu main nezapínej.
-O případném zveřejnění centrálních nástrojů rozhoduje vlastník po auditu; samo
-napojení projektu k takové změně nedává oprávnění.
+Vlastník schválil zveřejnění obecných centrálních nástrojů. Připojené aplikace
+zůstávají privátní; zveřejnění nástrojů nedává oprávnění zveřejnit jejich obsah.
 
 ## Snímky před a po
 
@@ -93,6 +95,6 @@ Spusť php tests/run.php. Na Windows lze použít .\.cache\php\php.exe tests/run
 Kontroly, testy i CI piš v PHP. PowerShell slouží pouze ke spouštění a místní instalaci PHP.
 Každé nové pravidlo musí mít pozitivní i negativní případ.
 README má pořadí Hlavní funkce, Tech Stack, Struktura projektu, Dokumentace, Instalace, Nasazení, Licence.
-Kontrola readme-check musí být součástí plného check. Metadata-check vyžaduje privátní repozitář a topics z .prace.json.
+Kontrola readme-check musí být součástí plného check. Metadata-check připouští veřejný kořen centrálních nástrojů, u aplikací vyžaduje privátní repozitář a vždy ověřuje topics z .prace.json.
 Linux CI povinně testuje skutečné dočasné SVN; místní absence CLI se hlásí jako přeskočení, nikoli ověření SVN.
 Testy nemění jiné projekty, nepoužívají produkční databáze a neodesílají skutečné issues.

@@ -103,8 +103,8 @@ final class Cli
             $online = isset($options['online']);
             $result = Gate::verify($root, $options['base'], $online, $online ? new GitHub(config($root)['repository']) : null);
         } elseif ($command === 'metadata-check') {
-            Policy::repositoryMetadata($root, new GitHub(config($root)['repository']));
-            $result = ['private' => true, 'topics' => config($root)['topics']];
+            $meta = Policy::repositoryMetadata($root, new GitHub(config($root)['repository']));
+            $result = ['private' => $meta['private'], 'topics' => config($root)['topics']];
         } elseif (str_starts_with($command, 'issue')) {
             $client = new GitHub(config($root)['repository']);
             if ($command === 'issue-create') {

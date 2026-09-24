@@ -5,6 +5,8 @@
 Zkontroluj doctor a vyhledej odpovídající issue. Úkoly aplikace patří k aplikaci,
 úkoly těchto nástrojů do tohoto repozitáře. Mantis zůstává původním zdrojem
 zadání; issue sleduje osobní zpracování a odkazuje na Mantis, pokud existuje.
+Nastroje-prace jsou veřejné a obsahují pouze obecné nástroje. Skutečná pracovní
+zadání, interní konfigurace a snímky aplikací patří do příslušných privátních repozitářů.
 Pracuje vždy jeden agent a jeden úkol najednou, pouze na main. Před úpravami
 na čistém stromu proveď git fetch origin a git pull --ff-only origin main.
 Při rozcházející se historii nejprve vyřeš stav; force push nepoužívej.
@@ -15,6 +17,14 @@ ho agent upraví přes issue-update; metadata .tasks už označují převzatý �
 a vyžadují plný tvar. Založení agentem, kontrola změny a dokončení tuto výjimku nemají.
 GitHub pod stejným osobním účtem nerozliší člověka od agenta; pravidlo proto
 vynucují vstupy agenta a kontrola převzatého úkolu, nikoli domnělý původ kliknutí.
+
+V centrálních nástrojích mohou lidé mimo správce a spolupracovníky vložit
+veřejný podnět bez pracovního tvaru. Audit jej ohlásí k posouzení, dokud nemá
+metadata v .tasks; platí to i pro podnět uzavřený bez převzetí. Před převzetím
+jej agent upraví přes issue-update a doplní vlastní záznam. Vstupy create,
+update a close zůstávají přísné. Komentáře návštěvníků nepodléhají stylu agenta,
+komentáře vlastníka a spolupracovníků ano. Chybějící údaj o autorovi nebo jeho
+vztahu k repozitáři výjimku nezakládá. V privátních aplikacích se nic nemění.
 
 Agent připraví JSON mimo verzované soubory, například v .local/issue.json:
 

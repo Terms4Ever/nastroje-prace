@@ -18,6 +18,7 @@ exit(\NastrojePrace\entry(function (): void {
     require __DIR__ . '/decisions.php';
     require __DIR__ . '/screenshots.php';
     require __DIR__ . '/documentation.php';
+    require __DIR__ . '/public.php';
     $failed = $passed = $skipped = 0;
     foreach ($GLOBALS['tests'] as [$name, $action, $svn]) {
         if ($svn && !hasSvn()) {

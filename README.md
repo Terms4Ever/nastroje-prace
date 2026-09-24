@@ -2,7 +2,7 @@
 
 **Osobní kontroly dokumentace, issues a předání změn**
 
-Privátní pracovní nadstavba společných nástrojů. Ověřuje konkrétní změnu,
+Veřejná sada obecných kontrol pro privátní pracovní projekty. Ověřuje konkrétní změnu,
 její záznam a důkazy. Připravuje kontrolované předání do SVN a ponechává
 kolegům jejich stávající postup.
 
@@ -76,7 +76,7 @@ Stav vždy platný je v `docs/00-stav-projektu.md`, ne v tomhle souboru.
 
 ## 🚀 Instalace (lokální vývoj)
 
-Nejprve naklonuj privátní repozitář pomocí přihlášeného Gitu:
+Nejprve naklonuj veřejný repozitář; ke stažení není potřeba přihlášení:
 
 ```bash
 git clone https://github.com/Terms4Ever/nastroje-prace.git
@@ -106,7 +106,7 @@ php prace.php doctor
 na Linuxu `php tests/run.php`. Podrobné scénáře a podmínky SVN testů popisuje
 [ověření funkčnosti](docs/04-overeni.md).
 
-Přihlášení poskytuje Git Credential Manager nebo proměnná
+Pro práci s vlastními GitHub issues poskytuje přihlášení Git Credential Manager nebo proměnná
 `GH_TOKEN`/`GITHUB_TOKEN`. Hodnoty se neukládají do projektu. První úkol,
 správný základ kontroly a dokončení popisuje [postup práce](docs/01-postup-prace.md).
 
@@ -127,8 +127,11 @@ připraví kostru; `project-check --online` ověří skutečné napojení.
 sám neprovádí SVN commit. [Postup předání](docs/02-predani-svn.md) ověřuje
 výchozí stav, případné změny kolegů a výslednou revizi.
 
-Issues a metadata se kontrolují po změnách issues a při ručním spuštění, bez denního plánu. Kontroly vyžadují
-privátní repozitář a topics z `.prace.json`; žádné jiné repozitáře nemění.
+Issues a metadata se kontrolují po změnách issues a při ručním spuštění, bez denního plánu.
+Centrální nástroje mohou být veřejné; připojené aplikace musí být privátní.
+Veřejné podněty návštěvníků čekají na posouzení, převzaté úkoly agenta se kontrolují plně.
+Zadání z Mantis, interní konfigurace a pracovní snímky patří do privátních projektů.
+Kontroly ověřují také topics z `.prace.json`; žádné jiné repozitáře nemění.
 
 ---
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace NastrojePrace;
 
 const TOOL_ROOT = __DIR__ . '/..';
-const VERSION = '0.5.2';
+const VERSION = '0.6.0';
 
 require_once __DIR__ . '/Common.php';
 require_once __DIR__ . '/Upstream.php';

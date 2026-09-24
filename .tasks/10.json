@@ -1,0 +1,7 @@
+{
+  "issue": 10,
+  "mantis": null,
+  "technical_reason": "Zveřejnění obecných nástrojů na výslovný pokyn vlastníka při zachování privátních aplikací.",
+  "visual": true,
+  "delivery": "git"
+}

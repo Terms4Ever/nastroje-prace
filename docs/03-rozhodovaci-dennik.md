@@ -120,3 +120,25 @@ a stejnou větu o platném stavu pod tabulkou. Pořadí sekcí ani obecná kontr
 odkazů tuto odlišnost dosud nezachytily; readme-check nyní ověřuje i tento tvar.
 Seznam ostatních dokumentů patří konkrétnímu projektu, úkoly zůstávají složkou.
 Tento požadavek nahrazuje pojmenované odkazy zavedené při předchozí opravě README.
+
+## P15 - Veřejné obecné nástroje, privátní aplikace (24. 9. 2026)
+
+Vlastník výslovně zadal zveřejnění nastroje-prace s tím, že důležitý pracovní
+obsah bude přímo v projektech. Toto rozhodnutí nahrazuje privátní centrální
+sadu z P1 a P8. Zdrojové kódy aplikací, interní konfigurace, zadání z Mantis
+a provozní snímky zůstávají v příslušných privátních aplikačních repozitářích.
+Licence zůstává proprietární, způsob distribuce připnutou kopií se nemění.
+
+Výjimka viditelnosti se pozná podle identity a skutečného kořene centrálních
+nástrojů; shodný název v aplikační konfiguraci ji nezapne. Centrální sada
+připouští i privátní stav během přípravy zveřejnění, takže lze nejprve ověřit
+a publikovat kompatibilní kontroly a až poté změnit viditelnost GitHubu.
+
+Veřejný podnět návštěvníka bez převzetí do .tasks čeká na posouzení. Cizí
+komentář nemusí dodržovat formát agenta. Převzatý úkol, příspěvky správce
+a spolupracovníků i všechny zápisové vstupy agenta zůstávají kontrolované.
+Veřejná výjimka neplatí pro aplikace a nenahrazuje souhlas vlastníka s výjimkou snímků.
+
+Před zveřejněním se prověří dostupná historie, issues, přílohy a protokoly.
+Historické záznamy rozhodnutí se nepřepisují; dřívější údaje o privátní sadě
+popisují tehdejší stav. Aktualizované návody používají obecné názvy projektů.

@@ -4,7 +4,7 @@
 
 Nástroje pouze čtou SVN, vytvářejí místní ZIP a ověřují výslednou revizi.
 Nemění pracovní kopie kolegů, nenahrávají soubory a samy neprovádějí commit.
-První instalace tohoto repozitáře proto nemění W4SN ani DOMIQ.
+První instalace tohoto repozitáře proto nemění žádnou pracovní aplikaci.
 
 ## Nastavení projektu
 

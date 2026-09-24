@@ -38,7 +38,7 @@ testech izolované; nevzniká skutečné schválení vlastníka ani výjimka úk
 README se ověřuje samostatným příkazem i uvnitř úplné kontroly. Regrese přesune
 Dokumentaci za Nasazení: původní upstream tuto chybu přijme, pracovní kontrola
 ji odmítne. Další testy hlídají tabulku dokumentace, duplicitní sekci, topics
-a privátní viditelnost. Dokončení issue má pozitivní i negativní scénáře CI a main.
+a privátní viditelnost aplikací. Dokončení issue má pozitivní i negativní scénáře CI a main.
 Samostatné regrese odmítají pojmenované odkazy v tabulce dokumentace, jiné
 popisy základních dokumentů a chybějící větu o zdroji aktuálního stavu.
 Společná podmínka předání odmítne offline doklad, neexistující, čekající,
@@ -73,6 +73,13 @@ NASTROJE_REQUIRE_SVN=1 způsobí v takovém prostředí neúspěch sady; Linux C
 ji nastavuje povinně. Windows CI ověřuje běh základních kontrol a PHP.
 
 ## Rozsah důkazů
+
+Veřejný režim má samostatné pozitivní a negativní scénáře. Přijme veřejné
+centrální nástroje, ale odmítne veřejnou aplikaci i při zkopírovaném názvu
+repozitáře. Nadále vyžaduje správnou identitu, skutečnou viditelnost a topics.
+Veřejné podněty bez převzetí a komentáře návštěvníků neblokují audit, převzaté
+úkoly, příspěvky správce a vstupy agenta zůstávají přísné. Testy veřejných
+příspěvků používají izolovaného klienta, nikoli cizí účet nebo skutečný spam.
 
 Výsledek konkrétní verze je v GitHub Actions. Místní check ukládá návratové
 kódy, otisky testovacích výstupů, commit, tree a verzi pravidel do ignorované

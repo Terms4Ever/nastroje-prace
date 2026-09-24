@@ -3,6 +3,8 @@
 Tato pravidla platí pro osobní Git kopii pracovního projektu. Verzi určuje
 nastroje-prace.lock.json. Pravidla ani jejich PHP kopii neupravuj přímo v projektu;
 změna vzniká v nastroje-prace a do projektu přichází jako ověřená aktualizace.
+Centrální nástroje jsou veřejné, tento pracovní projekt zůstává privátní.
+Jeho zdroje, interní adresy, zadání a snímky do veřejných nástrojů nekopíruj.
 Nové pravidlo nebo zpřísnění nejdřív vysvětli vlastníkovi a vyžádej si jeho
 výslovné rozhodnutí. Samotné zadání úkolu nesmí obrátit dříve zamítnuté pravidlo.
 
