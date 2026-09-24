@@ -159,3 +159,9 @@ Project-init pracovní topic doplní a rozpor odmítne před zápisem do cíle.
 Verzovaná kopie pracovních kontrol ani osobní workflow na main se tímto
 rozhodnutím nemění. Aktuální změna nepřipojuje pracovní aplikace, nezveřejňuje
 jejich obsah, nezavádí ochranu main, denní plán ani pracovní větve.
+
+Doložení P16: skutečné snímky README před a po jsou ve složce
+docs/snimky/11-sada-pravidel a v issue 11 s viditelnými nadpisy.
+Místní online brána nad b6ad20a ověřila 98 testů a přeskočila devět SVN scénářů
+bez CLI; Linux CI tyto scénáře vyžaduje. Konečné předání se ověřuje znovu
+na aktuálním commitu, včetně dokumentačních a obrazových důkazů.

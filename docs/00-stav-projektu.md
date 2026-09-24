@@ -64,11 +64,12 @@ projekty pod nastroje ponechávají svůj dosavadní způsob aktualizace.
 
 ## Aktualizace
 
-Rozpracované zavedení označení sad v issue 11 připíná společný validátor na
+Označení sad z issue 11 připíná společný validátor na publikovaný commit
 7e7e1539d2f23484a76ceedd438044af818bb00b. Nad čistou místní cache prošly
 rules-check, readme-check a doctor; živý metadata-check potvrdil správný
-pracovní topic. Publikace tohoto upstream commitu a CI pracovního commitu
-jsou samostatné podmínky dokončení. Izolované testy nenahrazují tyto důkazy.
+pracovní topic. Úplná místní online brána ověřila 98 testů, devět SVN scénářů
+bez místního CLI přeskočila. Linux CI je vyžaduje. Dokončení issue nadále
+vyžaduje místní doklad a úspěšné CI přesného aktuálního commitu.
 
 Změnu upstream verze proveď vědomou úpravou lock souboru s testy. Bootstrap
 nepřepíná existující cache tiše na jiný commit. Instalace hooků je pouze lokální

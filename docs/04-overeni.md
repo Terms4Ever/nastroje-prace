@@ -82,16 +82,19 @@ ji nastavuje povinně. Windows CI ověřuje běh základních kontrol a PHP.
 ## Rozsah důkazů
 
 Zavedení označení sad v issue 11 má sedm nových regresí, které byly nejprve
-červené a následně prošly v izolované kopii aktuálních zdrojů. Celý izolovaný
-Windows běh měl 97 úspěchů, devět přeskočených SVN scénářů a jedno odlišné
-hlášení starého testu snímků. Novější upstream odmítá odkaz na větev main
-dříve; upravené očekávání i celý dotčený scénář následně prošly.
+červené a následně prošly. Po připnutí publikovaného upstream prošla i úplná
+místní online brána nad skutečným pracovním commitem: 98 úspěšných testů,
+nula chyb a devět SVN scénářů přeskočených bez místního SVN CLI.
+Novější upstream odmítá snímek odkazující na větev main dříve;
+očekávané hlášení starého scénáře je přizpůsobené a zákaz zůstává ověřený.
 
 Skutečná pracovní kopie připíná upstream 7e7e1539d2f23484a76ceedd438044af818bb00b.
 Rules-check, readme-check, doctor a živý metadata-check nad touto cache prošly.
-Cache je čistá a origin zůstává https://github.com/Terms4Ever/nastroje.git;
-pro tento místní krok se commit převzal z místního repozitáře. Dostupnost
-z veřejného origin a úplné ověření pracovního commitu v CI se dokládají zvlášť.
+Cache je čistá a origin zůstává https://github.com/Terms4Ever/nastroje.git.
+Upstream commit je publikovaný a prošel vlastními kontrolami na Linuxu i Windows.
+Snímky označení README před a po jsou skutečné pohledy z GitHubu ve složce
+docs/snimky/11-sada-pravidel. Přesné CI pracovního commitu dokládá jeho běh Actions;
+CI upstreamu samo o sobě pracovní ověření nenahrazuje.
 
 Veřejný režim má samostatné pozitivní a negativní scénáře. Přijme veřejné
 centrální nástroje, ale odmítne veřejnou aplikaci i při zkopírovaném názvu
