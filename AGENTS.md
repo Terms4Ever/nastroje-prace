@@ -45,6 +45,9 @@ napojení projektu k takové změně nedává oprávnění.
 U změny rozhraní pořiď původní stav před úpravou a stejný pohled po ověření.
 Soubory patří do docs/snimky pod číslo issue a krátký název, s prefixy pred- a po-.
 Vlož je do issue jako obrázky s odkazy na konkrétní commit. Textový odkaz nestačí.
+Nad každý obrázek napiš viditelný nadpis třetí úrovně Před změnou nebo Po změně
+s názvem pohledu a krátce popiš rozdíl. Alternativní text obrázku popisek nenahrazuje.
+Dvojice řaď po sobě v plné šířce, aby zmenšení do tabulky nezhoršilo čitelnost.
 Každý snímek před má protějšek po. Nezaměňuj testovací obrázky za důkaz z aplikace.
 Výjimku pro skutečně nepořiditelný snímek schvaluje pouze vlastník, každý případ zvlášť.
 Nejdřív dolož konkrétní překážku, provedený pokus a dostupný náhradní důkaz.

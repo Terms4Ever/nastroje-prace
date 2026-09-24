@@ -65,6 +65,29 @@ Použij skutečné hodnoty, ne tyto zástupné názvy. Odkaz na main ani pouhý 
 odkaz nestačí. Kontrola ověřuje, že odkazovaný Git blob odpovídá místnímu souboru.
 Snímky musí být čitelné, srovnatelné a bez osobních či přihlašovacích údajů.
 
+Každý obrázek uveď viditelným nadpisem Před změnou nebo Po změně a názvem
+pohledu. Pod nadpis napiš krátký popis původního problému nebo výsledné změny.
+Samotný alternativní text uvnitř zápisu obrázku nestačí, při načteném obrázku
+jej GitHub nezobrazuje. Použij tento tvar se skutečnými odkazy:
+
+```markdown
+### Před změnou: dokumentace v README
+
+Pojmenované odkazy a odlišná věta pod tabulkou.
+
+![Před změnou: dokumentace](https://github.com/OWNER/REPO/blob/PLNE_SHA/docs/snimky/CISLO-popis/pred-pohled.png?raw=true)
+
+### Po změně: dokumentace v README
+
+Cesty souborů a sjednocená věta o aktuálním stavu.
+
+![Po změně: dokumentace](https://github.com/OWNER/REPO/blob/PLNE_SHA/docs/snimky/CISLO-popis/po-pohled.png?raw=true)
+```
+
+Obrázky řaď pod sebe v plné šířce. Při více pohledech dokonči nejdřív jednu
+dvojici a teprve potom přidej další. Dvěma sloupci nezmenšuj čitelný text.
+Otevři skutečné issue a ověř viditelné nadpisy, načtení obrázků i jejich pořadí.
+
 ### Výjimka pouze se souhlasem vlastníka
 
 Výjimku schvaluje vlastník pro každý konkrétní případ. Agent nejprve zkusí

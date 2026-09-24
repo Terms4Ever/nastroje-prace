@@ -48,6 +48,9 @@ Před úpravou rozhraní pořiď skutečný původní stav; po ověření stejn�
 Ulož dvojice do docs/snimky/ČÍSLO-popis/pred-pohled.png a po-pohled.png.
 Podporované jsou PNG, JPEG a WebP. Oba snímky vlož jako obrázky do issue
 s odkazy na konkrétní celé Git SHA. Odkaz na main ani textový odkaz nestačí.
+Každý obrázek uveď viditelným nadpisem třetí úrovně Před změnou nebo Po změně
+s názvem pohledu a krátkým popisem rozdílu. Alternativní text obrázku se běžně
+nezobrazuje. Dvojice řaď po sobě v plné šířce, nikoli do zmenšené tabulky.
 Snímky musí být srovnatelné a bez citlivých údajů. Testovací obrázky nejsou důkaz.
 Výjimku schvaluje pouze vlastník pro konkrétní případ skutečné nemožnosti.
 Dolož překážku, provedený pokus a dostupný náhradní důkaz; pohodlí ani vynechaný

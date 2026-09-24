@@ -29,4 +29,14 @@ Uveď ověřené cesty nebo odkaz na rozbor.
 
 ## Snímky
 
-U změny rozhraní vlož srovnatelné snímky před a po jako obrázky.
+<!-- U změny rozhraní vlož dvojici pod sebe v plné šířce s odkazy na celé SHA.
+     Nadpisy musí být viditelné, samotný alternativní text obrázku nestačí.
+     U dalších pohledů opakuj celou dvojici. U nevizuálního úkolu sekci vynech. -->
+
+### Před změnou: název pohledu
+
+Stručně popiš původní problém a pod tento text vlož skutečný obrázek.
+
+### Po změně: název pohledu
+
+Stručně popiš viditelnou změnu a pod tento text vlož odpovídající obrázek.

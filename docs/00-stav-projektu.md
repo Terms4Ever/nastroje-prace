@@ -15,6 +15,8 @@ Validace agentem vytvářeného issue, komentářů a commitů; kontrola dokumen
 změny; povinné testovací příkazy; doklad ověření přesného Git commitu;
 kontrola snímků při dokončení; čtení SVN a balíček výslovně povolených změn.
 Celý běh i testy používají PHP. PowerShell je místní spouštěč a instalátor PHP.
+Snímky v issues mají nad každým obrázkem viditelný nadpis Před změnou nebo
+Po změně, název pohledu a stručný popis rozdílu. Dvojice jsou pod sebou v plné šířce.
 Kontrola README doplňuje pořadí sekce Dokumentace před Instalací a společný
 tvar tabulky s cestami, popisy základních dokumentů a větou o aktuálním stavu. Online check
 ověřuje také privátní viditelnost a požadované GitHub topics.

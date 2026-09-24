@@ -1,0 +1,7 @@
+{
+  "issue": 9,
+  "mantis": null,
+  "technical_reason": "Oprava nečitelně označených snímků v issues podle připomínky vlastníka.",
+  "visual": true,
+  "delivery": "git"
+}
