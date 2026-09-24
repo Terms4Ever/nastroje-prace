@@ -7,6 +7,7 @@ její záznam a důkazy. Připravuje kontrolované předání do SVN a ponecháv
 kolegům jejich stávající postup.
 
 ![PHP](https://img.shields.io/badge/PHP-8.3+-777BB4?logo=php&logoColor=white)
+[![Pravidla: nastroje-prace](https://img.shields.io/badge/pravidla-nastroje--prace-8250df)](https://github.com/Terms4Ever/nastroje-prace)
 ![Závislosti](https://img.shields.io/badge/z%C3%A1vislosti-nastroje-blue)
 ![License](https://img.shields.io/badge/license-proprietary-red)
 [![Kontroly](https://github.com/Terms4Ever/nastroje-prace/actions/workflows/kontroly.yml/badge.svg)](https://github.com/Terms4Ever/nastroje-prace/actions/workflows/kontroly.yml)
@@ -52,6 +53,7 @@ nastroje-prace/
 ├── .github/              # workflow a šablona issue
 ├── .tasks/               # metadata jednotlivých úkolů
 ├── .prace.json           # nastavení kontrol a testů
+├── .pravidla.json        # jednoznačný výběr pracovní sady
 ├── upstream.lock.json    # připnutá verze nastroje
 └── docs/                 # stav, návody a záznamy úkolů
 ```
@@ -132,6 +134,12 @@ Centrální nástroje mohou být veřejné; připojené aplikace musí být priv
 Veřejné podněty návštěvníků čekají na posouzení, převzaté úkoly agenta se kontrolují plně.
 Zadání z Mantis, interní konfigurace a pracovní snímky patří do privátních projektů.
 Kontroly ověřují také topics z `.prace.json`; žádné jiné repozitáře nemění.
+
+**Hlavní sadu určuje `.pravidla.json`.** Výběru `nastroje-prace` odpovídá odznak
+README, úvod AGENTS.md, topic `pravidla-nastroje-prace` a Actions
+`Pravidla / nastroje-prace`. Místně je ověří `php prace.php rules-check`;
+`metadata-check` přidá skutečná GitHub topics. Připnuté `nastroje` jsou závislost
+kontrol, nezapínají druhou hlavní sadu ani aktualizace z pohyblivého main.
 
 ---
 

@@ -1,5 +1,10 @@
 # Pravidla pracovního projektu
 
+Hlavní sadu určuje .pravidla.json s jedinou hodnotou sada: nastroje-prace.
+Odznak README, úvod AGENTS.md, topic pravidla-nastroje-prace a Actions
+Pravidla / nastroje-prace jí musí odpovídat. Rules-check ověřuje také skutečný
+vstup CI. Připnuté nastroje jsou závislost, nezapínají osobní sadu ani její workflow.
+
 Tato pravidla platí pro osobní Git kopii pracovního projektu. Verzi určuje
 nastroje-prace.lock.json. Pravidla ani jejich PHP kopii neupravuj přímo v projektu;
 změna vzniká v nastroje-prace a do projektu přichází jako ověřená aktualizace.

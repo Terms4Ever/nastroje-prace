@@ -91,7 +91,7 @@ test('Připnutá aplikace projde hooky, kontrolou dokumentace i testy v nové ko
     $lock = readJson($target . '/nastroje-prace.lock.json');
     expect($lock['commit'] === $sha && !file_exists($target . '/.nastroje-prace/.git'));
     expect(run(['git', '-C', $target, 'commit', '--allow-empty', '-m', 'neplatne'], check: false)['code'] !== 0);
-    foreach (['project-check', 'readme-check'] as $command) { run([PHP_BINARY, 'prace.php', $command], cwd: $target); }
+    foreach (['project-check', 'readme-check', 'rules-check'] as $command) { run([PHP_BINARY, 'prace.php', $command], cwd: $target); }
     run([PHP_BINARY, 'prace.php', 'check', '--base', 'ROOT'], cwd: $target);
     expect(run(['git', 'config', '--global', '--list'], check: false)['stdout'] === $global);
     $clone = $temp->root . '/clone';
@@ -151,7 +151,7 @@ test('Dokončení zavedení vyžaduje štítky a CI přesného main bez ochrany 
     $client->handler = function ($method, $suffix): ?array {
         return match (true) {
             $suffix === '' => ['private' => true, 'full_name' => 'Terms4Ever/nastroje-prace', 'default_branch' => 'main', 'has_issues' => true, 'description' => 'Zkušební projekt.'],
-            $suffix === '/topics' => ['names' => ['php', 'tooling']],
+            $suffix === '/topics' => ['names' => ['php', 'tooling', 'pravidla-nastroje-prace']],
             default => null,
         };
     };

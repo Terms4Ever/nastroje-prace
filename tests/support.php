@@ -97,9 +97,11 @@ function fixture(callable $action): mixed
         git($root, 'config', 'user.email', 'test@example.invalid');
         git($root, 'config', 'core.autocrlf', 'false');
         writeFile($root . '/.gitignore', ".local/\n.cache/\n");
-        writeFile($root . '/AGENTS.md', "# Pravidla\n\nZměny vyžadují doklad ověření.\n");
+        writeFile($root . '/AGENTS.md', "# Pravidla\n\nSada pravidel: `nastroje-prace` (určuje `.pravidla.json`).\nZdroj pravidel: https://github.com/Terms4Ever/nastroje-prace.\n\nZměny vyžadují doklad ověření.\n");
+        writeJson($root . '/.pravidla.json', ['sada' => 'nastroje-prace']);
+        writeFile($root . '/.github/workflows/kontroly.yml', "name: Pravidla / nastroje-prace\non: [push]\njobs:\n  linux:\n    steps:\n      - run: php scripts/ci.php\n  windows:\n    steps:\n      - run: .\\.cache\\php\\php.exe scripts/ci.php\n");
         writeFile($root . '/CLAUDE.md', "@AGENTS.md\n");
-        writeJson($root . '/.prace.json', ['version' => 1, 'repository' => 'Terms4Ever/nastroje-prace', 'topics' => ['php', 'tooling'],
+        writeJson($root . '/.prace.json', ['version' => 1, 'repository' => 'Terms4Ever/nastroje-prace', 'topics' => ['php', 'tooling', 'pravidla-nastroje-prace'],
             'tests' => [['{php}', '-r', 'echo "Overeno\n";']], 'svn' => ['enabled' => false, 'url' => '', 'allow' => []]]);
         writeJson($root . '/.readme-kontrola.json', ['profil' => 'plny', 'docs-kontrola' => true, 'docs-pomlcky' => 'blokovat']);
         writeJson($root . '/.tasks/1.json', ['issue' => 1, 'mantis' => null, 'technical_reason' => 'Izolované ověření společných kontrol.', 'visual' => false, 'delivery' => 'git']);
@@ -112,6 +114,7 @@ function fixture(callable $action): mixed
         }
         writeFile($root . '/docs/ukoly/1.md', $record);
         $readme = "# 🧰 Zkušební projekt\n\n**Izolované ověření pravidel**\n\nProjekt pro kontrolní scénáře.\n\n![Test](https://img.shields.io/badge/test-local-blue)\n\n---\n\n";
+        $readme = str_replace("\n\n---", "\n[![Pravidla: nastroje-prace](https://img.shields.io/badge/pravidla-nastroje--prace-8250df)](https://github.com/Terms4Ever/nastroje-prace)\n\n---", $readme);
         foreach (\NastrojePrace\Policy::README_HEADINGS as $heading) {
             $readme .= '## ' . $heading . "\n\n";
             $readme .= $heading === '📚 Dokumentace'
@@ -144,7 +147,7 @@ class FakeClient implements ApiClient
     public ?\Closure $handler = null;
     public bool $available = true;
     public bool $private = true;
-    public array $topics = ['php', 'tooling'];
+    public array $topics = ['php', 'tooling', 'pravidla-nastroje-prace'];
     public string $sha = '';
     public string $conclusion = 'success';
     public string $status = 'completed';

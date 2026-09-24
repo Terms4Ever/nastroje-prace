@@ -3,6 +3,6 @@
   "name": "Pracovní projekt",
   "description": "Osobní kopie aplikace s dokumentací a ověřeným předáním.",
   "stack": "Skutečné technologie, verze a závislosti konkrétní aplikace.",
-  "topics": ["documentation", "svn"],
+  "topics": ["documentation", "pravidla-nastroje-prace", "svn"],
   "tests": [["{php}", "tests/aplikace.php"]]
 }

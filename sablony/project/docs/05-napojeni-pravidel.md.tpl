@@ -6,6 +6,7 @@ dokumentem docs/05-novy-pracovni-projekt.md v repozitáři nastroje-prace.
 ## Dokončení zavedení
 
 - [ ] GitHub {{REPOSITORY}} je privátní, má popis, topics, zapnuté issues a hlavní větev main.
+- [ ] .pravidla.json, odznak README, AGENTS.md, topic a Actions shodně označují nastroje-prace; rules-check a metadata-check prošly.
 - [ ] Jsou založené štítky bug, enhancement, documentation, rozhrani a bez-rozhrani.
 - [ ] Existuje pouze main; pracuje vždy jeden agent bez pracovních větví a pull requestů.
 - [ ] Původ zdrojů a případná SVN revize jsou zdokumentované; zdrojový strom neobsahuje cizí metadata ani provozní data.
@@ -25,6 +26,7 @@ neprovedené kroky. Před první aplikační změnou zkontroluj aktuální SVN z
 php prace.php bootstrap
 php prace.php install-hooks
 php prace.php doctor
+php prace.php rules-check
 php prace.php project-check
 php prace.php check --base VYCHOZI_SHA --online
 php prace.php project-check --online

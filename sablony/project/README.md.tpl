@@ -5,7 +5,7 @@
 Osobní privátní pracovní kopie projektu. Postup napojení a hranice předání
 popisuje dokumentace; společný pracovní postup kolegů zůstává v SVN.
 
-![Pravidla](https://img.shields.io/badge/pravidla-nastroje--prace-blue)
+[![Pravidla: nastroje-prace](https://img.shields.io/badge/pravidla-nastroje--prace-8250df)](https://github.com/Terms4Ever/nastroje-prace)
 ![License](https://img.shields.io/badge/license-proprietary-red)
 [![Kontroly](https://github.com/{{REPOSITORY}}/actions/workflows/kontroly.yml/badge.svg)](https://github.com/{{REPOSITORY}}/actions/workflows/kontroly.yml)
 
@@ -41,6 +41,7 @@ Připojená pracovní pravidla zajišťují:
 ├── .nastroje-prace/         # připnutá kopie kontrol
 ├── nastroje-prace.lock.json # původ a otisky kopie
 ├── .prace.json             # nastavení a testy aplikace
+├── .pravidla.json          # jediná hlavní sada pravidel
 ├── .tasks/                 # metadata jednotlivých issues
 ├── .github/                # workflow kontrol
 ├── hooky/                  # kontrola commitu a pushe
@@ -104,6 +105,11 @@ se nezakládá; kontroly issues reagují na události bez denního plánu.
 **Nasazení aplikace má samostatný postup.** Z CI neběží produkční nasazení
 ani předání do SVN. Připravenost potvrzuje `project-check --online`.
 Konkrétní předání aplikace musí mít vlastní doložený postup a výslednou revizi.
+
+Sadu `nastroje-prace` určuje `.pravidla.json`. Stejný výběr uvádí odznak,
+AGENTS.md, GitHub topic `pravidla-nastroje-prace` a Actions
+`Pravidla / nastroje-prace`. Ověří je `php prace.php rules-check` a online
+`metadata-check`. Přesná verze kopie dál zůstává v `nastroje-prace.lock.json`.
 
 ---
 

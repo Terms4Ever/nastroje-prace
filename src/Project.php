@@ -44,6 +44,9 @@ final class Project
         foreach ($settings['topics'] as $topic) {
             ensure(is_string($topic) && (bool) preg_match('/^[a-z0-9][a-z0-9-]{0,49}$/D', $topic), 'Neplatné GitHub topic.');
         }
+        $settings['topics'] = array_values(array_unique([...$settings['topics'], RuleSet::TOPIC]));
+        ensure(count($settings['topics']) <= 20, 'Pro pracovní topic musí zbýt místo v limitu GitHub topics.');
+        RuleSet::topics($settings['topics']);
         // Validaci i načtení dokončíme před prvním zápisem do cíle.
         $output = $hashes = [];
         $tokens = ['{{NAME}}' => $spec['name'], '{{DESCRIPTION}}' => $spec['description'],
@@ -66,7 +69,7 @@ final class Project
             ensure(isset($output[$file]), 'Chybí šablona vstupního bodu.');
             $entries[$file] = digest($output[$file]);
         }
-        foreach (['AGENTS.md', 'README.md', '.github/workflows/kontroly.yml', '.github/workflows/issues.yml'] as $file) {
+        foreach (['.pravidla.json', 'AGENTS.md', 'README.md', '.github/workflows/kontroly.yml', '.github/workflows/issues.yml'] as $file) {
             ensure(isset($output[$file]), 'Chybí šablona projektu: ' . $file);
         }
         ksort($hashes);

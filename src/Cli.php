@@ -19,7 +19,7 @@ final class Cli
         $specs = [
             'help' => [0, []], 'bootstrap' => [0, ['php-windows' => false]], 'doctor' => [0, []], 'install-hooks' => [0, []],
             'check' => [0, ['base' => true, 'online' => false]], 'commit-check' => [1, []], 'readme-check' => [0, []],
-            'metadata-check' => [0, []], 'issue-check' => [1, []], 'issue-create' => [1, []], 'issue-update' => [2, []],
+            'metadata-check' => [0, []], 'rules-check' => [0, []], 'issue-check' => [1, []], 'issue-create' => [1, []], 'issue-update' => [2, []],
             'issue-close' => [1, ['summary' => true]], 'issues-check' => [0, ['number' => true]],
             'snimky-zadost' => [1, []],
             'project-init' => [1, ['dest' => true]], 'project-check' => [0, ['online' => false]], 'state-update' => [0, []],
@@ -61,7 +61,7 @@ final class Cli
         [$root, $command, $pos, $options] = self::parse($args);
         if ($command === 'help') {
             echo "Použití: php prace.php [--root CESTA] PŘÍKAZ\n\n";
-            echo "bootstrap | doctor | install-hooks | readme-check | metadata-check\n";
+            echo "bootstrap | doctor | install-hooks | rules-check | readme-check | metadata-check\n";
             echo "check --base COMMIT [--online]\n";
             echo "project-init JSON --dest PRAZDNA_SLOZKA | project-check [--online] | state-update\n";
             echo "commit-check SOUBOR | issue-check JSON | issue-create JSON\n";
@@ -75,11 +75,11 @@ final class Cli
         Upstream::runtime();
         Project::verifyIfBound($root);
         if ($command === 'bootstrap') {
-            $result = ['upstream' => Upstream::bootstrap()];
+            $result = ['upstream' => Upstream::bootstrap(), 'sada' => RuleSet::verify($root)];
         } elseif ($command === 'doctor') {
             $hook = run(['git', '-C', $root, 'config', '--get', 'core.hooksPath'], check: false);
             $result = ['version' => VERSION, 'php' => PHP_VERSION, 'git' => git($root, '--version'), 'upstream' => Upstream::verify(),
-                'repository' => config($root)['repository'], 'hooks' => trim($hook['stdout']) ?: 'nenainstalované'];
+                'repository' => config($root)['repository'], 'sada' => RuleSet::verify($root), 'hooks' => trim($hook['stdout']) ?: 'nenainstalované'];
         } elseif ($command === 'install-hooks') {
             $result = Project::installHooks($root);
         } elseif ($command === 'project-init') {
@@ -91,6 +91,8 @@ final class Cli
         } elseif ($command === 'commit-check') {
             MainBranch::local($root);
             $result = ['issue' => Policy::commit(readFile($pos[0]))];
+        } elseif ($command === 'rules-check') {
+            $result = ['sada' => RuleSet::verify($root)];
         } elseif ($command === 'readme-check') {
             Policy::readme($root);
             $result = ['success' => true];

@@ -174,7 +174,7 @@ test('Správné privátní GitHub metadata projdou', fn() => fixture(fn($root) =
 test('Chybějící topics a veřejný repozitář jsou odmítnuty', fn() => fixture(function ($root): void {
     $client = new FakeClient(); $client->topics = [];
     fails(fn() => Policy::repositoryMetadata($root, $client), 'topics');
-    $client->topics = ['php', 'tooling']; $client->private = false;
+    $client->topics = ['php', 'tooling', 'pravidla-nastroje-prace']; $client->private = false;
     fails(fn() => Policy::repositoryMetadata($root, $client), 'privátní');
 }));
 test('Instalace hooků jiný repozitář nepřepíše', fn() => fixture(function ($root): void {

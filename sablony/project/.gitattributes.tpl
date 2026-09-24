@@ -9,6 +9,7 @@
 /CLAUDE.md text eol=lf
 /README.md text eol=lf
 /.prace.json text eol=lf
+/.pravidla.json text eol=lf
 /.readme-kontrola.json text eol=lf
 /nastroje-prace.lock.json text eol=lf
 *.png binary

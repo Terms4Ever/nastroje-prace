@@ -142,3 +142,20 @@ Veřejná výjimka neplatí pro aplikace a nenahrazuje souhlas vlastníka s výj
 Před zveřejněním se prověří dostupná historie, issues, přílohy a protokoly.
 Historické záznamy rozhodnutí se nepřepisují; dřívější údaje o privátní sadě
 popisují tehdejší stav. Aktualizované návody používají obecné názvy projektů.
+
+## P16 - Jediná viditelná hlavní sada pravidel (24. 9. 2026)
+
+Vlastník schválil rozlišení nastroje a nastroje-prace souborem .pravidla.json,
+odznakem README, úvodem AGENTS.md, topic a názvem Actions. Projekt vybírá
+právě jednu sadu; chybějící, neznámé nebo rozporné označení zastaví kontrolu.
+Kontrola ověřuje také skutečné zapojení workflow, samotné přejmenování nestačí.
+
+Pracovní adaptér používá společný PHP validátor z ověřeného upstream commitu.
+Nastroje v upstream.lock.json zůstávají závislostí pracovní sady a neznamenají
+současně osobní pracovní postup. Místní rules-check, plný check a napojení
+projektu ověřují soubory; metadata-check přidává živé GitHub topics.
+Project-init pracovní topic doplní a rozpor odmítne před zápisem do cíle.
+
+Verzovaná kopie pracovních kontrol ani osobní workflow na main se tímto
+rozhodnutím nemění. Aktuální změna nepřipojuje pracovní aplikace, nezveřejňuje
+jejich obsah, nezavádí ochranu main, denní plán ani pracovní větve.

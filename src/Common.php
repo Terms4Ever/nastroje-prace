@@ -204,7 +204,7 @@ function meaningful(mixed $text, string $description, int $minimum = 12): void
 
 function policyHash(string $root): string
 {
-    $files = [TOOL_ROOT . '/upstream.lock.json', $root . '/.prace.json', TOOL_ROOT . '/prace.php', TOOL_ROOT . '/prace.ps1'];
+    $files = [TOOL_ROOT . '/upstream.lock.json', $root . '/.prace.json', $root . '/.pravidla.json', TOOL_ROOT . '/prace.php', TOOL_ROOT . '/prace.ps1'];
     if (is_file($root . '/nastroje-prace.lock.json')) {
         $files[] = $root . '/nastroje-prace.lock.json';
     }

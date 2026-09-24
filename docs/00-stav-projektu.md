@@ -15,6 +15,10 @@ Validace agentem vytvářeného issue, komentářů a commitů; kontrola dokumen
 změny; povinné testovací příkazy; doklad ověření přesného Git commitu;
 kontrola snímků při dokončení; čtení SVN a balíček výslovně povolených změn.
 Celý běh i testy používají PHP. PowerShell je místní spouštěč a instalátor PHP.
+Jedinou hlavní sadu nastroje-prace určuje .pravidla.json. Rules-check ověřuje
+shodu s odznakem README, úvodem AGENTS.md, názvem Actions a skutečným vstupem
+kontrol na obou platformách. Metadata-check navíc odmítne chybějící nebo
+současně osobní GitHub topic. Nové šablony a project-init zachovávají tuto volbu.
 Snímky v issues mají nad každým obrázkem viditelný nadpis Před změnou nebo
 Po změně, název pohledu a stručný popis rozdílu. Dvojice jsou pod sebou v plné šířce.
 Kontrola README doplňuje pořadí sekce Dokumentace před Instalací a společný
@@ -41,6 +45,9 @@ a vstupy agenta nadále dodržují pravidla. Aplikační repozitáře se tím ne
 Sdílené PHP validátory jsou připnuté na commit v upstream.lock.json. Jejich
 známé mezery v chybějící dokumentaci a rozsahu změny kryje pracovní kontrola.
 Nepoužívá se upstream workflow na main ani jeho hromadná kontrola issues.
+Závislost nastroje v lock souboru není druhá hlavní sada. Připojené aplikace
+nadále přebírají přesnou kopii nastroje-prace bez dalšího tokenu; osobní
+projekty pod nastroje ponechávají svůj dosavadní způsob aktualizace.
 
 ## Hranice současné verze
 
@@ -56,6 +63,12 @@ Nepoužívá se upstream workflow na main ani jeho hromadná kontrola issues.
 - Lokální počítač bez SVN CLI přeskočí SVN integrační testy; Linux CI je vyžaduje.
 
 ## Aktualizace
+
+Rozpracované zavedení označení sad v issue 11 připíná společný validátor na
+7e7e1539d2f23484a76ceedd438044af818bb00b. Nad čistou místní cache prošly
+rules-check, readme-check a doctor; živý metadata-check potvrdil správný
+pracovní topic. Publikace tohoto upstream commitu a CI pracovního commitu
+jsou samostatné podmínky dokončení. Izolované testy nenahrazují tyto důkazy.
 
 Změnu upstream verze proveď vědomou úpravou lock souboru s testy. Bootstrap
 nepřepíná existující cache tiše na jiný commit. Instalace hooků je pouze lokální

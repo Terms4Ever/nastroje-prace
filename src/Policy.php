@@ -183,6 +183,7 @@ final class Policy
     /** Sdílený validátor kontroluje obsah. Zde se navíc hlídá Dokumentace ve stejném pořadí jako v nastroje. */
     public static function readme(string $root): void
     {
+        RuleSet::verify($root);
         Upstream::check('kontrola-readme.php', [$root]);
         $headings = [];
         $fence = null;
@@ -230,6 +231,7 @@ final class Policy
 
     public static function repositoryMetadata(string $root, ApiClient $client): array
     {
+        RuleSet::verify($root);
         $settings = config($root);
         $meta = $client->request('GET', '');
         ensure(($meta['full_name'] ?? '') === $settings['repository'] && is_bool($meta['private'] ?? null), 'Chybí ověřená identita nebo viditelnost repozitáře.');
@@ -238,6 +240,8 @@ final class Policy
         ensure(is_array($expected) && $expected !== [], 'Chybí očekávané GitHub topics v .prace.json.');
         $topics = $client->request('GET', '/topics');
         ensure(array_diff($expected, $topics['names'] ?? []) === [], 'Na GitHubu chybí některé povinné topics.');
+        ensure(is_array($topics['names'] ?? null), 'GitHub nevrátil seznam topics.');
+        RuleSet::topics($topics['names']);
         return $meta;
     }
 

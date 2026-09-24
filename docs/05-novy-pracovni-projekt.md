@@ -28,7 +28,9 @@ nepřeváděj zdroje automaticky. SVN vlastnosti a externals vyžadují samostat
 Založ schválený repozitář jako private, s pravdivým popisem a zapnutými issues.
 Nevytvářej automatický README, licenci ani první commit. Aplikační repozitář
 zůstává privátní i při použití veřejných obecných nástrojů.
-Nastav topics podle technologie a účelu; stejný seznam bude v .prace.json.
+Nastav topics podle technologie a účelu a právě jeden topic sady:
+pravidla-nastroje-prace. Stejný seznam bude v .prace.json. Project-init pracovní
+topic doplní, osobní topic pravidla-nastroje odmítne ještě před zápisem souborů.
 Zajisti štítky bug, enhancement, documentation, rozhrani a bez-rozhrani.
 Jedinou větví bude main. Pracovní větve a pull requesty se nepoužívají;
 na projektu pracuje vždy jeden agent a jeden úkol najednou.
@@ -52,6 +54,8 @@ a existujícími ověřovacími příkazy. Ukázkový příkaz není náhradou t
 Cílová složka musí předem existovat a být prázdná. Příkaz nezakládá vzdálený
 repozitář, nekopíruje aplikační zdroje a neprovádí Git init ani SVN zápis.
 Vytvoří pravidla, dokumentaci, hooky, workflow a .prace.json se SVN vypnutým.
+Soubor .pravidla.json obsahuje jediný výběr {"sada":"nastroje-prace"}.
+Odpovídá mu odznak README, úvod AGENTS.md, topic a Actions Pravidla / nastroje-prace.
 .nastroje-prace obsahuje pouze běhové soubory, bez historie, testů a místní cache.
 Nastroje-prace.lock.json zaznamená celé zdrojové SHA a SHA-256 každého souboru.
 AGENTS.md výslovně načítá .nastroje-prace/pravidla/projekt.md; CLAUDE.md odkazuje na AGENTS.md.
@@ -60,6 +64,10 @@ CI čte tuto kopii ze svého vlastního checkoutu. Nastroje-prace jsou veřejné
 kopie kontrol dál zůstává připnutá v aplikaci bez dalšího tokenu. Bootstrap stahuje veřejné nastroje, také z pevného
 SHA v upstream.lock.json. Přihlášení pro vlastní GitHub issues poskytne místně
 Credential Manager a v CI standardní token daného repozitáře s contents: read a issues: read.
+
+Upstream.lock.json určuje technickou závislost této pracovní sady, nikoli
+druhou hlavní sadu projektu. Osobní workflow readme.yml nebo issue-tvar.yml
+z nastroje se přímo nezapojují. Žádná z těchto značek nemění připnutí verze.
 
 ## 4. Místní Git, skutečné testy a první issue
 
@@ -108,6 +116,7 @@ ROOT platným základem. Neamenduj již zveřejněnou historii.
 
 ```text
 php prace.php readme-check
+php prace.php rules-check
 php prace.php project-check
 php prace.php check --base ROOT --online
 ```
@@ -152,7 +161,7 @@ nahraď kontrolou nové verze. Aktuální režim pouze main bez ochrany popisuje
 Aktualizace je samostatné issue. Z nové ověřené centrální verze vytvoř export
 do další prázdné složky se stejnou specifikací projektu. Posuď diff běhové kopie,
 locku, spouštěčů, pravidel a workflow. Přenes ověřené změny těchto souborů;
-vlastní AGENTS, README, .prace.json a dokumentaci aplikace vědomě sluč.
+vlastní AGENTS, README, .prace.json, .pravidla.json a dokumentaci aplikace vědomě sluč.
 Nekopíruj nový export přes celý existující projekt. Opakuj kontroly i čistý clone.
 Automatická aktualizace na nejnovější main ani hromadné zapojení projektů neexistují.
 

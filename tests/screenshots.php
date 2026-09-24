@@ -119,7 +119,7 @@ test('Výjimka nepromine chybějící dostupný protějšek ani chybný odkaz na
     $client->item['body'] = preg_replace('/!\[[^\]]*\]\([^)]*\)/', '', $original);
     fails(fn() => Policy::issue($root, $client->item, true, $client), 'dvojice');
     $client->item['body'] = str_replace('/blob/' . $client->sha, '/blob/main', $original);
-    fails(fn() => Policy::issue($root, $client->item, true, $client), 'neměnný Git commit');
+    fails(fn() => Policy::issue($root, $client->item, true, $client), 'odkazuje na větev main');
     $client->item['body'] = $original;
     writeFile($root . '/docs/snimky/1-detail/po-formular.png', 'Toto není obrázek.');
     fails(fn() => Policy::issue($root, $client->item, true, $client), 'PNG/JPEG/WebP');

@@ -41,6 +41,13 @@ ji odmítne. Další testy hlídají tabulku dokumentace, duplicitní sekci, top
 a privátní viditelnost aplikací. Dokončení issue má pozitivní i negativní scénáře CI a main.
 Samostatné regrese odmítají pojmenované odkazy v tabulce dokumentace, jiné
 popisy základních dokumentů a chybějící větu o zdroji aktuálního stavu.
+
+Sada pravidel má vlastní pozitivní CLI a záporné scénáře osobního nebo
+chybějícího výběru, podvojných GitHub topics a neplatných očekávaných topics.
+Plný check nesmí vystavit doklad pro jinou sadu. Export doplní pracovní topic
+a osobní topic odmítne ještě před zápisem. Skutečně exportovaná připnutá
+aplikace projde kontrolou, smazaný výběr nebo přímé osobní workflow neprojde.
+Detailní syntaxi značek ověřuje stejný společný validátor jako osobní sada.
 Společná podmínka předání odmítne offline doklad, neexistující, čekající,
 zrušený, přeskočený či neúspěšný poslední běh a běh jiné větve nebo workflow.
 Testuje souhrnnou úlohu včetně další stránky API, chybu API a posun main během čtení.
@@ -73,6 +80,18 @@ NASTROJE_REQUIRE_SVN=1 způsobí v takovém prostředí neúspěch sady; Linux C
 ji nastavuje povinně. Windows CI ověřuje běh základních kontrol a PHP.
 
 ## Rozsah důkazů
+
+Zavedení označení sad v issue 11 má sedm nových regresí, které byly nejprve
+červené a následně prošly v izolované kopii aktuálních zdrojů. Celý izolovaný
+Windows běh měl 97 úspěchů, devět přeskočených SVN scénářů a jedno odlišné
+hlášení starého testu snímků. Novější upstream odmítá odkaz na větev main
+dříve; upravené očekávání i celý dotčený scénář následně prošly.
+
+Skutečná pracovní kopie připíná upstream 7e7e1539d2f23484a76ceedd438044af818bb00b.
+Rules-check, readme-check, doctor a živý metadata-check nad touto cache prošly.
+Cache je čistá a origin zůstává https://github.com/Terms4Ever/nastroje.git;
+pro tento místní krok se commit převzal z místního repozitáře. Dostupnost
+z veřejného origin a úplné ověření pracovního commitu v CI se dokládají zvlášť.
 
 Veřejný režim má samostatné pozitivní a negativní scénáře. Přijme veřejné
 centrální nástroje, ale odmítne veřejnou aplikaci i při zkopírovaném názvu

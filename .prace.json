@@ -1,7 +1,7 @@
 {
   "version": 1,
   "repository": "Terms4Ever/nastroje-prace",
-  "topics": ["documentation", "github-actions", "linter", "mantis", "php", "readme", "svn", "tooling"],
+  "topics": ["documentation", "github-actions", "linter", "mantis", "php", "pravidla-nastroje-prace", "readme", "svn", "tooling"],
   "tests": [["{php}", "tests/run.php"]],
   "svn": {"enabled": false, "url": "", "allow": []}
 }

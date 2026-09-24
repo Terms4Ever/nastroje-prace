@@ -1,5 +1,11 @@
 # Pravidla práce
 
+Sada pravidel: `nastroje-prace` (určuje `.pravidla.json`).
+Zdroj pravidel: https://github.com/Terms4Ever/nastroje-prace.
+
+Před prací přečti výběr sady a dodržuj tuto pracovní sadu. Připnuté nastroje
+jsou její technická závislost, nezapínají současně osobní pracovní postup.
+
 Tento veřejný repozitář obsahuje obecné osobní kontroly a postup předání změn.
 Pracovní zdroje, zadání, interní adresy a snímky aplikací patří do privátních projektů.
 Společné nastroje se používají z přesného commitu v upstream.lock.json.
