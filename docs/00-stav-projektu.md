@@ -74,3 +74,7 @@ vyžaduje místní doklad a úspěšné CI přesného aktuálního commitu.
 Změnu upstream verze proveď vědomou úpravou lock souboru s testy. Bootstrap
 nepřepíná existující cache tiše na jiný commit. Instalace hooků je pouze lokální
 a odmítne přepsat již nastavenou jinou cestu hooků.
+
+Název rozhodovacího deníku je opravený na jedno n (P17), stejně jako
+šablony a kontroly. Aktuální upstream určuje upstream.lock.json: původní commit pro pracovní
+pravidla a documentation_commit pouze pro opravenou kontrolu dokumentace.

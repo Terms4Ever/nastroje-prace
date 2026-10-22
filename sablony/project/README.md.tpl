@@ -57,7 +57,7 @@ Připojená pracovní pravidla zajišťují:
 | Dokument | K čemu |
 |---|---|
 | `docs/00-stav-projektu.md` | živý stav: co je hotové, co se dělá, co je dál, a které repozitáře jsou zapojené |
-| `docs/03-rozhodovaci-dennik.md` | co bylo kdy rozhodnuto a proč. Nové rozhodnutí je nový záznam, staré se nepřepisuje |
+| `docs/03-rozhodovaci-denik.md` | co bylo kdy rozhodnuto a proč. Nové rozhodnutí je nový záznam, staré se nepřepisuje |
 | `docs/05-napojeni-pravidel.md` | dokončení napojení a ověřovací checklist |
 | `docs/ukoly/` | stručné záznamy podle čísla issue |
 

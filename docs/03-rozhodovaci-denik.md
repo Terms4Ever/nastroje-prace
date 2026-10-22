@@ -165,3 +165,13 @@ docs/snimky/11-sada-pravidel a v issue 11 s viditelnými nadpisy.
 Místní online brána nad b6ad20a ověřila 98 testů a přeskočila devět SVN scénářů
 bez CLI; Linux CI tyto scénáře vyžaduje. Konečné předání se ověřuje znovu
 na aktuálním commitu, včetně dokumentačních a obrazových důkazů.
+
+## P17 - Správný název rozhodovacího deníku (22. 10. 2026)
+
+Název dokumentu používá jedno n: `docs/03-rozhodovaci-denik.md`.
+Opravené jsou také šablona README, kontrola popisu a testovací projekty.
+Pouze kontrola dokumentace přebírá opravu z documentation_commit v
+upstream.lock.json. Ostatní validátory zůstávají na původním commitu,
+protože novější osobní sada vyžaduje jiný tvar snímků v issues. Bootstrap
+a ověření kontrolují oba čisté klony; změna commitu nebo souboru ověření
+zastaví. Stávající připnuté aplikace se automaticky nemění.

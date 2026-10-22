@@ -42,6 +42,15 @@ function projectFixture(callable $action): void
     } finally { $temp->remove(); }
 }
 
+function copyUpstream(string $target): void
+{
+    foreach ([false, true] as $documentation) {
+        $cache = $target . '/.nastroje-prace/.cache/' . basename(Upstream::cache($documentation));
+        run(['git', 'clone', '--no-hardlinks', realpath(Upstream::cache($documentation)), $cache]);
+        git($cache, 'checkout', '--detach', Upstream::verify(null, $documentation));
+    }
+}
+
 function application(string $target, string $source): void
 {
     Project::initialize(projectSpec(), $target, $source);
@@ -58,9 +67,7 @@ function application(string $target, string $source): void
     foreach (['Zadání', 'Změna', 'Ověření', 'Předání'] as $heading) { $record .= "## $heading\n\nIzolované ověření skutečného napojení aplikace.\n\n"; }
     writeFile($target . '/docs/ukoly/7.md', $record);
     // Pouze veřejné upstream nástroje se převezmou z již ověřené cache. Žádný token.
-    $cache = $target . '/.nastroje-prace/.cache/nastroje';
-    run(['git', 'clone', '--no-hardlinks', realpath(Upstream::cache()), $cache]);
-    git($cache, 'checkout', '--detach', Upstream::verify());
+    copyUpstream($target);
     run([PHP_BINARY, 'prace.php', 'install-hooks'], cwd: $target);
     git($target, 'add', '.');
     git($target, 'update-index', '--chmod=+x', 'hooky/commit-msg', 'hooky/pre-push');
@@ -98,9 +105,7 @@ test('Připnutá aplikace projde hooky, kontrolou dokumentace i testy v nové ko
     run(['git', 'clone', '--no-hardlinks', $target, $clone]);
     expect(readFile($clone . '/src/puvodni.txt') === "Původní řádky.\r\nBeze změny bajtů.\r\n");
     git($clone, 'remote', 'set-url', 'origin', 'https://github.com/Terms4Ever/zkouska-napojeni');
-    $cache = $clone . '/.nastroje-prace/.cache/nastroje';
-    run(['git', 'clone', '--no-hardlinks', realpath(Upstream::cache()), $cache]);
-    git($cache, 'checkout', '--detach', Upstream::verify());
+    copyUpstream($clone);
     expect(run([PHP_BINARY, 'prace.php', 'project-check'], cwd: $clone, check: false)['code'] !== 0);
     run([PHP_BINARY, 'prace.php', 'bootstrap'], cwd: $clone);
     run([PHP_BINARY, 'prace.php', 'install-hooks'], cwd: $clone);

@@ -28,3 +28,20 @@ test('Dokumentace potřebuje společné popisy a větu o aktuálním stavu', fn(
         fails(fn() => Policy::readme($root), $error);
     }
 }));
+
+
+test('Dokumentační závislost odmítne jiný commit i změněný soubor', function (): void {
+    $temp = new TempTree();
+    try {
+        $cache = $temp->root . '/documentation';
+        \NastrojePrace\run(['git', 'clone', '--no-hardlinks', Upstream::cache(true), $cache]);
+        $sha = Upstream::verify(null, true);
+        \NastrojePrace\git($cache, 'checkout', '--detach', $sha);
+        expect(Upstream::verify($cache, true) === $sha);
+        file_put_contents($cache . '/kontrola-dokumentace.php', "\n// změněná kontrola\n", FILE_APPEND);
+        fails(fn() => Upstream::verify($cache, true), 'lokálně změněny');
+        \NastrojePrace\git($cache, 'restore', 'kontrola-dokumentace.php');
+        \NastrojePrace\git($cache, 'checkout', '--detach', Upstream::verify());
+        fails(fn() => Upstream::verify($cache, true), 'verze společných');
+    } finally { $temp->remove(); }
+});

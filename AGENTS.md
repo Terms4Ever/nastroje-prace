@@ -8,7 +8,8 @@ jsou její technická závislost, nezapínají současně osobní pracovní post
 
 Tento veřejný repozitář obsahuje obecné osobní kontroly a postup předání změn.
 Pracovní zdroje, zadání, interní adresy a snímky aplikací patří do privátních projektů.
-Společné nastroje se používají z přesného commitu v upstream.lock.json.
+Společné nastroje se používají z přesných commitů v upstream.lock.json;
+kontrola dokumentace má vlastní připnutí, ostatní pravidla se nemění.
 Neupravuj kvůli tomuto projektu jiné repozitáře ani globální nastavení hooků.
 Nové pravidlo nebo zpřísnění předem předlož vlastníkovi s důvodem a dopadem.
 Zaveď je až po jeho výslovném schválení; testy toto rozhodnutí nenahrazují.

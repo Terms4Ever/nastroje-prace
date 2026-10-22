@@ -34,7 +34,7 @@ test('Agent nesmí použít syrový nápad jako vstup založení nebo aktualizac
 
 test('Citace dlouhé pomlčky projde skutečnou kontrolou dokumentace i pracovním profilem', fn() => fixture(function ($root): void {
     $quote = "\nZnak `\u{2014}` je zde citován v řádkovém kódu.\n";
-    file_put_contents($root . '/docs/03-rozhodovaci-dennik.md', $quote, FILE_APPEND);
+    file_put_contents($root . '/docs/03-rozhodovaci-denik.md', $quote, FILE_APPEND);
     file_put_contents($root . '/docs/ukoly/1.md', $quote, FILE_APPEND);
     file_put_contents($root . '/README.md', $quote, FILE_APPEND);
     Policy::repositoryContent($root);

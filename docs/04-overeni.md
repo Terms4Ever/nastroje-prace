@@ -115,3 +115,14 @@ Oficiální podklady pro nastavení:
 - [Bezpečné Actions](https://docs.github.com/en/actions/reference/security/secure-use) - připnutí akcí a oprávnění.
 - [Vstupy v Actions](https://docs.github.com/en/actions/concepts/security/script-injections) - obsah issues se nevkládá do shellu.
 - [Stav PHP procesu](https://www.php.net/manual/en/function.proc-get-status.php) - návratové kódy na PHP 8.3 a novějším.
+
+## Oprava názvu deníku (22. 10. 2026)
+
+Místní sada: 99 úspěšných, 0 neúspěšných a 9 přeskočených scénářů SVN
+bez místního CLI. Připnuté aplikační kopie i čistý klon používají oba
+ověřené upstreamy. Test dokumentační závislosti odmítá jiný commit
+i změněný soubor. README, dokumentace, výběr sady a doctor prošly.
+
+Pokus o aktualizaci celého upstreamu odhalil 10 neúspěšných testů kvůli
+odlišnému formátu snímků. Proto je nově připnutá jen kontrola dokumentace;
+ostatní pravidla zůstávají na původním commitu.

@@ -1,0 +1,7 @@
+{
+  "issue": 12,
+  "mantis": null,
+  "technical_reason": "Oprava překlepu v názvu projektového dokumentu, šablonách a navazujících kontrolách.",
+  "visual": false,
+  "delivery": "git"
+}

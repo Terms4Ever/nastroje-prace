@@ -9,7 +9,7 @@ final class Policy
         '📚 Dokumentace', '🚀 Instalace (lokální vývoj)', '📦 Nasazení', '📄 Licence'];
     public const DOCUMENTATION_DESCRIPTIONS = [
         'docs/00-stav-projektu.md' => 'živý stav: co je hotové, co se dělá, co je dál, a které repozitáře jsou zapojené',
-        'docs/03-rozhodovaci-dennik.md' => 'co bylo kdy rozhodnuto a proč. Nové rozhodnutí je nový záznam, staré se nepřepisuje',
+        'docs/03-rozhodovaci-denik.md' => 'co bylo kdy rozhodnuto a proč. Nové rozhodnutí je nový záznam, staré se nepřepisuje',
     ];
     public const DOCUMENTATION_STATE = 'Stav vždy platný je v `docs/00-stav-projektu.md`, ne v tomhle souboru.';
 

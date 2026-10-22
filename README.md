@@ -67,7 +67,7 @@ nastroje-prace/
 | `docs/00-stav-projektu.md` | živý stav: co je hotové, co se dělá, co je dál, a které repozitáře jsou zapojené |
 | `docs/01-postup-prace.md` | issue, dokumentace, commit a dokončení |
 | `docs/02-predani-svn.md` | výchozí stav, balíček a výsledná revize |
-| `docs/03-rozhodovaci-dennik.md` | co bylo kdy rozhodnuto a proč. Nové rozhodnutí je nový záznam, staré se nepřepisuje |
+| `docs/03-rozhodovaci-denik.md` | co bylo kdy rozhodnuto a proč. Nové rozhodnutí je nový záznam, staré se nepřepisuje |
 | `docs/04-overeni.md` | rozsah testů a jejich omezení |
 | `docs/05-novy-pracovni-projekt.md` | založení repozitáře, napojení a aktualizace |
 | `docs/ukoly/` | stručné záznamy podle čísla issue |
@@ -92,6 +92,10 @@ cd nastroje-prace
 .\prace.ps1 install-hooks
 .\prace.ps1 doctor
 ```
+
+Bootstrap ověří obě připnuté závislosti z `upstream.lock.json`: původní
+sadu a opravenou kontrolu dokumentace. Každá má vlastní čistou cache;
+pravidla snímků pracovních issues se aktualizací názvu dokumentu nemění.
 
 Spouštěč stáhne a ověří vlastní PHP do `.cache/`. Existující PHP lze určit
 proměnnou `NASTROJE_PHP`. Hooky se nastavují jen v tomto repozitáři.

@@ -105,7 +105,7 @@ function fixture(callable $action): mixed
             'tests' => [['{php}', '-r', 'echo "Overeno\n";']], 'svn' => ['enabled' => false, 'url' => '', 'allow' => []]]);
         writeJson($root . '/.readme-kontrola.json', ['profil' => 'plny', 'docs-kontrola' => true, 'docs-pomlcky' => 'blokovat']);
         writeJson($root . '/.tasks/1.json', ['issue' => 1, 'mantis' => null, 'technical_reason' => 'Izolované ověření společných kontrol.', 'visual' => false, 'delivery' => 'git']);
-        foreach (['00-stav-projektu.md', '03-rozhodovaci-dennik.md'] as $file) {
+        foreach (['00-stav-projektu.md', '03-rozhodovaci-denik.md'] as $file) {
             writeFile($root . '/docs/' . $file, "# Přehled projektu\n\nProjekt slouží k izolovanému ověření.\n");
         }
         $record = "# Úkol 1\n\n";
@@ -118,7 +118,7 @@ function fixture(callable $action): mixed
         foreach (\NastrojePrace\Policy::README_HEADINGS as $heading) {
             $readme .= '## ' . $heading . "\n\n";
             $readme .= $heading === '📚 Dokumentace'
-                ? "| Dokument | K čemu |\n|---|---|\n| `docs/00-stav-projektu.md` | živý stav: co je hotové, co se dělá, co je dál, a které repozitáře jsou zapojené |\n| `docs/03-rozhodovaci-dennik.md` | co bylo kdy rozhodnuto a proč. Nové rozhodnutí je nový záznam, staré se nepřepisuje |\n| `docs/ukoly/` | Záznamy úkolů. |\n\nStav vždy platný je v `docs/00-stav-projektu.md`, ne v tomhle souboru.\n\n"
+                ? "| Dokument | K čemu |\n|---|---|\n| `docs/00-stav-projektu.md` | živý stav: co je hotové, co se dělá, co je dál, a které repozitáře jsou zapojené |\n| `docs/03-rozhodovaci-denik.md` | co bylo kdy rozhodnuto a proč. Nové rozhodnutí je nový záznam, staré se nepřepisuje |\n| `docs/ukoly/` | Záznamy úkolů. |\n\nStav vždy platný je v `docs/00-stav-projektu.md`, ne v tomhle souboru.\n\n"
                 : "Izolované ověření bez produkčních služeb.\n\n";
         }
         writeFile($root . '/README.md', $readme);
